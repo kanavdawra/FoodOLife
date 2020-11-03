@@ -127,16 +127,20 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        FirebaseAuth mAuth=FirebaseAuth.getInstance();;
+        FirebaseAuth mAuth=FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         int onBoard= (int) new Utility().getSharedPreferences(this,"UserData","OnBoard",0);
-        if(currentUser!=null && onBoard==0){
+        int verified=0;
+        assert currentUser != null;
+        if(currentUser.isEmailVerified()){
+            verified=1;
+        }
+        if(currentUser!=null && onBoard==0 && verified==1){
             Intent intent=new Intent("MainActivity");
             intent.putExtra("Task","GetSex");
             sendBroadcast(intent);
         }
-        if(currentUser!=null && onBoard==6){
-            finish();
+        if(currentUser!=null && onBoard==6 && verified==0){
 
         }
 
