@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorSecondary">
+
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:textSize="40sp"
+        android:textColor="@color/colorText"
+        android:text="@string/sign_up"
+        android:gravity="center"
+        android:textAlignment="center"
+        app:layout_constraintVertical_bias=".05"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias=".18">
+
+        <com.mikhaellopez.circularimageview.CircularImageView
+            android:id="@+id/sign_up_profile_image"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            app:civ_border_color="@color/colorWhite"
+            app:civ_border_width="2dp"
+            android:src="@drawable/temp_profile_photo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias=".18"
+
+            app:civ_shadow="true"
+            app:civ_shadow_radius="10dp"
+            app:civ_shadow_color="#3f51b5" />
+
+        <TextView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/green_circle_30x30"
+            android:text="@string/_plus_"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:textColor="@color/colorWhite"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintHorizontal_bias=".76"
+            app:layout_constraintVertical_bias=".8"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/sign_up_fullName"
+        android:layout_width="300dp"
+        android:layout_height="80dp"
+        app:met_primaryColor="@color/colorWhite"
+        android:textColor="@color/colorText"
+        app:met_baseColor="@color/colorWhite"
+        android:hint="@string/your_full_name"
+        app:met_floatingLabel="highlight"
+        app:met_floatingLabelText="Your Full Name"
+        app:met_errorColor="@color/colorError"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias=".35"/>
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/sign_up_email"
+        android:layout_width="300dp"
+        android:layout_height="80dp"
+        app:met_primaryColor="@color/colorWhite"
+        android:textColor="@color/colorText"
+        app:met_baseColor="@color/colorWhite"
+        android:hint="@string/username_email"
+        app:met_floatingLabel="highlight"
+        app:met_floatingLabelText="Email"
+        app:met_errorColor="@color/colorError"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias=".47"/>
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/sign_up_password"
+        android:layout_width="300dp"
+        android:layout_height="80dp"
+        app:met_primaryColor="@color/colorWhite"
+        android:textColor="@color/colorText"
+        app:met_baseColor="@color/colorWhite"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        app:met_floatingLabel="highlight"
+        app:met_floatingLabelText="Password"
+        app:met_errorColor="@color/colorError"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias=".59"/>
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/sign_up_confirm_password"
+        android:layout_width="300dp"
+        android:layout_height="80dp"
+        app:met_primaryColor="@color/colorWhite"
+        android:textColor="@color/colorText"
+        app:met_baseColor="@color/colorWhite"
+        android:hint="@string/confirm_password"
+        android:inputType="textPassword"
+        app:met_floatingLabel="highlight"
+        app:met_floatingLabelText="Confirm Password"
+        app:met_errorColor="@color/colorError"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias=".71"/>
+    <TextView
+        android:id="@+id/sign_up_submit"
+        android:layout_width="130dp"
+        android:layout_height="50dp"
+        android:background="@drawable/blue_button_un_selected"
+        android:textColor="@color/colorWhite"
+        android:textSize="20sp"
+        android:text="@string/sign_up"
+        android:textAlignment="center"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias=".83" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/already_have_account"
+        android:textColor="@color/colorText"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias=".9"
+        app:layout_constraintHorizontal_bias=".4"/>
+
+    <TextView
+        android:id="@+id/sign_up_click_here"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:text="@string/click_here"
+        android:textColor="@color/colorPrimary"
+        android:gravity="bottom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias=".897"
+        app:layout_constraintHorizontal_bias=".75"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/your_basics"
+        android:textColor="@color/colorSecondary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias=".05"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/height"
+        android:textColor="@color/colorText"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias=".4" />
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/get_height_height"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:inputType="numberDecimal"
+        app:met_primaryColor="@color/colorPrimaryDark"
+        android:textColor="@color/colorText"
+        app:met_baseColor="@color/colorSecondary"
+        app:met_underlineColor="@color/colorSecondary"
+        app:met_errorColor="@color/colorError"
+        app:met_hideUnderline="false"
+        android:hint="@string/height_hint"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias=".5"
+        app:layout_constraintHorizontal_bias=".42"/>
+
+    <TextView
+        android:id="@+id/get_height_ft"
+        android:layout_width="40dp"
+        android:layout_height="20dp"
+        android:background="@drawable/blue_button_rounded_un_selected"
+        android:text="@string/ft"
+        android:textColor="@color/colorText"
+        android:textSize="12sp"
+        android:gravity="center"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias=".477"
+        app:layout_constraintHorizontal_bias=".85"/>
+    <TextView
+        android:id="@+id/get_height_cm"
+        android:layout_width="40dp"
+        android:layout_height="20dp"
+        android:background="@drawable/blue_button_rounded_un_selected"
+        android:text="@string/cm"
+        android:textColor="@color/colorText"
+        android:textSize="12sp"
+        android:gravity="center"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias=".525"
+        app:layout_constraintHorizontal_bias=".85"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ft_cm_hint_line"
+        android:textColor="@color/colorText"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias=".55"
+        app:layout_constraintHorizontal_bias=".35"/>
+
+    <TextView
+        android:id="@+id/get_height_next"
+        android:layout_width="260dp"
+        android:layout_height="40dp"
+        android:background="@drawable/blue_button_rounded_un_selected"
+        android:text="@string/next"
+        android:textColor="@color/colorText"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias=".9"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

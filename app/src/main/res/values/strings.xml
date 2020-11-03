@@ -1,0 +1,65 @@
+<resources>
+    <string name="app_name">NutritionApp</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="sign_in">SIGN IN</string>
+    <string name="sign_up">SIGN UP</string>
+    <string name="signing_in">Signing In…</string>
+    <string name="signing_up">Signing Up…</string>
+    <string name="username_email">Email</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="do_not_have_account">Do not have an account yet?</string>
+    <string name="already_have_account">Already have an account?</string>
+    <string name="your_full_name">Your Full Name</string>
+    <string name="click_here">Click Here.</string>
+    <string name="google_G">G</string>
+    <string name="_plus_">+</string>
+    <string name="next">NEXT</string>
+
+    <string name="your_basics">YOUR BASICS</string>
+    <string name="hi">Hi!</string>
+    <string name="Lets_start_with_the_basics">Let\'s start with the basics</string>
+    <string name="male">MALE</string>
+    <string name="female">FEMALE</string>
+
+    <string name="age">Age</string>
+    <string name="age_hint">ex. 20</string>
+
+    <string name="weight">Weight</string>
+    <string name="weight_hint">ex. 150</string>
+    <string name="lb">LB</string>
+    <string name="kg">KG</string>
+
+    <string name="height">Height</string>
+    <string name="height_hint">ex. 5.9 or 175</string>
+    <string name="ft">FT</string>
+    <string name="cm">CM</string>
+    <string name="ft_cm_hint_line">for 5\'9\"ft type 5.9 or type 175cm</string>
+
+    <string name="whats_your_goal">What\'s your goal?</string>
+    <string name="lose_weight">Lose Weight</string>
+    <string name="lose_weight_detail">Get leaner and increase your stamina</string>
+    <string name="maintain_weight">Maintain Weight</string>
+    <string name="maintain_weight_detail">Eat and train for optimum health</string>
+    <string name="gain_weight">Gain Weight</string>
+    <string name="gain_weight_detail">Build muscle strength</string>
+
+    <string name="you_are_all_set">You are all set!</string>
+
+    <string name="empty" />
+    <string name="temp">Temporary</string>
+    <string name="Life_score">Get Your Life Score</string>
+    <string name="text_inside_life_score">Get tips and insights on \n  your food and excercie \n habits every week</string>
+    <string name="Button_Value_Take_the_test">Take the Test</string>
+    <string name="goal_progress">Goal Progress</string>
+    <string name="stats">Statistics</string>
+    <string name="body_measurements">Body Measurements</string>
+
+    <string name="feature_name">feature_name</string>
+    <string name="breakfast">Add breakfast\nRecommanded 480cal</string>
+    <string name="lunch">Add lunch\nRecommanded 880cal</string>
+    <string name="dinner">Add dinner\nRecommanded 1080cal</string>
+    <string name="snack">Add snack\nRecommanded 280cal</string>
+    <string name="exercise">Add exercise\n</string>
+
+</resources>

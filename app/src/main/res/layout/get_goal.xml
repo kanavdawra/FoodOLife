@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/your_basics"
+        android:textColor="@color/colorSecondary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias=".05"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/whats_your_goal"
+        android:textColor="@color/colorText"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias=".2"/>
+    <LinearLayout
+        android:id="@+id/get_goal_lose_weight"
+        android:layout_width="350dp"
+        android:layout_height="80dp"
+        android:background="@drawable/grey_button_unselected_rounded"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias=".35"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textColor="@color/colorSecondary"
+            android:text="@string/lose_weight"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:gravity="top"
+            android:textAlignment="center"
+            android:textSize="12sp"
+            android:textColor="@color/colorText"
+            android:text="@string/lose_weight_detail"
+            tools:ignore="RtlCompat" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/get_goal_maintain_weight"
+        android:layout_width="350dp"
+        android:layout_height="80dp"
+        android:background="@drawable/grey_button_unselected_rounded"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias=".5"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textColor="@color/colorSecondary"
+            android:text="@string/maintain_weight"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:gravity="top"
+            android:textAlignment="center"
+            android:textSize="12sp"
+            android:textColor="@color/colorText"
+            android:text="@string/maintain_weight_detail"
+            tools:ignore="RtlCompat" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/get_goal_gain_weight"
+
+        android:layout_width="350dp"
+        android:layout_height="80dp"
+        android:background="@drawable/grey_button_unselected_rounded"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias=".65"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textColor="@color/colorSecondary"
+            android:text="@string/gain_weight"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:gravity="top"
+            android:textAlignment="center"
+            android:textSize="12sp"
+            android:textColor="@color/colorText"
+            android:text="@string/gain_weight_detail"
+            tools:ignore="RtlCompat" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
