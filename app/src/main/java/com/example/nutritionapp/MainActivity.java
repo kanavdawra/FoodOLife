@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
         };
         RegisterReceiver(mainActivityInterface);
-        loadFragment(new GetWeight());
+        loadFragment(new SignIn());
     }
 
     public void RegisterReceiver(MainActivityInterface mainActivityInterface){
@@ -129,24 +129,24 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-//        FirebaseAuth mAuth=FirebaseAuth.getInstance();
-//        FirebaseUser currentUser = mAuth.getCurrentUser();
-//        int onBoard= (int) new Utility().getSharedPreferences(this,"UserData","OnBoard",0);
-//        int verified=0;
-//        if(!Objects.equals(currentUser.getEmail(), "")) {
-//            if (currentUser.isEmailVerified()) {
-//                verified = 1;
-//            }
-//            if (!Objects.equals(currentUser.getEmail(), "") && onBoard == 0 && verified == 1) {
-//                Intent intent = new Intent("MainActivity");
-//                intent.putExtra("Task", "GetSex");
-//                sendBroadcast(intent);
-//            }
-//            if (!Objects.equals(currentUser.getEmail(), "") && onBoard == 6 && verified == 1) {
-//                finish();
-//                startActivity(new Intent(this, ProfileActivity.class));
-//            }
-//        }
+        FirebaseAuth mAuth=FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        int onBoard= (int) new Utility().getSharedPreferences(this,"UserData","OnBoard",0);
+        int verified=0;
+        if(!Objects.equals(currentUser.getEmail(), "")) {
+            if (currentUser.isEmailVerified()) {
+                verified = 1;
+            }
+            if (!Objects.equals(currentUser.getEmail(), "") && onBoard == 0 && verified == 1) {
+                Intent intent = new Intent("MainActivity");
+                intent.putExtra("Task", "GetSex");
+                sendBroadcast(intent);
+            }
+            if (!Objects.equals(currentUser.getEmail(), "") && onBoard == 6 && verified == 1) {
+                finish();
+                startActivity(new Intent(this, ProfileActivity.class));
+            }
+        }
 
     }
 }
