@@ -14,7 +14,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.nutritionapp.ProfileActivity;
 import com.example.nutritionapp.R;
+import com.example.nutritionapp.Tools.Utility;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -64,6 +66,7 @@ public class SignIn extends Fragment {
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.e("SI","SignInButton");
                 GetData();
             }
         });
@@ -109,7 +112,7 @@ public class SignIn extends Fragment {
                             FirebaseUser user = mAuth.getCurrentUser();
                             assert user != null;
                             if(user.isEmailVerified()){
-
+                                CheckOnboard();
                             }
                             if(!user.isEmailVerified()){
                                 Snacky.builder().setActivity(Objects.requireNonNull(getActivity()))
@@ -169,6 +172,7 @@ public class SignIn extends Fragment {
 
             }
         }
+
     }
 
 
@@ -215,6 +219,28 @@ public class SignIn extends Fragment {
 
     }
 
+    public void CheckOnboard(){
+        FirebaseAuth mAuth=FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        int onBoard= (int) new Utility().getSharedPreferences(Objects.requireNonNull(getActivity()),"UserData","OnBoard",0);
+        Log.e("OnBoard",String.valueOf(onBoard));
+        int verified=0;
+        if(currentUser!=null) {
+            if (currentUser.isEmailVerified()) {
+                verified = 1;
+            }
+            if (currentUser != null && onBoard == 0 && verified == 1) {
+                Intent intent = new Intent("MainActivity");
+                intent.putExtra("Task", "GetSex");
+                Objects.requireNonNull(getActivity()).sendBroadcast(intent);
+            }
+            if (currentUser != null && onBoard == 6 && verified == 1) {
+                getActivity().finish();
+                getActivity().startActivity(new Intent(getActivity(), ProfileActivity.class));
+
+            }
+        }
+    }
     public String getUserId(String email){
         StringBuilder userId= new StringBuilder();
         int temp=-2;

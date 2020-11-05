@@ -37,6 +37,9 @@ public class GetWeight extends Fragment {
             public void onClick(View v) {
                 Intent intent=new Intent("MainActivity");
                 intent.putExtra("Task","GetHeight");
+                if(!weightText.getText().toString().equals("")){
+                    weight=Double.parseDouble(weightText.getText().toString());
+                }
                 if(weight!=0){
                     intent.putExtra("Weight",weight);
                     if(unit==0){
@@ -110,6 +113,7 @@ public class GetWeight extends Fragment {
                 kg.setBackground(getResources().getDrawable(R.drawable.blue_button_rounded_un_selected));
             }
         });
+
         return view;
     }
     public String round(double weight){

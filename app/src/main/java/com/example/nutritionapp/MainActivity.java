@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentManager;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.WindowManager;
 import com.example.nutritionapp.Interface.MainActivityInterface;
 import com.example.nutritionapp.OnBoardFragments.AllSet;
@@ -19,6 +20,7 @@ import com.example.nutritionapp.OnBoardFragments.GetWeight;
 import com.example.nutritionapp.OnBoardFragments.SignIn;
 import com.example.nutritionapp.OnBoardFragments.SignUp;
 import com.example.nutritionapp.Receiver.MainActivityReceiver;
+import com.example.nutritionapp.Tools.FireBase;
 import com.example.nutritionapp.Tools.Utility;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -91,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
         };
         RegisterReceiver(mainActivityInterface);
-        loadFragment(new SignIn());
+        loadFragment(new GetWeight());
     }
 
     public void RegisterReceiver(MainActivityInterface mainActivityInterface){
@@ -127,22 +129,24 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        FirebaseAuth mAuth=FirebaseAuth.getInstance();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        int onBoard= (int) new Utility().getSharedPreferences(this,"UserData","OnBoard",0);
-        int verified=0;
-        assert currentUser != null;
-        if(currentUser.isEmailVerified()){
-            verified=1;
-        }
-        if(currentUser!=null && onBoard==0 && verified==1){
-            Intent intent=new Intent("MainActivity");
-            intent.putExtra("Task","GetSex");
-            sendBroadcast(intent);
-        }
-        if(currentUser!=null && onBoard==6 && verified==0){
-
-        }
+//        FirebaseAuth mAuth=FirebaseAuth.getInstance();
+//        FirebaseUser currentUser = mAuth.getCurrentUser();
+//        int onBoard= (int) new Utility().getSharedPreferences(this,"UserData","OnBoard",0);
+//        int verified=0;
+//        if(!Objects.equals(currentUser.getEmail(), "")) {
+//            if (currentUser.isEmailVerified()) {
+//                verified = 1;
+//            }
+//            if (!Objects.equals(currentUser.getEmail(), "") && onBoard == 0 && verified == 1) {
+//                Intent intent = new Intent("MainActivity");
+//                intent.putExtra("Task", "GetSex");
+//                sendBroadcast(intent);
+//            }
+//            if (!Objects.equals(currentUser.getEmail(), "") && onBoard == 6 && verified == 1) {
+//                finish();
+//                startActivity(new Intent(this, ProfileActivity.class));
+//            }
+//        }
 
     }
 }

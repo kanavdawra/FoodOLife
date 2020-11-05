@@ -38,6 +38,9 @@ public class GetHeight extends Fragment {
             public void onClick(View v) {
                 Intent intent=new Intent("MainActivity");
                 intent.putExtra("Task","GetGoal");
+                if(!heightText.getText().toString().equals("")){
+                    height=Double.parseDouble(heightText.getText().toString());
+                }
                 if(height!=0 && !heightText.getText().toString().equals("")){
                     intent.putExtra("Height",height);
                     if(unit==0){
