@@ -42,6 +42,9 @@ public class SplashActivity extends AppCompatActivity {
                         }
                     }
                 }
+                else{
+                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                }
                 new DataForDatabase(SplashActivity.this).AddQuizData();
 
 
