@@ -21,6 +21,27 @@ public class Database extends SQLiteOpenHelper {
     public static final String KEY_QUIZ_OPTION_4 = "option4";
     public static final String KEY_QUIZ_OPTION_SELECTED = "optionSelected";
 
+
+    public static final String TABLE_FOOD_NUTRIENTS="food_nutrients";
+    public static final String KEY_FOOD_NUTRIENTS="id";
+    public static final String FOOD_NAME="food_name";
+    public static final String CARBOHYDRATES="carbohydrates";
+    public static final String PROTEIN="protein";
+    public static final String FAT="fat";
+    public static final String VITAMINA="vitamina";
+    public static final String VITAMINB="vitaminb";
+    public static final String VITAMINC="vitaminc";
+    public static final String VITAMINE="vitamine";
+    public static final String SODIUM="sodium";
+    public static final String IRON="iron";
+    public static final String CALCIUM="calcium";
+    public static final String CALORIE="calorie";
+    public static final String FIBRE="fibre";
+
+
+
+
+
     public Database(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
@@ -40,7 +61,31 @@ public class Database extends SQLiteOpenHelper {
                 KEY_QUIZ_OPTION_SELECTED + " VARCHAR(255)" +
                 ")";
 
+        String CREATE_FOOD_NUTRIENTS="CREATE TABLE "+ TABLE_FOOD_NUTRIENTS+
+                "("+
+                KEY_FOOD_NUTRIENTS+ " INTEGER PRIMARY KEY AUTOINCREMENT,"+//primary key
+                FOOD_NAME +" TEXT NOT NULL," +
+                CARBOHYDRATES+" DOUBLE NOT NULL,"+
+                PROTEIN+" DOUBLE NOT NULL,"+
+                FAT+" DOUBLE NOT NULL,"+
+                VITAMINA+" DOUBLE NOT NULL,"+
+                VITAMINB+" DOUBLE NOT NULL,"+
+                VITAMINC+" DOUBLE NOT NULL,"+
+                VITAMINE+" DOUBLE NOT NULL,"+
+                SODIUM+" DOUBLE NOT NULL,"+
+                IRON+" DOUBLE NOT NULL,"+
+                FIBRE+" DOUBLE NOT NULL,"+
+                CALCIUM+" DOUBLE NOT NULL,"+
+                CALORIE+" DOUBLE NOT NULL"+
+                ")";
+
+
+
+
         db.execSQL(CREATE_QUIZ_TABLE);
+        db.execSQL(CREATE_FOOD_NUTRIENTS);
+
+
 
     }
 
