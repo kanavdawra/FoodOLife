@@ -15,6 +15,12 @@
     <string name="google_G">G</string>
     <string name="_plus_">+</string>
     <string name="next">NEXT</string>
+    <string name="profile">Profile</string>
+    <string name="quiz">Quiz</string>
+    <string name="QUIZ">QUIZ</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="leaderboard">Leaderboard</string>
+    <string name="statistics">Stats</string>
 
     <string name="your_basics">YOUR BASICS</string>
     <string name="hi">Hi!</string>
@@ -46,6 +52,12 @@
 
     <string name="you_are_all_set">You are all set!</string>
 
+    <string name="get_ready_improve_ranking_leaderboard">Get Ready to start your quiz \n This will improve your ranking on \n LEADERBOARD</string>
+
+
+
+
+
     <string name="empty" />
     <string name="temp">Temporary</string>
     <string name="Life_score">Get Your Life Score</string>
@@ -56,10 +68,10 @@
     <string name="body_measurements">Body Measurements</string>
 
     <string name="feature_name">feature_name</string>
-    <string name="breakfast">Add breakfast\nRecommanded 480cal</string>
-    <string name="lunch">Add lunch\nRecommanded 880cal</string>
-    <string name="dinner">Add dinner\nRecommanded 1080cal</string>
-    <string name="snack">Add snack\nRecommanded 280cal</string>
+    <string name="breakfast">Add breakfast \n Recommanded 480cal</string>
+    <string name="lunch">Add lunch \n Recommanded 880cal</string>
+    <string name="dinner">Add dinner \n Recommanded 1080cal</string>
+    <string name="snack">Add snack \n Recommanded 280cal</string>
     <string name="exercise">Add exercise\n</string>
 
 </resources>

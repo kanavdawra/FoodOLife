@@ -122,4 +122,6 @@ public class DataForDatabase {
             new Utility().setSharedPreferences(context,"AppData","QuizData",1);
         }
     }
+
+    
 }
