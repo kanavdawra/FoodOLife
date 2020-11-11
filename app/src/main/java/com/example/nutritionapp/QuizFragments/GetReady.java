@@ -22,7 +22,16 @@ public class GetReady extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.get_ready, container, false);
+        TextView next=view.findViewById(R.id.get_ready_next);
 
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent("Quiz");
+                intent.putExtra("Task","QuizQuestions");
+                Objects.requireNonNull(getActivity()).sendBroadcast(intent);
+            }
+        });
        
         return view;
     }

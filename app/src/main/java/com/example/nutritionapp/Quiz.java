@@ -43,7 +43,7 @@ public class Quiz extends AppCompatActivity {
             }
         };
 
-loadFragment(new GetReady());
+loadFragment(new GetReady() );
     }
 
     private void bottomNavigationBar()

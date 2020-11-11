@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 
 import com.example.nutritionapp.Tools.Database.DataForDatabase;
 import com.example.nutritionapp.Tools.Utility;
@@ -28,23 +29,39 @@ public class SplashActivity extends AppCompatActivity {
                 FirebaseUser currentUser = mAuth.getCurrentUser();
                 int onBoard= (int) new Utility().getSharedPreferences(SplashActivity.this,"UserData","OnBoard",0);
                 int verified=0;
-                if(currentUser!=null) {
-                    if (!Objects.equals(currentUser.getEmail(), "")) {
-                        if (currentUser.isEmailVerified()) {
-                            verified = 1;
-                        }
-                        if (!Objects.equals(currentUser.getEmail(), "") && onBoard == 0 && verified == 1) {
-                            startActivity(new Intent(SplashActivity.this, MainActivity.class));
-                        }
-                        if (!Objects.equals(currentUser.getEmail(), "") && onBoard == 6 && verified == 1) {
-                            finish();
-                            startActivity(new Intent(SplashActivity.this, ProfileActivity.class));
-                        }
+//                if(currentUser!=null) {
+//                    if (!Objects.equals(currentUser.getEmail(), "")) {
+//                        if (currentUser.isEmailVerified()) {
+//                            verified = 1;
+//                        }
+//                        if (!Objects.equals(currentUser.getEmail(), "") && onBoard == 0 && verified == 1) {
+//                            startActivity(new Intent(SplashActivity.this, MainActivity.class));
+//                        }
+//                        if (!Objects.equals(currentUser.getEmail(), "") && onBoard == 6 && verified == 1) {
+//                            startActivity(new Intent(SplashActivity.this, ProfileActivity.class));
+//                        }
+//                    }
+//                }
+//                else{
+//                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
+//                }
+
+                try {
+
+                    if(!Objects.equals(currentUser.getEmail(), "") && onBoard == 6 && currentUser.isEmailVerified()){
+                        Log.e("Email", currentUser.getEmail());
+                        startActivity(new Intent(SplashActivity.this, ProfileActivity.class));
+
                     }
-                }
-                else{
+                    else{
+                        startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                    }
+                } catch (Exception e) {
                     startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                    e.printStackTrace();
                 }
+
+
                 new DataForDatabase(SplashActivity.this).AddQuizData();
 
 

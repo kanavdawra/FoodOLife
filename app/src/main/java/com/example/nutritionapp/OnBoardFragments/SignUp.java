@@ -42,6 +42,7 @@ import com.mikhaellopez.circularimageview.CircularImageView;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.net.URI;
 import java.util.Objects;
 
 import de.mateware.snacky.Snacky;
@@ -58,6 +59,7 @@ public class SignUp extends Fragment {
     Bitmap selectedImage;
     private static final int RESULT_LOAD_IMAGE = 5164654;
     private FirebaseAuth mAuth;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -97,6 +99,7 @@ public class SignUp extends Fragment {
 
         return view;
     }
+
     @Override
     public void onActivityResult(int reqCode, int resultCode, Intent data) {
         super.onActivityResult(reqCode, resultCode, data);
@@ -117,6 +120,7 @@ public class SignUp extends Fragment {
         }else {
         }
     }
+
     public void getData(){
         nameText=view.findViewById(R.id.sign_up_fullName);
         emailText=view.findViewById(R.id.sign_up_email);
@@ -184,6 +188,7 @@ public class SignUp extends Fragment {
                             submit.setBackground(getResources().getDrawable(R.drawable.blue_button_un_selected));
                             submit.setText("Sign Up");
                             submit.setTextColor(Color.parseColor("#ffffff"));
+                            user.sendEmailVerification();
                             saveUserData();
 
                         } else {
@@ -234,7 +239,7 @@ public class SignUp extends Fragment {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         //FirebaseStorage customStorage = FirebaseStorage.getInstance("gs://nutrition-app-a847c.appspot.com");
         StorageReference storageRef = storage.getReference();
-        StorageReference spaceRef = storageRef.child("User Data/User Profile Image/"+email+".jpg");
+        final StorageReference imageRef = storageRef.child("User Data/User Profile Image/"+email+".jpg");
 
         signUpImageView.setDrawingCacheEnabled(true);
         signUpImageView.buildDrawingCache();
@@ -243,7 +248,7 @@ public class SignUp extends Fragment {
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] data = baos.toByteArray();
 
-        UploadTask uploadTask = spaceRef.putBytes(data);
+        final UploadTask uploadTask = imageRef.putBytes(data);
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
@@ -258,11 +263,16 @@ public class SignUp extends Fragment {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 Log.e("Image","Image Upload Success");
+                imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        FirebaseDatabase database = FirebaseDatabase.getInstance();
+                        DatabaseReference myRef = database.getReference("UserId").child(getUserId(email));
 
-                FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference myRef = database.getReference("UserId").push();
+                        myRef.child("ImageURI").setValue(uri.toString());
+                    }
+                });
 
-                myRef.child("Image").setValue(email+".jpg");
             }
         });
 
