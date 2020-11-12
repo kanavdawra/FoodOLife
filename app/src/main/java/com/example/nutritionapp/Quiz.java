@@ -7,14 +7,19 @@ import androidx.fragment.app.FragmentManager;
 import android.content.IntentFilter;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import com.example.nutritionapp.Interface.MainActivityInterface;
 import com.example.nutritionapp.Interface.QuizInterface;
 import com.example.nutritionapp.QuizFragments.GetReady;
+import com.example.nutritionapp.QuizFragments.QuizFinish;
+import com.example.nutritionapp.QuizFragments.QuizQuestions;
 import com.example.nutritionapp.Receiver.MainActivityReceiver;
 import com.example.nutritionapp.Receiver.QuizReceiver;
+import com.example.nutritionapp.Tools.Database.DataForDatabase;
+import com.example.nutritionapp.Tools.Utility;
 
 public class Quiz extends AppCompatActivity {
     QuizInterface quizInterface;
@@ -23,27 +28,27 @@ public class Quiz extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
-
+        new DataForDatabase(this).AddQuizData();
         bottomNavigationBar();
 
         quizInterface=new QuizInterface() {
             @Override
             public void GetReady() {
-
+                loadFragment(new GetReady());
             }
 
             @Override
             public void QuizQuestions() {
-
+                loadFragment(new QuizQuestions());
             }
 
             @Override
             public void QuizFinish() {
-
+                loadFragment(new QuizFinish());
             }
         };
 
-loadFragment(new GetReady() );
+        loadFragmentLogic();
     }
 
     private void bottomNavigationBar()
@@ -53,7 +58,7 @@ loadFragment(new GetReady() );
         final LinearLayout dashboard=findViewById(R.id.bottom_navigation_dashboard);
         final LinearLayout leaderboard=findViewById(R.id.bottom_navigation_leaderboard);
         final LinearLayout stats=findViewById(R.id.bottom_navigation_stats);
-
+        quiz.setBackgroundResource(R.drawable.view_top_right_border_blue);
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,6 +124,17 @@ loadFragment(new GetReady() );
         fragmentTransaction.commit();
     }
 
+    private void loadFragmentLogic(){
+        int index= (int) new Utility().getSharedPreferences(this,"AppData","QuizIndex",0);
+        Log.e("index",String.valueOf(index) );
+        if(index<11){
+            loadFragment(new GetReady());
+        }
+        else{
+            loadFragment(new QuizFinish());
+        }
+    }
+
     public void RegisterReceiver(QuizInterface quizInterface){
         quizReceiver = new QuizReceiver(quizInterface);
         registerReceiver(quizReceiver, new IntentFilter("Quiz"));
@@ -133,6 +149,12 @@ loadFragment(new GetReady() );
     @Override
     protected void onResume() {
         super.onResume();
+        RegisterReceiver(quizInterface);
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
         RegisterReceiver(quizInterface);
     }
 }

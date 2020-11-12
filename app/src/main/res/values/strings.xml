@@ -21,6 +21,7 @@
     <string name="dashboard">Dashboard</string>
     <string name="leaderboard">Leaderboard</string>
     <string name="statistics">Stats</string>
+    <string name="back_arroy">&lt;</string>
 
     <string name="your_basics">YOUR BASICS</string>
     <string name="hi">Hi!</string>

@@ -3,6 +3,7 @@ package com.example.nutritionapp.Tools.Database;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.example.nutritionapp.Modals.Quiz;
 
@@ -30,7 +31,8 @@ public class DatabaseUtility {
     private Quiz[] GetQuizModal(Cursor cursor){
         Quiz[] quiz = new Quiz[11];
         Quiz quizObject;
-
+        Log.e("Count",String.valueOf(cursor.getCount()));
+        cursor.moveToFirst();
         do{
             quizObject=new Quiz();
 
@@ -49,5 +51,18 @@ public class DatabaseUtility {
         }while (cursor.moveToNext());
        return quiz;
     }
-
+    public String getUserId(String email){
+        StringBuilder userId= new StringBuilder();
+        int temp=-2;
+        for(int i=0;i<email.length();i++){
+            if(email.charAt(i)=='@'){
+                temp=-1;
+            }
+            if(temp==-1 && email.charAt(i)=='.'){
+                break;
+            }
+            userId.append(email.charAt(i));
+        }
+        return userId.toString();
+    }
 }
