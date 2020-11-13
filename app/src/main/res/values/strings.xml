@@ -61,5 +61,6 @@
     <string name="dinner">Add dinner\nRecommanded 1080cal</string>
     <string name="snack">Add snack\nRecommanded 280cal</string>
     <string name="exercise">Add exercise\n</string>
+    <string name="Streaks">Streaks</string>
 
 </resources>
