@@ -123,6 +123,7 @@ public class DataForDatabase {
         }
     }
 
+
     public void AddFoodData(){
         //This is designed for 100gm of food data
 
@@ -231,6 +232,7 @@ public class DataForDatabase {
 
 
     }
+
 
 
 

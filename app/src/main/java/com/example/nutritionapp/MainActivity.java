@@ -24,6 +24,8 @@ import com.example.nutritionapp.Tools.FireBase;
 import com.example.nutritionapp.Tools.Utility;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Objects;
 
@@ -77,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void GetGoal(double height,String heightUnit) {
                 Height=height;
+                HeightUnit=heightUnit;
                 loadFragment(new GetGoal());
             }
 
@@ -87,8 +90,9 @@ public class MainActivity extends AppCompatActivity {
             }
             @Override
             public void NextActivity() {
-               finish();
-               startActivity(new Intent(MainActivity.this,ProfileActivity.class));
+                SetFirebaseUserData();
+                finish();
+                startActivity(new Intent(MainActivity.this,ProfileActivity.class));
             }
 
         };
@@ -114,11 +118,39 @@ public class MainActivity extends AppCompatActivity {
         // Objects.requireNonNull(getSupportActionBar()).hide();
     }
 
+    public void SetFirebaseUserData(){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("UserId").child(getUserId(FirebaseAuth.getInstance().getCurrentUser().getEmail()));
+
+
+        myRef.child("Age").setValue(Age);
+        myRef.child("Sex").setValue(Sex);
+        myRef.child("Weight").setValue(Weight);
+        myRef.child("WeightUnit").setValue(WeightUnit);
+        myRef.child("Height").setValue(Height);
+        myRef.child("HeightUnit").setValue(HeightUnit);
+        myRef.child("Goal").setValue(Goal);
+    }
+    public String getUserId(String email){
+        StringBuilder userId= new StringBuilder();
+        int temp=-2;
+        for(int i=0;i<email.length();i++){
+            if(email.charAt(i)=='@'){
+                temp=-1;
+            }
+            if(temp==-1 && email.charAt(i)=='.'){
+                break;
+            }
+            userId.append(email.charAt(i));
+        }
+        return userId.toString();
+    }
     @Override
     protected void onPause() {
         super.onPause();
         unregisterReceiver(mainActivityReceiver);
     }
+
 
     @Override
     protected void onResume() {
@@ -126,4 +158,9 @@ public class MainActivity extends AppCompatActivity {
         RegisterReceiver(mainActivityInterface);
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        RegisterReceiver(mainActivityInterface);
+    }
 }
