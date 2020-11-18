@@ -63,6 +63,7 @@ public class SplashActivity extends AppCompatActivity {
 
 
                 new DataForDatabase(SplashActivity.this).AddQuizData();
+                new DataForDatabase(SplashActivity.this).AddFoodData();
 
 
 

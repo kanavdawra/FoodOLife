@@ -1,5 +1,9 @@
 package com.example.nutritionapp.Tools;
 
+
+public class FireBase {
+
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -24,6 +28,7 @@ public class FireBase {
         }
         return userId.toString();
     }
+
 
 
 }
