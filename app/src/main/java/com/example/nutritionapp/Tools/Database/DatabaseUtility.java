@@ -5,7 +5,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.example.nutritionapp.Modals.Meal;
 import com.example.nutritionapp.Modals.Quiz;
+
+import java.util.ArrayList;
 
 public class DatabaseUtility {
     Context context;
@@ -26,6 +29,15 @@ public class DatabaseUtility {
         quiz=GetQuizModal(cursor);
         cursor.close();
         return quiz;
+    }
+
+    public ArrayList<Meal> getMeal(String name){
+        SQLiteDatabase database=getDataBase().getReadableDatabase();
+        ArrayList<Meal> listMeal = new ArrayList<Meal>();
+        Cursor cursor=database.rawQuery("select * from food_nutrients where name like ?", new String [] {String.valueOf(name)});
+        listMeal=getMeal(cursor);
+        cursor.close();
+        return listMeal;
     }
 
     private Quiz[] GetQuizModal(Cursor cursor){
@@ -51,6 +63,31 @@ public class DatabaseUtility {
         }while (cursor.moveToNext());
        return quiz;
     }
+
+    private ArrayList<Meal> getMeal(Cursor cursor){
+        ArrayList<Meal> listMeal = new ArrayList<Meal>();
+        Log.e("Meal",String.valueOf(cursor.getCount()));
+        cursor.moveToFirst();
+        do{
+            Meal m =new Meal();
+            m.setName(cursor.getString(0));
+            m.setCarbo(cursor.getInt(1));
+            m.setProt(cursor.getInt(2));
+            m.setVitamina(cursor.getInt(3));
+            m.setVitaminb(cursor.getInt(4));
+            m.setVitaminc(cursor.getInt(5));
+            m.setVitammine(cursor.getInt(6));
+            m.setSodium(cursor.getInt(7));
+            m.setIron(cursor.getInt(8));
+            m.setFibre(cursor.getInt(9));
+            m.setCalcium(cursor.getInt(10));
+            m.setCalorie(cursor.getInt(11));
+            m.setDescription(cursor.getString(12));
+            listMeal.add(m);
+        }while (cursor.moveToNext());
+        return listMeal;
+    }
+
     public String getUserId(String email){
         StringBuilder userId= new StringBuilder();
         int temp=-2;

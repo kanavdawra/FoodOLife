@@ -2,8 +2,12 @@ package com.example.nutritionapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -11,30 +15,36 @@ import java.util.Date;
 import java.util.Locale;
 
 public class DashBoardActivity extends AppCompatActivity {
-    /*LogMeals breakfast = new LogMeals(R.drawable.bread_48,"Add breakfast", "Recommanded 480cal");
-    LogMeals lunch = new LogMeals(R.drawable.bento_48,"Add lunch", "Recommanded 480cal");
-    LogMeals dinner = new LogMeals(R.drawable.food_and_wine_48,"Add dinner", "Recommanded 480cal");
-    LogMeals snack = new LogMeals(R.drawable.doughnut_48,"Add snack", "Recommanded 480cal");
-    List <LogMeals> logMeals = new ArrayList<>(Arrays.asList(breakfast,lunch,dinner,snack));*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.dashboard_activity);
-        /*ListView listViewMeal = findViewById(R.id.listViewMeal);
-        final MealsAdapter myAdapter = new MealsAdapter(logMeals);
-        listViewMeal.setAdapter(myAdapter);
-
-        listViewMeal.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-            }
-        });*/
-        EditText date = findViewById(R.id.editDate);
+        setContentView(R.layout.activity_main);
+        EditText dateEdit = (EditText)findViewById(R.id.editDate);
         Date c = Calendar.getInstance().getTime();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         String formattedDate = df.format(c);
-        date.setText(formattedDate);
-
+        dateEdit.setText(formattedDate);
+        ImageView iv= (ImageView)findViewById(R.id.imagePrevious);
+        iv.setImageResource(R.drawable.previous_24);
+        Button btn_breakfast = (Button) findViewById(R.id.btn_breakfast);
+        btn_breakfast.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                addMeal(1);
+            }
+        });
+    }
+    public void addMeal(int mealType){
+//at this point cost is computed
+        //Now create intent object
+        dateEdit = (EditText)findViewById(R.id.editDate);
+        Intent myResults = new Intent(DashBoardActivity.this, LogMealActivity.class);
+        //Create a bundle and put values in it
+        Bundle myBundle = new Bundle();
+        myBundle.putInt("type", mealType); //syntax or put is keyname, value name
+        myBundle.putString("date",dateEdit.getText().toString());
+        //put the bundle into the intent
+        myResults.putExtras(myBundle); //adds the bundle to the intent
+        startActivity(myResults); //start activity with the intent object
     }
 }

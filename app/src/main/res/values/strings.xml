@@ -74,5 +74,5 @@
     <string name="dinner">Add dinner \n Recommanded 1080cal</string>
     <string name="snack">Add snack \n Recommanded 280cal</string>
     <string name="exercise">Add exercise\n</string>
-
+    <string name="search_hint">Search for food</string>
 </resources>
