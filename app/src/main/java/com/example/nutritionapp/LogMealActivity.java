@@ -90,8 +90,7 @@ public class LogMealActivity extends AppCompatActivity {
                     bt_yes.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            new DataForDatabase(LogMealActivity.this).addIntake(
-                                    type, Integer.valueOf(amt.getText().toString()), date.getText().toString(), food_id);
+                            new DataForDatabase(LogMealActivity.this).addIntake(type, Integer.valueOf(amt.getText().toString()), date.getText().toString(), food_id);
                             AmountDialog.dismiss();
                         }
                     });

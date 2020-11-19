@@ -127,30 +127,35 @@ public class DataForDatabase {
 
     public void addIntake(String Type, int amount, String date, int food_id){
         SQLiteDatabase db=getDataBase().getWritableDatabase();
-        if(new Utility().getSharedPreferences(context,"AppData","user_intake",0)==0){
-                db.execSQL(
-                        "insert into food_intake(food_id,amount,date,type) values ('"
-                                +food_id+"','"
-                                +amount+"','"
-                                +date+"','"
-                                +Type+"'"+
-                                ")"
-                );
-            new Utility().setSharedPreferences(context,"AppData","user_intake",1);
-        }
+        db.execSQL(
+                "insert into food_intake(food_id,amount,date,type) values ('"
+                        +food_id+"','"
+                        +amount+"','"
+                        +date+"','"
+                        +Type+"'"+
+                        ")"
+        );
     }
 
     public void addStreak(double weight, String date){
         SQLiteDatabase db=getDataBase().getWritableDatabase();
-        if(new Utility().getSharedPreferences(context,"AppData","streak",0)==0){
-            db.execSQL(
+        //System.out.println(new Utility().getSharedPreferences(context,"AppData","UserData",date));
+//        if(new Utility().getSharedPreferences(context,"AppData","UserData",date)!=date){
+//            db.execSQL(
+//                    "insert into streak(weight,date) values ('"
+//                            +weight+"','"
+//                            +date+"'"+
+//                            ")"
+//            );
+//            new Utility().setSharedPreferences(context,"AppData","UserData",date);
+//        }
+        db.execSQL(
                     "insert into streak(weight,date) values ('"
                             +weight+"','"
                             +date+"'"+
                             ")"
             );
-            new Utility().setSharedPreferences(context,"AppData","streak",1);
-        }
+            new Utility().setSharedPreferences(context,"AppData","UserData",date);
     }
 
     public void AddFoodData(){

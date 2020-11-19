@@ -26,6 +26,7 @@ import java.util.Locale;
 public class DashBoardActivity extends AppCompatActivity {
     Dialog AmountDialog;
     EditText weight;
+    String formattedDate;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,32 +94,32 @@ public class DashBoardActivity extends AppCompatActivity {
         startActivity(myResults); //start activity with the intent object
     }
     private void enterStreak(){
-        AmountDialog = new Dialog(this);
-        AmountDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        AmountDialog.setContentView(R.layout.streak_dialog);
-        AmountDialog.show();
-        Button bt_yes = (Button)AmountDialog.findViewById(R.id.btn_yes);
-        Button bt_no = (Button)AmountDialog.findViewById(R.id.btn_no);
-        bt_yes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                weight = (EditText) AmountDialog.findViewById(R.id.weight_dia);
-                Date c = Calendar.getInstance().getTime();
-                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-                String formattedDate = df.format(c);
-                String last_update = new DatabaseUtility(DashBoardActivity.this).getLastUpdate();
-                if (last_update != formattedDate) {
+        Date c = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        formattedDate = df.format(c);
+        String last_update = new DatabaseUtility(DashBoardActivity.this).getLastUpdate();
+        if (!last_update.equals(formattedDate)) {
+            AmountDialog = new Dialog(this);
+            AmountDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            AmountDialog.setContentView(R.layout.streak_dialog);
+            AmountDialog.show();
+            Button bt_yes = (Button) AmountDialog.findViewById(R.id.btn_yes);
+            Button bt_no = (Button) AmountDialog.findViewById(R.id.btn_no);
+            bt_yes.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    weight = (EditText) AmountDialog.findViewById(R.id.weight_dia);
                     new DataForDatabase(DashBoardActivity.this).addStreak(Double.valueOf(weight.getText().toString()), formattedDate);
+                    AmountDialog.dismiss();
                 }
-                AmountDialog.dismiss();
-            }
-        });
-        bt_no.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AmountDialog.dismiss();
-            }
-        });
+            });
+            bt_no.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AmountDialog.dismiss();
+                }
+            });
+        }
     }
     private void bottomNavigationBar()
     {
