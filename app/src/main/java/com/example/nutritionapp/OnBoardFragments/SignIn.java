@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.nutritionapp.DashBoardActivity;
 import com.example.nutritionapp.ProfileActivity;
 import com.example.nutritionapp.R;
 import com.example.nutritionapp.Tools.Utility;
@@ -236,7 +237,7 @@ public class SignIn extends Fragment {
             }
             if (currentUser != null && onBoard == 6 && verified == 1) {
                 getActivity().finish();
-                getActivity().startActivity(new Intent(getActivity(), ProfileActivity.class));
+                getActivity().startActivity(new Intent(getActivity(), DashBoardActivity.class));
 
             }
         }

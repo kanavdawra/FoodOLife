@@ -31,14 +31,18 @@ public class DatabaseUtility {
         return quiz;
     }
 
-    public ArrayList<Meal> getMeal(String name){
+    public String getLastUpdate(){
         SQLiteDatabase database=getDataBase().getReadableDatabase();
-        ArrayList<Meal> listMeal = new ArrayList<Meal>();
-        Cursor cursor=database.rawQuery("select * from food_nutrients where name like ?", new String [] {String.valueOf(name)});
-        listMeal=getMeal(cursor);
+        Cursor cursor=database.rawQuery("select * from streak order by date desc limit 1",null);
+        cursor.moveToFirst();
+        String date ="";
+        if(cursor.getCount()>0){
+            date =cursor.getString(2);
+        }
         cursor.close();
-        return listMeal;
+        return date;
     }
+
 
     private Quiz[] GetQuizModal(Cursor cursor){
         Quiz[] quiz = new Quiz[11];
@@ -64,25 +68,34 @@ public class DatabaseUtility {
        return quiz;
     }
 
+    public ArrayList<Meal> getMeal(){
+        SQLiteDatabase database=getDataBase().getReadableDatabase();
+        ArrayList<Meal> listMeal = new ArrayList<Meal>();
+        Cursor cursor=database.rawQuery("select * from food_nutrients", null);
+        listMeal=getMeal(cursor);
+        cursor.close();
+        return listMeal;
+    }
     private ArrayList<Meal> getMeal(Cursor cursor){
         ArrayList<Meal> listMeal = new ArrayList<Meal>();
         Log.e("Meal",String.valueOf(cursor.getCount()));
         cursor.moveToFirst();
         do{
             Meal m =new Meal();
-            m.setName(cursor.getString(0));
-            m.setCarbo(cursor.getInt(1));
-            m.setProt(cursor.getInt(2));
-            m.setVitamina(cursor.getInt(3));
-            m.setVitaminb(cursor.getInt(4));
-            m.setVitaminc(cursor.getInt(5));
-            m.setVitammine(cursor.getInt(6));
-            m.setSodium(cursor.getInt(7));
-            m.setIron(cursor.getInt(8));
-            m.setFibre(cursor.getInt(9));
-            m.setCalcium(cursor.getInt(10));
-            m.setCalorie(cursor.getInt(11));
-            m.setDescription(cursor.getString(12));
+            m.setName(cursor.getString(1));
+            m.setCarbo(cursor.getInt(2));
+            m.setProt(cursor.getInt(3));
+            m.setFat(cursor.getInt(4));
+            m.setVitamina(cursor.getInt(5));
+            m.setVitaminb(cursor.getInt(6));
+            m.setVitaminc(cursor.getInt(7));
+            m.setVitammine(cursor.getInt(8));
+            m.setSodium(cursor.getInt(9));
+            m.setIron(cursor.getInt(10));
+            m.setFibre(cursor.getInt(11));
+            m.setCalcium(cursor.getInt(12));
+            m.setCalorie(cursor.getInt(13));
+            m.setId(cursor.getInt(0));
             listMeal.add(m);
         }while (cursor.moveToNext());
         return listMeal;

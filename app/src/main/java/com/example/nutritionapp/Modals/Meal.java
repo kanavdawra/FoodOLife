@@ -2,7 +2,7 @@ package com.example.nutritionapp.Modals;
 
 public class Meal {
     String name;
-    String description;
+    int id;
     int carbo;
     int prot;
     int vitamina;
@@ -11,7 +11,17 @@ public class Meal {
     int vitammine;
     int sodium;
     int iron;
+    int fat;
     int fibre;
+
+    public int getFat() {
+        return fat;
+    }
+
+    public void setFat(int fat) {
+        this.fat = fat;
+    }
+
     int calcium;
     int calorie;
 
@@ -23,12 +33,12 @@ public class Meal {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public int getId() {
+        return id;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getCarbo() {

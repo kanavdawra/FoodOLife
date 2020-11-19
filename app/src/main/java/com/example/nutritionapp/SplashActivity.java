@@ -50,7 +50,7 @@ public class SplashActivity extends AppCompatActivity {
 
                     if(!Objects.equals(currentUser.getEmail(), "") && onBoard == 6 && currentUser.isEmailVerified()){
                         Log.e("Email", currentUser.getEmail());
-                        startActivity(new Intent(SplashActivity.this, ProfileActivity.class));
+                        startActivity(new Intent(SplashActivity.this, DashBoardActivity.class));
 
                     }
                     else{
@@ -63,6 +63,7 @@ public class SplashActivity extends AppCompatActivity {
 
 
                 new DataForDatabase(SplashActivity.this).AddQuizData();
+                new DataForDatabase(SplashActivity.this).AddFoodData();
 
 
 

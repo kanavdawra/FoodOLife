@@ -38,11 +38,13 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:26.0.0')
     implementation 'com.google.firebase:firebase-storage'
 
+
     //3rd party Library
     implementation 'com.rengwuxian.materialedittext:library:2.1.4'
     implementation 'com.mikhaellopez:circularimageview:4.2.0'
     implementation 'com.github.matecode:Snacky:1.1.5'
     implementation 'com.jjoe64:graphview:4.2.2'
+    implementation 'com.squareup.picasso:picasso:2.71828'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
             public void NextActivity() {
                 SetFirebaseUserData();
                 finish();
-                startActivity(new Intent(MainActivity.this,ProfileActivity.class));
+                startActivity(new Intent(MainActivity.this, DashBoardActivity.class));
             }
 
         };
