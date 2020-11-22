@@ -76,4 +76,5 @@
     <string name="exercise">Add exercise\n</string>
     <string name="search_hint">Search for food</string>
     <string name="Streaks">Streaks</string>
+    <string name="pick">Pick What You Have Eaten</string>
 </resources>

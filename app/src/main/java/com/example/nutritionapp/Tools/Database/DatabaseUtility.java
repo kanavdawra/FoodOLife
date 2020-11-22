@@ -76,6 +76,20 @@ public class DatabaseUtility {
         cursor.close();
         return listMeal;
     }
+    public ArrayList<Meal> getLog(String type){
+        SQLiteDatabase database=getDataBase().getReadableDatabase();
+        ArrayList<Meal> listMeal = new ArrayList<Meal>();
+        Cursor cursor=database.rawQuery("select n.*, i.* from food_intake i left join food_nutrients n on n.id =i.food_id where type =?", new String[]{type});
+        if (cursor.getCount() ==0){
+            Meal noMeal = new Meal();
+            noMeal.setName("There is nothing. Please Add Something");
+            listMeal.add(noMeal);
+        }else{
+            listMeal=getMeal(cursor);
+        }
+        cursor.close();
+        return listMeal;
+    }
     private ArrayList<Meal> getMeal(Cursor cursor){
         ArrayList<Meal> listMeal = new ArrayList<Meal>();
         Log.e("Meal",String.valueOf(cursor.getCount()));
@@ -100,6 +114,7 @@ public class DatabaseUtility {
         }while (cursor.moveToNext());
         return listMeal;
     }
+
 
     public String getUserId(String email){
         StringBuilder userId= new StringBuilder();

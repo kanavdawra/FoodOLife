@@ -13,10 +13,11 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.66"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -25,7 +26,7 @@
 
             <TextView
                 android:id="@+id/header"
-                android:layout_width="100dp"
+                android:layout_width="300dp"
                 android:layout_height="30dp"
                 android:layout_marginTop="28dp"
                 android:text="123"
@@ -33,33 +34,63 @@
                 android:textSize="20sp"
                 app:layout_constraintBottom_toTopOf="@+id/enterDate"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.5" />
 
             <EditText
-            android:id="@+id/enterDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="28dp"
-            android:ems="10"
-            android:hint="Enter Date"
-            android:textColor="@color/colorWhite"
-            android:textColorHint="@color/colorWhite"
-            app:layout_constraintBottom_toTopOf="@+id/scrollView2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent" />
-    <ListView
-        android:id="@+id/meal_list"
-        android:layout_width="300dp"
-        android:layout_height="500dp"
-        android:layout_marginBottom="68dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"></ListView>
+                android:id="@+id/enterDate"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:ems="10"
+                android:hint="Enter Date"
+                android:layout_width="300dp"
+                android:textColor="@color/colorWhite"
+                android:textColorHint="@color/colorWhite"
+                app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintVertical_bias="0.5" />
+            <Spinner
+                android:id="@+id/spinner"
+                android:spinnerMode="dialog"
+                android:layout_width="300dp"
+                android:layout_height="30dp"
+                android:textColor="@color/colorWhite"
+                android:layout_marginBottom="20dp"
+                app:layout_constraintBottom_toTopOf="@+id/record"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:entries="@array/meal" />
+
+            <TextView
+                android:id="@+id/record"
+                android:layout_width="300dp"
+                android:layout_height="30dp"
+                android:layout_marginBottom="20dp"
+                android:text="Your Meal Log"
+                android:textColor="@color/colorWhite"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toTopOf="@+id/meal_list"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.5" />
+
+            <ListView
+                android:id="@+id/meal_list"
+                android:layout_width="300dp"
+                android:layout_height="500dp"
+                android:layout_marginBottom="68dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"></ListView>
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
