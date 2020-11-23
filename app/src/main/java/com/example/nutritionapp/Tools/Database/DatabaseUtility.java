@@ -104,16 +104,19 @@ public class DatabaseUtility {
     public ArrayList<Recentmeals> getrecentsModal(Cursor cursor){
 
         ArrayList<Recentmeals> listofrecents=new ArrayList<>();
-        cursor.moveToFirst();
-        do{
+        cursor.moveToPosition(0);
+
+
+
+        while (!(cursor.getPosition()==cursor.getCount())){
             Recentmeals objectforrecentmeals=new Recentmeals();
             objectforrecentmeals.setFood_amount(cursor.getInt(0));
             objectforrecentmeals.setRecent_food_name(cursor.getString(1));
             objectforrecentmeals.setfood_calorie(cursor.getInt(2) * cursor.getInt(0) );
 
-            Log.e("stringggs",cursor.getInt(2) * cursor.getInt(0)+"");
-
-        }while (cursor.moveToNext());
+            listofrecents.add(objectforrecentmeals);
+            cursor.moveToNext();
+        }
 
         return listofrecents;
     }
@@ -125,7 +128,7 @@ public class DatabaseUtility {
         Cursor cursor1=databaseone.rawQuery("Select " +
                 "b.amount,a.food_name,a.calorie from" +
                 " food_nutrients a  inner join food_intake b on " +
-                "a.id=b.food_id  where b.type='"+type+"'",null);
+                "a.id=b.food_id  where b.type='"+type+"' order by b.date",null);
 
         Log.e("query",String.valueOf(cursor1.getCount()));
 
