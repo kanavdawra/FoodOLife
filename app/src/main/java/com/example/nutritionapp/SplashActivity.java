@@ -28,7 +28,6 @@ public class SplashActivity extends AppCompatActivity {
                 FirebaseAuth mAuth=FirebaseAuth.getInstance();
                 FirebaseUser currentUser = mAuth.getCurrentUser();
                 String onBoard= new Utility().getSharedPreferences(SplashActivity.this,"UserData","OnBoard","0");
-                int verified=0;
 
                 try {
 

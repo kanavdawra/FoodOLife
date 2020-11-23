@@ -29,7 +29,7 @@ public class AllSet extends Fragment {
             public void onClick(View v) {
                 Intent intent=new Intent("MainActivity");
                 intent.putExtra("Task","NextActivity");
-                new Utility().setSharedPreferences(Objects.requireNonNull(getActivity()),"UserData","OnBoard",6);
+                new Utility().setSharedPreferences(Objects.requireNonNull(getActivity()),"UserData","OnBoard","1");
                 Objects.requireNonNull(getActivity()).sendBroadcast(intent);
             }
         });

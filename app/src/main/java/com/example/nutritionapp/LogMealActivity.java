@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -41,18 +42,39 @@ public class LogMealActivity extends AppCompatActivity {
     Dialog AmountDialog;
     EditText amt;
     int food_id;
+    String spinnerItem;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.log_meal);
         context = this;
 
+        setAmountDialog();
 
-        ArrayList<Meal> m = new ArrayList<Meal>();
-         final ArrayAdapter<Meal> adapter;
+        LinearLayout imageforspinner=findViewById(R.id.spinnerview);
+
+        meals=new DatabaseUtility(context).getMeal();
+
+        Log.e("Meal 2",meals.get(1).getName());
+
+        imageforspinner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                ListView listforsps=findViewById(R.id.listforspinnerpopulation);
+                listforsps.setVisibility(View.VISIBLE);
+                MealAdapter myadapter=new MealAdapter(meals,LogMealActivity.this,(TextView) findViewById(R.id.log_meal_spinner_textView),listforsps);
+                listforsps.setAdapter(myadapter);
+
+            }
+        });
+
+    }
+
+    private void setAmountDialog(){
+
         date=(EditText) findViewById(R.id.log_meal_get_date);
-        ImageView imageforspinner=findViewById(R.id.spinnerview);
-        final ListView listforspinner=findViewById(R.id.listforspinnerpopulation);
+
         date.setInputType(InputType.TYPE_NULL);
         date.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,21 +94,10 @@ public class LogMealActivity extends AppCompatActivity {
                 picker.show();
             }
         });
+    }
 
-       imageforspinner.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-               meals=new DatabaseUtility(context).getMeal();
-               ListView listforsps=findViewById(R.id.listforspinnerpopulation);
-               MealAdapter myadapter=new MealAdapter(meals);
-               listforsps.setAdapter(myadapter);
-
-            
-
-
-            }
-        });
+    public void setSpinnerItem(String spinnerItem) {
+        this.spinnerItem = spinnerItem;
 
     }
 }

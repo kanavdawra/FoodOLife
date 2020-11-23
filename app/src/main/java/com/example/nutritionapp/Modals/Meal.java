@@ -3,27 +3,18 @@ package com.example.nutritionapp.Modals;
 public class Meal {
     String name;
     int id;
-    int carbo;
-    int prot;
-    int vitamina;
-    int vitaminb;
-    int vitaminc;
-    int vitammine;
-    int sodium;
-    int iron;
-    int fat;
-    int fibre;
-
-    public int getFat() {
-        return fat;
-    }
-
-    public void setFat(int fat) {
-        this.fat = fat;
-    }
-
-    int calcium;
-    int calorie;
+    double carbohydrate;
+    double protein;
+    double vitamina;
+    double vitaminb;
+    double vitaminc;
+    double vitammine;
+    double sodium;
+    double iron;
+    double fat;
+    double fibre;
+    double calcium;
+    double calorie;
 
     public String getName() {
         return name;
@@ -41,91 +32,99 @@ public class Meal {
         this.id = id;
     }
 
-    public int getCarbo() {
-        return carbo;
+    public double getCarbohydrate() {
+        return carbohydrate;
     }
 
-    public void setCarbo(int carbo) {
-        this.carbo = carbo;
+    public void setCarbohydrate(double carbohydrate) {
+        this.carbohydrate = carbohydrate;
     }
 
-    public int getProt() {
-        return prot;
+    public double getProtein() {
+        return protein;
     }
 
-    public void setProt(int prot) {
-        this.prot = prot;
+    public void setProtein(double protein) {
+        this.protein = protein;
     }
 
-    public int getVitamina() {
+    public double getVitamina() {
         return vitamina;
     }
 
-    public void setVitamina(int vitamina) {
+    public void setVitamina(double vitamina) {
         this.vitamina = vitamina;
     }
 
-    public int getVitaminb() {
+    public double getVitaminb() {
         return vitaminb;
     }
 
-    public void setVitaminb(int vitaminb) {
+    public void setVitaminb(double vitaminb) {
         this.vitaminb = vitaminb;
     }
 
-    public int getVitaminc() {
+    public double getVitaminc() {
         return vitaminc;
     }
 
-    public void setVitaminc(int vitaminc) {
+    public void setVitaminc(double vitaminc) {
         this.vitaminc = vitaminc;
     }
 
-    public int getVitammine() {
+    public double getVitammine() {
         return vitammine;
     }
 
-    public void setVitammine(int vitammine) {
+    public void setVitammine(double vitammine) {
         this.vitammine = vitammine;
     }
 
-    public int getSodium() {
+    public double getSodium() {
         return sodium;
     }
 
-    public void setSodium(int sodium) {
+    public void setSodium(double sodium) {
         this.sodium = sodium;
     }
 
-    public int getIron() {
+    public double getIron() {
         return iron;
     }
 
-    public void setIron(int iron) {
+    public void setIron(double iron) {
         this.iron = iron;
     }
 
-    public int getFibre() {
+    public double getFat() {
+        return fat;
+    }
+
+    public void setFat(double fat) {
+        this.fat = fat;
+    }
+
+    public double getFibre() {
         return fibre;
     }
 
-    public void setFibre(int fibre) {
+    public void setFibre(double fibre) {
         this.fibre = fibre;
     }
 
-    public int getCalcium() {
+    public double getCalcium() {
         return calcium;
     }
 
-    public void setCalcium(int calcium) {
+    public void setCalcium(double calcium) {
         this.calcium = calcium;
     }
 
-    public int getCalorie() {
+    public double getCalorie() {
         return calorie;
     }
 
-    public void setCalorie(int calorie) {
+    public void setCalorie(double calorie) {
         this.calorie = calorie;
     }
 

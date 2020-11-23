@@ -1,9 +1,13 @@
 package com.example.nutritionapp;
 
+import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -13,9 +17,16 @@ import java.util.List;
 
 public class MealAdapter extends BaseAdapter {
     List<Meal> mealList;
-
-    public MealAdapter(List<Meal> m) {
+    LayoutInflater layoutInflater;
+    Context context;
+    TextView spinnerTextView;
+    ListView listView;
+    public MealAdapter(List<Meal> m,Context context,TextView spinnerTextView, ListView listView) {
         this.mealList = m;
+        this.context=context;
+        layoutInflater=LayoutInflater.from(context);
+        this.spinnerTextView=spinnerTextView;
+        this.listView=listView;
     }
     @Override
     public int getCount() {
@@ -33,18 +44,23 @@ public class MealAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
+    public View getView(final int i, View view, ViewGroup viewGroup) {
+
+            view = layoutInflater.inflate(R.layout.spinnerlayout, null);
 
 
-        if (view == null) {
-            view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.spinnerlayout,
-                    viewGroup, false);
-        }
+        TextView spinnerItemTextView=view.findViewById(R.id.make_shift_spinner_item_textView);
+        LinearLayout spinnerItem=view.findViewById(R.id.make_shift_spinner_item);
 
-        TextView idforspinner=view.findViewById(R.id.textforspinner);
+        spinnerItemTextView.setText(mealList.get(i).getName());
 
-        idforspinner.setText(mealList.get(i).getName());
-
+        spinnerItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               spinnerTextView.setText(mealList.get(i).getName());
+               listView.setVisibility(View.GONE);
+            }
+        });
 
 
 

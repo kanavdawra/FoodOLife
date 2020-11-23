@@ -79,23 +79,22 @@ public class DatabaseUtility {
 
     private ArrayList<Meal> getMeal(Cursor cursor){
         ArrayList<Meal> listMeal = new ArrayList<Meal>();
-        Log.e("Meal",String.valueOf(cursor.getCount()));
         cursor.moveToFirst();
         do{
             Meal m =new Meal();
             m.setName(cursor.getString(1));
-            m.setCarbo(cursor.getInt(2));
-            m.setProt(cursor.getInt(3));
-            m.setFat(cursor.getInt(4));
-            m.setVitamina(cursor.getInt(5));
-            m.setVitaminb(cursor.getInt(6));
-            m.setVitaminc(cursor.getInt(7));
-            m.setVitammine(cursor.getInt(8));
-            m.setSodium(cursor.getInt(9));
-            m.setIron(cursor.getInt(10));
-            m.setFibre(cursor.getInt(11));
-            m.setCalcium(cursor.getInt(12));
-            m.setCalorie(cursor.getInt(13));
+            m.setCarbohydrate(cursor.getDouble(2));
+            m.setProtein(cursor.getDouble(3));
+            m.setFat(cursor.getDouble(4));
+            m.setVitamina(cursor.getDouble(5));
+            m.setVitaminb(cursor.getDouble(6));
+            m.setVitaminc(cursor.getDouble(7));
+            m.setVitammine(cursor.getDouble(8));
+            m.setSodium(cursor.getDouble(9));
+            m.setIron(cursor.getDouble(10));
+            m.setFibre(cursor.getDouble(11));
+            m.setCalcium(cursor.getDouble(12));
+            m.setCalorie(cursor.getDouble(13));
             m.setId(cursor.getInt(0));
             listMeal.add(m);
         }while (cursor.moveToNext());
