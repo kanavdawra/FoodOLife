@@ -39,7 +39,7 @@ public class QuizQuestions extends Fragment {
         questionNo=view.findViewById(R.id.quiz_question_number);
         question=view.findViewById(R.id.quiz_question_question);
         option1=view.findViewById(R.id.quiz_question_option1);
-        option2=view.findViewById(R.id.log_meal_header);
+        option2=view.findViewById(R.id.quiz_question_option2);
         option3=view.findViewById(R.id.quiz_question_option3);
         option4=view.findViewById(R.id.quiz_question_option4);
         marksText=view.findViewById(R.id.quiz_question_marks);

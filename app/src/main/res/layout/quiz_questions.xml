@@ -75,7 +75,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias=".5"/>
     <TextView
-        android:id="@+id/log_meal_header"
+        android:id="@+id/quiz_question_option2"
         android:layout_width="350dp"
         android:layout_height="40dp"
         android:background="@drawable/blue_button_rounded_un_selected"

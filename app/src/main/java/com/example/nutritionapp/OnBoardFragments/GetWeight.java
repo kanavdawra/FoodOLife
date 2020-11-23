@@ -29,7 +29,7 @@ public class GetWeight extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.get_weight, container, false);
         TextView next=view.findViewById(R.id.get_weight_next);
-        final TextView weightText=view.findViewById(R.id.log_meal_get_date);
+        final TextView weightText=view.findViewById(R.id.get_weight_weight);
         final TextView kg=view.findViewById(R.id.get_weight_kg);
         final TextView lb=view.findViewById(R.id.get_weight_lb);
         next.setOnClickListener(new View.OnClickListener() {
