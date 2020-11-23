@@ -52,7 +52,7 @@ public class LogMealActivity extends AppCompatActivity {
     int food_id;
     String spinnerItem;
     String food_type;
-
+    ListView listforrecents;
     TextView food_serving_save;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,10 +62,13 @@ public class LogMealActivity extends AppCompatActivity {
         food_type= String.valueOf(getIntent().getExtras().get("type"));
         TextView header=findViewById(R.id.log_meal_header);
                 header.setText(food_type);
+        listforrecents=findViewById(R.id.log_meal_list_food);
 
         food_serving_save=findViewById(R.id.save_food_serving);
 
         setAmountDialog();
+
+        setRecentsAdaptor();
 
         LinearLayout imageforspinner=findViewById(R.id.spinnerview);
 
@@ -98,7 +101,7 @@ public class LogMealActivity extends AppCompatActivity {
                 int id= (int)new Utility().getSharedPreferences(context,"TempData","CurrentFoodid",1);
                 int amount=(int)new Utility().getSharedPreferences(context,"TempData","CurrentFoodServing",2);
 
-                ListView listforrecents=findViewById(R.id.log_meal_list_food);
+
 
 
 
@@ -115,18 +118,26 @@ public class LogMealActivity extends AppCompatActivity {
                                 date.getText().toString()+"','"+
                                 food_type+"')");
 
-                recents=new DatabaseUtility(context).getRecentsfoodamount(food_type);
 
-                Recentsadaptor ayadp=new Recentsadaptor(recents,LogMealActivity.this,(TextView)findViewById(R.id.log_meal_name),
-                        (TextView)findViewById(R.id.log_meal_amount),(TextView)findViewById(R.id.log_meal_calorie),listforrecents);
 
-                listforrecents.setAdapter(ayadp);
+                finish();
 
 
 
 
 
 
+
+            }
+        });
+
+
+
+        ImageView back=findViewById(R.id.log_meal_back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
 
@@ -164,8 +175,25 @@ public class LogMealActivity extends AppCompatActivity {
         });
     }
 
+    private void setRecentsAdaptor(){
+        recents=new DatabaseUtility(context).getRecentsfoodamount(food_type);
+
+        Recentsadaptor ayadp=new Recentsadaptor(recents,LogMealActivity.this,(TextView)findViewById(R.id.log_meal_name),
+                (TextView)findViewById(R.id.log_meal_amount),(TextView)findViewById(R.id.log_meal_calorie),listforrecents);
+
+        listforrecents.setAdapter(ayadp);
+    }
+
     public void setSpinnerItem(String spinnerItem) {
         this.spinnerItem = spinnerItem;
+int amount = 0,id=0,food_type=0;
+        Database database=new DatabaseUtility(context).getDataBase();
+        database.getWritableDatabase()
+                .execSQL("insert into food_intake (amount,food_id,date,type) values ("+
+                amount+"," +
+                id+",'"+
+                date+"','"+
+                food_type+"')");
 
     }
 }

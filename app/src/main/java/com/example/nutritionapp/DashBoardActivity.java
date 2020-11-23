@@ -1,5 +1,6 @@
 package com.example.nutritionapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -17,13 +18,21 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.nutritionapp.Modals.QuizRankList;
 import com.example.nutritionapp.Tools.Database.DatabaseUtility;
 import com.example.nutritionapp.Tools.Utility;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -36,11 +45,21 @@ public class DashBoardActivity extends AppCompatActivity {
     double weight=-1;
     int unit=-1;// kg=1 lb=0
     String formattedDate;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashboard_activity);
+
         bottomNavigationBar();
+        loadtoFirebase();
+
+
+
+
+
+
+
         LinearLayout btn_breakfast = findViewById(R.id.dashboard_add_breakfast);
         LinearLayout btn_lunch = findViewById(R.id.dashboard_add_lunch);
         LinearLayout btn_dinner = findViewById(R.id.dashboard_add_dinner);
@@ -75,6 +94,7 @@ public class DashBoardActivity extends AppCompatActivity {
 
 
     }
+
     public void addMeal(int mealType){
         Intent myResults = new Intent(DashBoardActivity.this, LogMealActivity.class);
         //Create a bundle and put values in it
@@ -201,8 +221,6 @@ public class DashBoardActivity extends AppCompatActivity {
         });
     }
 
-
-
     private void bottomNavigationBar()
     {
         final LinearLayout profile=findViewById(R.id.bottom_navigation_profile);
@@ -256,6 +274,7 @@ public class DashBoardActivity extends AppCompatActivity {
                 dashboard.setBackgroundResource(R.drawable.view_top_right_border_black);
                 leaderboard.setBackgroundResource(R.drawable.view_top_right_border_blue);
                 stats.setBackgroundResource(R.drawable.view_top_right_border_black);
+                startActivity(new Intent(DashBoardActivity.this,LeaderBoardActivity.class));
             }
         });
 
@@ -283,6 +302,52 @@ public class DashBoardActivity extends AppCompatActivity {
                         +unit+"'"+
                         ")"
         );
+    }
+
+    private void loadtoFirebase(){
+
+        if(new Utility().getSharedPreferences(this,"UserData","Name","Name").equals("Name")) {
+
+            final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+            FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+
+            DatabaseReference databaseReference = firebaseDatabase.getReference("UserId");
+
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+
+
+
+
+                    String email = null;
+                    String imageURI = null;
+                    String name = null;
+                    try {
+
+                        email = firebaseAuth.getCurrentUser().getEmail();
+
+                        imageURI = Objects.requireNonNull(dataSnapshot.child(new DatabaseUtility(DashBoardActivity.this).getUserId(firebaseAuth.getCurrentUser().getEmail())).child("ImageURI").getValue()).toString();
+
+                        name = Objects.requireNonNull(dataSnapshot.child(new DatabaseUtility(DashBoardActivity.this).getUserId(firebaseAuth.getCurrentUser().getEmail())).child("Name").getValue()).toString();
+                        Log.e("Name", name);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    new Utility().setSharedPreferences(DashBoardActivity.this, "UserData", "Email", email);
+                    new Utility().setSharedPreferences(DashBoardActivity.this, "UserData", "ImageURI", imageURI);
+                    new Utility().setSharedPreferences(DashBoardActivity.this, "UserData", "Name", name);
+                    new Utility().setSharedPreferences(DashBoardActivity.this, "UserData", "OnBoard", "1");
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
     }
 
     public String round(double weight){

@@ -58,8 +58,8 @@ public class Recentsadaptor extends BaseAdapter {
         TextView recentlistcalorie=view.findViewById(R.id.recent_list_view_calorie);
 
         recentlistname.setText(recentlist.get(i).getRecent_food_name());
-        recentlistamount.setText(recentlist.get(i).getFood_amount());
-        recentlistcalorie.setText(recentlist.get(i).getFood_amount()*recentlist.get(i).getfood_calorie());
+        recentlistamount.setText(recentlist.get(i).getFood_amount()+"");
+        recentlistcalorie.setText(recentlist.get(i).getfood_calorie()+"");
 
 
 

@@ -29,6 +29,7 @@ public class SplashActivity extends AppCompatActivity {
                 FirebaseUser currentUser = mAuth.getCurrentUser();
                 String onBoard= new Utility().getSharedPreferences(SplashActivity.this,"UserData","OnBoard","0");
 
+                Log.e("onboard splash",onBoard);
                 try {
 
                     if(!Objects.equals(currentUser.getEmail(), "") && onBoard.equals("1") && currentUser.isEmailVerified()){

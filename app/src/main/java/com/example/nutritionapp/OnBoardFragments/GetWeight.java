@@ -51,7 +51,6 @@ public class GetWeight extends Fragment {
                         intent.putExtra("WeightUnit","KG");
                         new Utility().setSharedPreferences(Objects.requireNonNull(getActivity()),"UserData","WeightUnit","KG");
                     }
-                    new Utility().setSharedPreferences(Objects.requireNonNull(getActivity()),"UserData","OnBoard",3);
                     new Utility().setSharedPreferences(Objects.requireNonNull(getActivity()),"UserData","Weight",(float) weight);
                     Objects.requireNonNull(getActivity()).sendBroadcast(intent);
                 }

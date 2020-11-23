@@ -41,7 +41,6 @@ public class GetAge extends Fragment {
                 if(!ageString.equals("") && age>=13){
                     age=Double.parseDouble(ageText.getText().toString());
                     intent.putExtra("Age",age);
-                    new Utility().setSharedPreferences(Objects.requireNonNull(getActivity()),"UserData","OnBoard",2);
                     new Utility().setSharedPreferences(Objects.requireNonNull(getActivity()),"UserData","Age",(float) age);
                     Objects.requireNonNull(getActivity()).sendBroadcast(intent);
                 }

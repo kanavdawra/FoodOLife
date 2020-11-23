@@ -5,11 +5,23 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
+import com.example.nutritionapp.Interface.QuizInterface;
+import com.example.nutritionapp.Interface.RankListInterface;
 import com.example.nutritionapp.Modals.Meal;
 import com.example.nutritionapp.Modals.Quiz;
+import com.example.nutritionapp.Modals.QuizRankList;
 import com.example.nutritionapp.Modals.Recentmeals;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class DatabaseUtility {
     Context context;
@@ -65,7 +77,7 @@ public class DatabaseUtility {
 
 
         }while (cursor.moveToNext());
-       return quiz;
+        return quiz;
     }
 
     public ArrayList<Meal> getMeal(){
@@ -104,16 +116,19 @@ public class DatabaseUtility {
     public ArrayList<Recentmeals> getrecentsModal(Cursor cursor){
 
         ArrayList<Recentmeals> listofrecents=new ArrayList<>();
-        cursor.moveToFirst();
-        do{
+        cursor.moveToPosition(0);
+
+
+
+        while (!(cursor.getPosition()==cursor.getCount())){
             Recentmeals objectforrecentmeals=new Recentmeals();
             objectforrecentmeals.setFood_amount(cursor.getInt(0));
             objectforrecentmeals.setRecent_food_name(cursor.getString(1));
             objectforrecentmeals.setfood_calorie(cursor.getInt(2) * cursor.getInt(0) );
 
-            Log.e("stringggs",cursor.getInt(2) * cursor.getInt(0)+"");
-
-        }while (cursor.moveToNext());
+            listofrecents.add(objectforrecentmeals);
+            cursor.moveToNext();
+        }
 
         return listofrecents;
     }
@@ -125,7 +140,7 @@ public class DatabaseUtility {
         Cursor cursor1=databaseone.rawQuery("Select " +
                 "b.amount,a.food_name,a.calorie from" +
                 " food_nutrients a  inner join food_intake b on " +
-                "a.id=b.food_id  where b.type='"+type+"'",null);
+                "a.id=b.food_id  where b.type='"+type+"' order by b.date",null);
 
         Log.e("query",String.valueOf(cursor1.getCount()));
 
@@ -134,6 +149,51 @@ public class DatabaseUtility {
         return listofrecents;
     }
 
+    public void getQuizRankList(final RankListInterface rankListInterface){
+
+        final ArrayList<QuizRankList> quizRankList=new ArrayList<>();
+
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+
+        DatabaseReference databaseReference = firebaseDatabase.getReference("RankList").child("Quiz");
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                snapshot.getChildrenCount();
+
+                for(DataSnapshot rankSnapshot: snapshot.getChildren()){
+                    String name=String.valueOf(rankSnapshot.child("Name").getValue());
+                    String email=String.valueOf(rankSnapshot.child("Email").getValue());
+                    int index= Integer.parseInt(Objects.requireNonNull(rankSnapshot.child("QuizIndex").getValue()).toString());
+                    int marks= Integer.parseInt(Objects.requireNonNull(rankSnapshot.child("QuizMarks").getValue()).toString());
+
+                    QuizRankList rankListObject= new QuizRankList();
+                    rankListObject.setEmail(email);
+                    rankListObject.setName(name);
+                    rankListObject.setQuizIndex(index);
+                    rankListObject.setQuizScore(marks);
+                    double score=(double) marks/index;
+                    rankListObject.setTotalscore(score);
+                    quizRankList.add(rankListObject);
+                }
+                rankListInterface.QuizRankList(quizRankList);
+                Log.e("RankListCount",String.valueOf(snapshot.getChildrenCount()));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+    }
+
+    public void getGoalRankList(final RankListInterface rankListInterface){
+
+
+    }
 
 
 
@@ -151,4 +211,5 @@ public class DatabaseUtility {
         }
         return userId.toString();
     }
+
 }

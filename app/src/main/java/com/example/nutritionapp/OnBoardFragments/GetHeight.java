@@ -51,7 +51,6 @@ public class GetHeight extends Fragment {
                         new Utility().setSharedPreferences(Objects.requireNonNull(getActivity()),"UserData","HeightUnit","CM");
                         intent.putExtra("HeightUnit","CM");
                     }
-                    new Utility().setSharedPreferences(Objects.requireNonNull(getActivity()),"UserData","OnBoard",4);
                     new Utility().setSharedPreferences(Objects.requireNonNull(getActivity()),"UserData","Height",(float)height);
                     Objects.requireNonNull(getActivity()).sendBroadcast(intent);
                 }
