@@ -2,40 +2,50 @@ package com.example.nutritionapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
-import android.database.DatabaseUtils;
+import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
-import com.example.nutritionapp.Tools.Database.DataForDatabase;
 import com.example.nutritionapp.Tools.Database.DatabaseUtility;
-import com.google.firebase.auth.FirebaseAuth;
+import com.example.nutritionapp.Tools.Utility;
+import com.rengwuxian.materialedittext.MaterialEditText;
+
+import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
+
+import de.mateware.snacky.Snacky;
 
 public class DashBoardActivity extends AppCompatActivity {
     Dialog AmountDialog;
-    EditText weight;
+    double weight=-1;
+    int unit=-1;// kg=1 lb=0
+    String formattedDate;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashboard_activity);
         bottomNavigationBar();
-        Button btn_breakfast = (Button) findViewById(R.id.btn_breakfast);
-        Button btn_lunch = (Button) findViewById(R.id.btn_lunch);
-        Button btn_dinner = (Button) findViewById(R.id.btn_dinner);
-        Button btn_snack = (Button) findViewById(R.id.btn_snack);
-        enterStreak();
+        LinearLayout btn_breakfast = findViewById(R.id.dashboard_add_breakfast);
+        LinearLayout btn_lunch = findViewById(R.id.dashboard_add_lunch);
+        LinearLayout btn_dinner = findViewById(R.id.dashboard_add_dinner);
+        LinearLayout btn_snack = findViewById(R.id.dashboard_add_snack);
+        weightDialog();
         btn_breakfast.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
@@ -61,12 +71,11 @@ public class DashBoardActivity extends AppCompatActivity {
             }
         });
 
-       //String auth=FirebaseAuth.getInstance().getCurrentUser().getEmail();
+        //String auth=FirebaseAuth.getInstance().getCurrentUser().getEmail();
 
 
     }
     public void addMeal(int mealType){
-        //EditText dateEdit = (EditText) findViewById(R.id.editDate);
         Intent myResults = new Intent(DashBoardActivity.this, LogMealActivity.class);
         //Create a bundle and put values in it
         Bundle myBundle = new Bundle();
@@ -86,40 +95,114 @@ public class DashBoardActivity extends AppCompatActivity {
             default:
                 myBundle.putString("type", "");
         }
-       // myBundle.putInt("type", mealType); //syntax or put is keyname, value name
-        ///myBundle.putString("date",dateEdit.getText().toString());
-        //put the bundle into the intent
         myResults.putExtras(myBundle); //adds the bundle to the intent
         startActivity(myResults); //start activity with the intent object
     }
-    private void enterStreak(){
+
+    private void weightDialog(){
+        Date c = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        formattedDate = df.format(c);
+        String last_update = new DatabaseUtility(DashBoardActivity.this).getLastWeightUpdateDate();
+
         AmountDialog = new Dialog(this);
-        AmountDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        AmountDialog.setContentView(R.layout.streak_dialog);
-        AmountDialog.show();
-        Button bt_yes = (Button)AmountDialog.findViewById(R.id.btn_yes);
-        Button bt_no = (Button)AmountDialog.findViewById(R.id.btn_no);
-        bt_yes.setOnClickListener(new View.OnClickListener() {
+        AmountDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        AmountDialog.setContentView(R.layout.weight_dialog);
+        AmountDialog.setCanceledOnTouchOutside(false);
+        if (!last_update.equals(formattedDate)) {
+            AmountDialog.show();
+        }
+        else{
+            return;
+        }
+
+        TextView bt_save = AmountDialog.findViewById(R.id.weight_dialog_save);
+        TextView bt_cancel = AmountDialog.findViewById(R.id.weight_dialog_cancel);
+        final TextView kg = AmountDialog.findViewById(R.id.weight_dialog_kg);
+        final TextView lb = AmountDialog.findViewById(R.id.weight_dialog_lb);
+        final TextView weightText=AmountDialog.findViewById(R.id.weight_dialog_weight);
+
+        bt_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                weight = (EditText) AmountDialog.findViewById(R.id.weight_dia);
-                Date c = Calendar.getInstance().getTime();
-                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-                String formattedDate = df.format(c);
-                String last_update = new DatabaseUtility(DashBoardActivity.this).getLastUpdate();
-                if (last_update != formattedDate) {
-                    new DataForDatabase(DashBoardActivity.this).addStreak(Double.valueOf(weight.getText().toString()), formattedDate);
+                if(weightText.getText().toString().equals("")){
+                    weightText.setError("* Weight cannot be empty");
                 }
+                else if(unit==-1){
+                    weightText.setError("Please select units");
+                    Log.e("Weight",weightText.getText().toString());
+                }
+                else if(weight==0){
+                    weightText.setError("Weight cannot be 0");
+                }
+                else{
+                    if(unit==0){
+                        addWeightSQLQuery(weight,formattedDate,"lb");
+                    }
+                    else {
+                        addWeightSQLQuery(weight,formattedDate,"kg");
+                    }
+                    AmountDialog.dismiss();
+                }
+
+
+
+            }
+        });
+
+        bt_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 AmountDialog.dismiss();
             }
         });
-        bt_no.setOnClickListener(new View.OnClickListener() {
+
+        kg.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("UseCompatLoadingForDrawables")
             @Override
             public void onClick(View v) {
-                AmountDialog.dismiss();
+                if(!weightText.getText().toString().equals("")){
+
+                    weight=Double.parseDouble(weightText.getText().toString());
+                    if(unit==1){}
+                    else if (unit==0){
+                        weight=weight*.454;
+                        weightText.setText(round(weight));
+                    }
+                    else {}
+
+                }
+                unit=1;
+                kg.setBackground(getResources().getDrawable(R.drawable.blue_button_rounded_selected));
+                lb.setBackground(getResources().getDrawable(R.drawable.blue_button_rounded_un_selected));
+            }
+        });
+
+        lb.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("UseCompatLoadingForDrawables")
+            @Override
+            public void onClick(View v) {
+                if(!weightText.getText().toString().equals("")){
+
+                    weight=Double.parseDouble(weightText.getText().toString());
+                    if(unit==1){
+
+                        weight=(weight*1000)/454;
+                        weightText.setText(round(weight));
+                    }
+                    else if (unit==0){ }
+                    else {}
+
+                }
+                unit=0;
+                lb.setBackground(getResources().getDrawable(R.drawable.blue_button_rounded_selected));
+                kg.setBackground(getResources().getDrawable(R.drawable.blue_button_rounded_un_selected));
             }
         });
     }
+
+
+
     private void bottomNavigationBar()
     {
         final LinearLayout profile=findViewById(R.id.bottom_navigation_profile);
@@ -127,7 +210,7 @@ public class DashBoardActivity extends AppCompatActivity {
         final LinearLayout dashboard=findViewById(R.id.bottom_navigation_dashboard);
         final LinearLayout leaderboard=findViewById(R.id.bottom_navigation_leaderboard);
         final LinearLayout stats=findViewById(R.id.bottom_navigation_stats);
-        quiz.setBackgroundResource(R.drawable.view_top_right_border_blue);
+        dashboard.setBackgroundResource(R.drawable.view_top_right_border_blue);
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -136,6 +219,8 @@ public class DashBoardActivity extends AppCompatActivity {
                 dashboard.setBackgroundResource(R.drawable.view_top_right_border_black);
                 leaderboard.setBackgroundResource(R.drawable.view_top_right_border_black);
                 stats.setBackgroundResource(R.drawable.view_top_right_border_black);
+                startActivity(new Intent(DashBoardActivity.this,ProfileActivity.class));
+                finish();
             }
         });
 
@@ -147,6 +232,8 @@ public class DashBoardActivity extends AppCompatActivity {
                 dashboard.setBackgroundResource(R.drawable.view_top_right_border_black);
                 leaderboard.setBackgroundResource(R.drawable.view_top_right_border_black);
                 stats.setBackgroundResource(R.drawable.view_top_right_border_black);
+                startActivity(new Intent(DashBoardActivity.this,Quiz.class));
+                finish();
             }
         });
 
@@ -184,5 +271,28 @@ public class DashBoardActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    public void addWeightSQLQuery(double weight, String date,String unit){
+        SQLiteDatabase db=new DatabaseUtility(this).getDataBase().getWritableDatabase();
+
+        db.execSQL(
+                "insert into user_weight(weight,date,unit) values ('"
+                        +weight+"','"
+                        +date+"','"
+                        +unit+"'"+
+                        ")"
+        );
+    }
+
+    public String round(double weight){
+        weight=Math.round(weight*100)/100.0;
+        if(Math.floor(weight)==weight){
+            int weightInt=(int)weight;
+            return String.valueOf(weightInt);
+        }
+        else {
+            return String.valueOf(weight);
+        }
     }
 }

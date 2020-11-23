@@ -73,7 +73,7 @@ public class LogMealActivity extends AppCompatActivity {
             }
         });
 
-        imageforspinner.setOnClickListener(new View.OnClickListener() {
+       imageforspinner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -81,6 +81,8 @@ public class LogMealActivity extends AppCompatActivity {
                ListView listforsps=findViewById(R.id.listforspinnerpopulation);
                MealAdapter myadapter=new MealAdapter(meals);
                listforsps.setAdapter(myadapter);
+
+            
 
 
             }

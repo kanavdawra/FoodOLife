@@ -8,232 +8,379 @@
     tools:context=".MainActivity">
 
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card_view"
-        android:layout_width="400dp"
-        android:layout_height="160dp"
-        android:layout_gravity="center"
-        app:cardCornerRadius="4dp"
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/DASHBOARD"
+        android:textColor="@color/colorSecondary"
+        app:layout_constraintBottom_toTopOf="@+id/dashboard_linearLayout1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-        tools:layout_editor_absoluteX="6dp">
-
-        <RelativeLayout
-            android:layout_width="408dp"
-            android:layout_height="match_parent"
-            android:background="@color/colorPrimaryLight"
-            android:shrinkColumns="0"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="133dp">
-
-
-            <TextView
-                android:id="@+id/eaten"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="298dp"
-                android:layout_marginLeft="298dp"
-                android:layout_marginTop="85dp"
-                android:layout_marginEnd="61dp"
-                android:layout_marginRight="75dp"
-                android:layout_marginBottom="35dp"
-                android:background="@drawable/black_circle_40"
-                android:gravity="center"
-                android:text="0\nEATEN"
-                android:textColor="@color/colorText"
-                android:textSize="14sp"
-                tools:ignore="HardcodedText" />
-
-            <TextView
-                android:id="@+id/carbs"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="51dp"
-                android:layout_marginLeft="51dp"
-                android:layout_marginTop="19dp"
-                android:layout_marginEnd="291dp"
-                android:layout_marginRight="291dp"
-                android:layout_marginBottom="101dp"
-                android:background="@drawable/black_circle_40"
-                android:gravity="center"
-                android:text="CARBS\n202 g left"
-                android:textColor="@color/colorText"
-                android:textSize="14sp"
-                tools:ignore="HardcodedText,SmallSp" />
-
-            <TextView
-                android:id="@+id/burned"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="297dp"
-                android:layout_marginLeft="297dp"
-                android:layout_marginTop="19dp"
-                android:layout_marginEnd="51dp"
-                android:layout_marginRight="51dp"
-                android:layout_marginBottom="102dp"
-                android:background="@drawable/black_circle_40"
-                android:gravity="center"
-                android:text="0\nBURNED"
-                android:textColor="@color/colorText"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/fat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="84dp"
-                android:layout_marginLeft="61dp"
-                android:layout_marginTop="85dp"
-                android:layout_marginEnd="264dp"
-                android:layout_marginRight="264dp"
-                android:layout_marginBottom="35dp"
-                android:background="@drawable/black_circle_40"
-                android:gravity="center"
-                android:text="10\nFAT left"
-                android:textColor="@color/colorText"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/kcal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginEnd="154dp"
-                android:layout_marginRight="154dp"
-                android:layout_marginBottom="83dp"
-                android:background="@drawable/black_circle_80x80"
-                android:gravity="center"
-                android:text="1916\nKCAL LEFT"
-                android:textAlignment="center"
-                android:textColor="@color/colorWhite"
-                android:textSize="16sp"
-                app:layout_constraintVertical_bias=".5" />
-
-            <TextView
-                android:id="@+id/protin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginEnd="162dp"
-                android:layout_marginRight="162dp"
-                android:layout_marginBottom="18dp"
-                android:background="@drawable/black_circle_40"
-                android:gravity="center"
-                android:text="PROTEIN\n81 g left"
-                android:textColor="@color/colorText"
-                android:textSize="16sp"
-                tools:ignore="HardcodedText,SmallSp" />
-
-        </RelativeLayout>
-
-    </androidx.cardview.widget.CardView>
-
-
-    <Button
-        android:id="@+id/btn_breakfast"
-        android:layout_width="350dp"
-        android:layout_height="60dp"
-        android:layout_marginBottom="2dp"
-        android:background="@color/colorPrimaryLight"
-        android:drawableLeft="@drawable/bread_48"
-        android:drawableRight="@drawable/add_48"
-        android:text="@string/breakfast"
-        android:textColor="@color/colorText"
-        app:layout_constraintBottom_toTopOf="@+id/btn_lunch"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/card_view" />
-
-
-    <Button
-        android:id="@+id/btn_lunch"
-        android:layout_width="350dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginBottom="2dp"
-        android:background="@color/colorPrimaryLight"
-        android:drawableLeft="@drawable/bento_48"
-        android:drawableRight="@drawable/add_48"
-        android:text="@string/lunch"
-        android:textColor="@color/colorText"
-        app:layout_constraintBottom_toTopOf="@+id/btn_dinner"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_breakfast" />
-
-    <Button
-        android:id="@+id/btn_dinner"
-        android:layout_width="350dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginBottom="2dp"
-        android:background="@color/colorPrimaryLight"
-        android:drawableLeft="@drawable/food_and_wine_48"
-        android:drawableRight="@drawable/add_48"
-        android:text="@string/dinner"
-        android:textColor="@color/colorText"
-        app:layout_constraintBottom_toTopOf="@+id/btn_snack"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_lunch" />
-
-    <Button
-        android:id="@+id/btn_snack"
-        android:layout_width="350dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:background="@color/colorPrimaryLight"
-        android:drawableLeft="@drawable/doughnut_48"
-        android:drawableRight="@drawable/add_48"
-        android:text="@string/snack"
-        android:textColor="@color/colorText"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_dinner" />
-
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias=".4" />
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/dashboard_linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/dashboard_linearLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1">
+
+
+        <LinearLayout
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:background="@drawable/black_circle_120x120"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/dashboard_calorie"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="30dp"
+                android:gravity="center"
+                android:textColor="@color/colorText"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:gravity="center"
+                android:text="@string/kcal"
+                android:textColor="@color/colorText"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/dashboard_linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/dashboard_linearLayout3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias=".95">
+
+
+        <LinearLayout
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:gravity="center"
+                android:text="@string/CARBS"
+                android:textColor="@color/colorText"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="70dp"
+                android:layout_height="1dp"
+                android:background="@color/colorWhite" />
+
+            <TextView
+                android:id="@+id/dashboard_carbs"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:gravity="center"
+                android:textColor="@color/colorText" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:gravity="center"
+                android:text="@string/PROTEIN"
+                android:textColor="@color/colorText"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="70dp"
+                android:layout_height="1dp"
+                android:background="@color/colorWhite" />
+
+            <TextView
+                android:id="@+id/dashboard_protein"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:gravity="center"
+                android:textColor="@color/colorText" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:gravity="center"
+                android:text="@string/FATS"
+                android:textColor="@color/colorText"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="70dp"
+                android:layout_height="1dp"
+                android:background="@color/colorWhite" />
+
+            <TextView
+                android:id="@+id/dashboard_fats"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:gravity="center"
+                android:textColor="@color/colorText" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/dashboard_linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/dashboard_linearLayout4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias=".95">
+
+        <LinearLayout
+            android:id="@+id/dashboard_add_breakfast"
+            android:layout_width="380dp"
+            android:layout_height="70dp"
+            android:background="@color/colorPrimary"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:padding="8dp"
+                android:src="@drawable/icon_breakfast" />
+
+            <LinearLayout
+                android:layout_width="240dp"
+                android:layout_height="70dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:gravity="center_vertical"
+                    android:paddingStart="20dp"
+                    android:text="@string/add_breakfast"
+                    android:textColor="@color/colorText"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/dashboard_breakfast_recommendation"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:gravity="center_vertical"
+                    android:paddingStart="20dp"
+                    android:textColor="@color/colorTextDark"
+                    android:textSize="15sp" />
+
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:padding="15dp"
+                android:src="@drawable/icon_plus" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/dashboard_add_lunch"
+            android:layout_width="380dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/colorPrimary"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:padding="8dp"
+                android:src="@drawable/icon_lunch" />
+
+            <LinearLayout
+                android:layout_width="240dp"
+                android:layout_height="70dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:gravity="center_vertical"
+                    android:paddingStart="20dp"
+                    android:text="@string/add_lunch"
+                    android:textColor="@color/colorText"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/dashboard_lunch_recommendation"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:gravity="center_vertical"
+                    android:paddingStart="20dp"
+                    android:textColor="@color/colorTextDark"
+                    android:textSize="15sp" />
+
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:padding="15dp"
+                android:src="@drawable/icon_plus" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/dashboard_add_dinner"
+            android:layout_width="380dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:padding="8dp"
+                android:src="@drawable/icon_dinner" />
+
+            <LinearLayout
+                android:layout_width="240dp"
+                android:layout_height="70dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:gravity="center_vertical"
+                    android:paddingStart="20dp"
+                    android:text="@string/add_dinner"
+                    android:textColor="@color/colorText"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/dashboard_dinner_recommendation"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:gravity="center_vertical"
+                    android:paddingStart="20dp"
+                    android:textColor="@color/colorTextDark"
+                    android:textSize="15sp" />
+
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:padding="15dp"
+                android:src="@drawable/icon_plus" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/dashboard_add_snack"
+            android:layout_width="380dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/colorPrimary"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:padding="8dp"
+                android:src="@drawable/icon_snack" />
+
+            <LinearLayout
+                android:layout_width="240dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:gravity="center_vertical"
+                    android:paddingStart="20dp"
+                    android:text="@string/add_snack"
+                    android:textColor="@color/colorText"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/dashboard_snack_recommendation"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:gravity="center_vertical"
+                    android:paddingStart="20dp"
+                    android:textColor="@color/colorTextDark"
+                    android:textSize="15sp" />
+
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:padding="15dp"
+                android:src="@drawable/icon_plus" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/dashboard_linearLayout4"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:background="@color/colorPrimary"

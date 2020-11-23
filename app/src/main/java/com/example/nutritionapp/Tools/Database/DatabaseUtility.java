@@ -32,18 +32,17 @@ public class DatabaseUtility {
         return quiz;
     }
 
-    public String getLastUpdate(){
+    public String getLastWeightUpdateDate(){
         SQLiteDatabase database=getDataBase().getReadableDatabase();
-        Cursor cursor=database.rawQuery("select * from streak order by date desc limit 1",null);
+        Cursor cursor=database.rawQuery("select * from user_weight order by date desc limit 1",null);
         cursor.moveToFirst();
         String date ="";
         if(cursor.getCount()>0){
-            date =cursor.getString(2);
+            date =cursor.getString(1);
         }
         cursor.close();
         return date;
     }
-
 
     private Quiz[] GetQuizModal(Cursor cursor){
         Quiz[] quiz = new Quiz[11];
@@ -77,6 +76,7 @@ public class DatabaseUtility {
         cursor.close();
         return listMeal;
     }
+
     private ArrayList<Meal> getMeal(Cursor cursor){
         ArrayList<Meal> listMeal = new ArrayList<Meal>();
         Log.e("Meal",String.valueOf(cursor.getCount()));
