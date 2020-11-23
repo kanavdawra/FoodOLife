@@ -31,9 +31,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.rengwuxian.materialedittext.MaterialEditText;
+import com.squareup.picasso.Picasso;
 
 import java.util.Objects;
 
@@ -113,7 +117,7 @@ public class SignIn extends Fragment {
                             FirebaseUser user = mAuth.getCurrentUser();
                             assert user != null;
                             if(user.isEmailVerified()){
-                                CheckOnboard();
+                                CheckOnBoard();
                             }
                             if(!user.isEmailVerified()){
                                 Snacky.builder().setActivity(Objects.requireNonNull(getActivity()))
@@ -142,7 +146,6 @@ public class SignIn extends Fragment {
                     }
                 });
     }
-
 
     public void CheckGoogleSignIn(){
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -176,8 +179,6 @@ public class SignIn extends Fragment {
 
     }
 
-
-
     private void firebaseAuthWithGoogle(String idToken) {
         signIn.setText(R.string.signing_in);
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
@@ -198,7 +199,7 @@ public class SignIn extends Fragment {
                             myRef.child("Name").setValue(name);
                             myRef.child("Email").setValue(email);
                             myRef.child("Password").setValue("");
-                            updateUI();
+                            CheckOnBoard();
 
                         } else {
                             Snacky.builder().setActivity(Objects.requireNonNull(getActivity()))
@@ -212,36 +213,124 @@ public class SignIn extends Fragment {
                 });
     }
 
-    public void updateUI(){
+    public void CheckOnBoard(){
+//        FirebaseAuth mAuth=FirebaseAuth.getInstance();
+//        FirebaseUser currentUser = mAuth.getCurrentUser();
+//        int onBoard= (int) new Utility().getSharedPreferences(Objects.requireNonNull(getActivity()),"UserData","OnBoard",0);
+//        Log.e("OnBoard",String.valueOf(onBoard));
+//        int verified=0;
+//        if(currentUser!=null) {
+//            if (currentUser.isEmailVerified()) {
+//                verified = 1;
+//            }
+//            if (currentUser != null && onBoard == 0 && verified == 1) {
+//                Intent intent = new Intent("MainActivity");
+//                intent.putExtra("Task", "GetSex");
+//                Objects.requireNonNull(getActivity()).sendBroadcast(intent);
+//            }
+//            if (currentUser != null && onBoard == 6 && verified == 1) {
+//                getActivity().finish();
+//                getActivity().startActivity(new Intent(getActivity(), DashBoardActivity.class));
+//
+//            }
+//        }
 
-        Intent intent=new Intent("MainActivity");
-        intent.putExtra("Task","GetSex");
-        Objects.requireNonNull(getActivity()).sendBroadcast(intent);
+
+        final FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+        FirebaseDatabase firebaseDatabase=FirebaseDatabase.getInstance();
+
+
+        DatabaseReference databaseReference=firebaseDatabase.getReference("UserId");
+        Log.e("snap",firebaseAuth.getCurrentUser().getEmail());
+
+
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                int age= 0;
+                String email= null;
+                String goal= null;
+                float height= 0;
+                String heightUnit= null;
+                String imageURI= null;
+                String name= null;
+                String sex= null;
+                float weight= 0;
+                String weightUnit= null;
+                String onBoard = "0";
+                try {
+                    age = Integer.parseInt(Objects.requireNonNull(dataSnapshot.child(getUserId(Objects.requireNonNull(firebaseAuth.getCurrentUser().getEmail()))).child("Age").getValue()).toString());
+
+                    email = firebaseAuth.getCurrentUser().getEmail();
+
+                    goal = Objects.requireNonNull(dataSnapshot.child(getUserId(firebaseAuth.getCurrentUser().getEmail())).child("Goal").getValue()).toString();
+
+                    height = Float.parseFloat(Objects.requireNonNull(dataSnapshot.child(getUserId(firebaseAuth.getCurrentUser().getEmail())).child("Height").getValue()).toString());
+
+                    heightUnit = Objects.requireNonNull(dataSnapshot.child(getUserId(firebaseAuth.getCurrentUser().getEmail())).child("HeightUnit").getValue()).toString();
+
+                    imageURI = Objects.requireNonNull(dataSnapshot.child(getUserId(firebaseAuth.getCurrentUser().getEmail())).child("ImageURI").getValue()).toString();
+
+                    name = Objects.requireNonNull(dataSnapshot.child(getUserId(firebaseAuth.getCurrentUser().getEmail())).child("Name").getValue()).toString();
+
+                    sex = Objects.requireNonNull(dataSnapshot.child(getUserId(firebaseAuth.getCurrentUser().getEmail())).child("Sex").getValue()).toString();
+
+                    weight = Float.parseFloat(Objects.requireNonNull(dataSnapshot.child(getUserId(firebaseAuth.getCurrentUser().getEmail())).child("Weight").getValue()).toString());
+
+                    weightUnit = Objects.requireNonNull(dataSnapshot.child(getUserId(firebaseAuth.getCurrentUser().getEmail())).child("WeightUnit").getValue()).toString();
+
+                    onBoard = Objects.requireNonNull(dataSnapshot.child(getUserId(firebaseAuth.getCurrentUser().getEmail())).child("OnBoard").getValue()).toString();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+
+                if (onBoard.equals("1")) {
+                    new Utility().setSharedPreferences(Objects.requireNonNull(getActivity()), "UserData", "Age", age);
+                    new Utility().setSharedPreferences(Objects.requireNonNull(getActivity()), "UserData", "Email", email);
+                    new Utility().setSharedPreferences(Objects.requireNonNull(getActivity()), "UserData", "Goal", goal);
+                    new Utility().setSharedPreferences(Objects.requireNonNull(getActivity()), "UserData", "Height", height);
+                    new Utility().setSharedPreferences(Objects.requireNonNull(getActivity()), "UserData", "HeightUnit", heightUnit);
+                    new Utility().setSharedPreferences(Objects.requireNonNull(getActivity()), "UserData", "ImageURI", imageURI);
+                    new Utility().setSharedPreferences(Objects.requireNonNull(getActivity()), "UserData", "Name", name);
+                    new Utility().setSharedPreferences(Objects.requireNonNull(getActivity()), "UserData", "Sex", sex);
+                    new Utility().setSharedPreferences(Objects.requireNonNull(getActivity()), "UserData", "Weight", weight);
+                    new Utility().setSharedPreferences(Objects.requireNonNull(getActivity()), "UserData", "WeightUnit", weightUnit);
+                    new Utility().setSharedPreferences(Objects.requireNonNull(getActivity()), "UserData", "OnBoard", onBoard);
+                    updateUI(1);
+                } else {
+                    updateUI(0);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
     }
 
-    public void CheckOnboard(){
-        FirebaseAuth mAuth=FirebaseAuth.getInstance();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        int onBoard= (int) new Utility().getSharedPreferences(Objects.requireNonNull(getActivity()),"UserData","OnBoard",0);
-        Log.e("OnBoard",String.valueOf(onBoard));
-        int verified=0;
-        if(currentUser!=null) {
-            if (currentUser.isEmailVerified()) {
-                verified = 1;
-            }
-            if (currentUser != null && onBoard == 0 && verified == 1) {
-                Intent intent = new Intent("MainActivity");
-                intent.putExtra("Task", "GetSex");
-                Objects.requireNonNull(getActivity()).sendBroadcast(intent);
-            }
-            if (currentUser != null && onBoard == 6 && verified == 1) {
-                getActivity().finish();
-                getActivity().startActivity(new Intent(getActivity(), DashBoardActivity.class));
+    public void updateUI(int task){
 
-            }
+        if(task==0){
+            Intent intent=new Intent("MainActivity");
+            intent.putExtra("Task","GetSex");
+            Objects.requireNonNull(getActivity()).sendBroadcast(intent);
         }
+
+        if (task==1){
+            Objects.requireNonNull(getActivity()).startActivity(new Intent(getActivity(),DashBoardActivity.class));
+            getActivity().finish();
+        }
+
+
+
     }
+
     public String getUserId(String email){
         StringBuilder userId= new StringBuilder();
         int temp=-2;

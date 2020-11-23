@@ -130,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
         myRef.child("Height").setValue(Height);
         myRef.child("HeightUnit").setValue(HeightUnit);
         myRef.child("Goal").setValue(Goal);
+        myRef.child("OnBoard").setValue(1);
     }
     public String getUserId(String email){
         StringBuilder userId= new StringBuilder();

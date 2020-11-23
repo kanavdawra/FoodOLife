@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -67,6 +68,8 @@ public class Quiz extends AppCompatActivity {
                 dashboard.setBackgroundResource(R.drawable.view_top_right_border_black);
                 leaderboard.setBackgroundResource(R.drawable.view_top_right_border_black);
                 stats.setBackgroundResource(R.drawable.view_top_right_border_black);
+                startActivity(new Intent(Quiz.this,ProfileActivity.class));
+                finish();
             }
         });
 
@@ -89,6 +92,8 @@ public class Quiz extends AppCompatActivity {
                 dashboard.setBackgroundResource(R.drawable.view_top_right_border_blue);
                 leaderboard.setBackgroundResource(R.drawable.view_top_right_border_black);
                 stats.setBackgroundResource(R.drawable.view_top_right_border_black);
+                startActivity(new Intent(Quiz.this,DashBoardActivity.class));
+                finish();
             }
         });
 

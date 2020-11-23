@@ -76,4 +76,16 @@
     <string name="exercise">Add exercise\n</string>
     <string name="search_hint">Search for food</string>
     <string name="Streaks">Streaks</string>
+    <string name="enter_your_updated_weight">Enter your today\'s weight</string>
+    <string name="save">SAVE</string>
+    <string name="cancel">CANCEL</string>
+    <string name="DASHBOARD">DASHBOARD</string>
+    <string name="kcal">KCAL</string>
+    <string name="CARBS">CARBS</string>
+    <string name="PROTEIN">PROTEIN</string>
+    <string name="FATS">FATS</string>
+    <string name="add_breakfast">Add breakfast</string>
+    <string name="add_lunch">Add lunch</string>
+    <string name="add_dinner">Add dinner</string>
+    <string name="add_snack">Add snack</string>
 </resources>
