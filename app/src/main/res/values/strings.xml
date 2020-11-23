@@ -98,5 +98,8 @@
     <string name="add_lunch">Add lunch</string>
     <string name="add_dinner">Add dinner</string>
     <string name="add_snack">Add snack</string>
+    <string name="food_amount">"Food Amount "</string>
+    <string name="food_servings">Enter food servings (1 serv is 100g)</string>
+    <string name="hint_for_dialoguebox_food_amount">Eg .  1,  2,  3...</string>
 
 </resources>

@@ -1,60 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="140dp"
-    android:background="@color/colorPrimaryDark"
-    android:orientation="vertical" >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="350dp"
+    android:layout_height="250dp"
+    android:background="@drawable/black_sqaure_rounded_corners"
+    android:orientation="vertical">
+
     <TextView
-        android:id="@+id/txt_dia"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="10dp"
-        android:text="Serving Size: 100g "
-        android:textColor="@android:color/white"
-        android:textSize="15dp"
-        android:textStyle="bold"/>
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="@string/food_amount"
+        android:textAlignment="center"
+        android:textColor="@color/colorText"
+        android:textSize="20sp" />
 
-    <EditText
-        android:id="@+id/amt_dia"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="10dp"
-        android:hint="how many servings ?"
-        android:textColorHint="@color/colorWhite"
-        android:textColor="@color/colorWhite"
-        android:textSize="15dp"
-        android:textStyle="bold"/>
-
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="@string/food_servings"
+        android:textAlignment="center"
+        android:textColor="@color/colorText"
+        android:textSize="18sp" />
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@color/cardview_dark_background"
-        android:orientation="horizontal" >
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:gravity="center">
 
-        <Button
-            android:id="@+id/btn_yes"
-            android:layout_width="100dp"
-            android:layout_height="30dp"
-            android:background="@android:color/white"
-            android:clickable="true"
-            android:text="Save"
-            android:textColor="#5DBCD2"
-            android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/btn_no"
-            android:layout_width="100dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="5dp"
-            android:background="@android:color/white"
-            android:clickable="true"
-            android:text="Cancel"
-            android:textColor="#5DBCD2"
-            android:textStyle="bold" />
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/amt_dialog_serving_edittext"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:hint="@string/hint_for_dialoguebox_food_amount"
+            android:inputType="numberDecimal"
+            android:textColor="@color/colorText"
+            app:met_baseColor="@color/colorSecondary"
+            app:met_hideUnderline="false"
+            app:met_primaryColor="@color/colorPrimaryDark"
+            app:met_underlineColor="@color/colorSecondary" />
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:orientation="horizontal"
+        android:gravity="end">
+        <TextView
+            android:id="@+id/amt_dialog_serving_cancel"
+            android:layout_width="70dp"
+            android:layout_height="40dp"
+            android:textSize="13sp"
+            android:textColor="@color/colorText"
+            android:text="@string/cancel"
+            android:gravity="center"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="25dp"
+            />
+        <TextView
+            android:id="@+id/amt_dialog_serving_save"
+            android:layout_width="70dp"
+            android:layout_height="40dp"
+            android:background="@drawable/blue_button_rounder_corners"
+            android:textSize="13sp"
+            android:textColor="@color/colorText"
+            android:text="@string/save"
+            android:gravity="center"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="25dp"
+            />
+    </LinearLayout>
+
 
 </LinearLayout>
