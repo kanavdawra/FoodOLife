@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.example.nutritionapp.Modals.Meal;
 import com.example.nutritionapp.Modals.Quiz;
+import com.example.nutritionapp.Modals.Recentmeals;
 
 import java.util.ArrayList;
 
@@ -100,6 +101,30 @@ public class DatabaseUtility {
         }while (cursor.moveToNext());
         return listMeal;
     }
+
+    public ArrayList<Recentmeals> getrecentsModal(Cursor cursor){
+
+        ArrayList<Recentmeals> listofrecents=new ArrayList<>();
+        cursor.moveToFirst();
+        do{
+            Recentmeals objectforrecentmeals=new Recentmeals();
+            objectforrecentmeals.setFood_amount(cursor.getInt(1));
+            objectforrecentmeals.setRecent_food_name(cursor.getString(2));
+
+        }while (cursor.moveToNext());
+
+        return listofrecents;
+    }
+
+    public ArrayList<Recentmeals> getRecentsfoodamount(Cursor cursor){
+        SQLiteDatabase databaseone=getDataBase().getReadableDatabase();
+        ArrayList<Recentmeals> listofrecents=new ArrayList<>();
+        Cursor cursor1=databaseone.rawQuery("select amount from food_intake",null);
+        listofrecents=getrecentsModal(cursor1);
+        cursor1.close();
+        return listofrecents;
+    }
+
 
     public String getUserId(String email){
         StringBuilder userId= new StringBuilder();

@@ -76,4 +76,12 @@
     <string name="exercise">Add exercise\n</string>
     <string name="search_hint">Search for food</string>
     <string name="Streaks">Streaks</string>
+    <string name="save">Save</string>
+    <string name="Date">Date</string>
+    <string name="recents">Recents</string>
+    <string name="name">Name</string>
+    <string name="amount">Amount</string>
+    <string name="calorie">Calorie</string>
+    <string name="selectdate">Select the Date</string>
+    <string name="breakfast_log_meal">Breakfast/Snacks/Lunch/Dinner</string>
 </resources>

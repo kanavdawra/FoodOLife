@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.nutritionapp.Modals.Meal;
@@ -12,6 +13,7 @@ import java.util.List;
 
 public class MealAdapter extends BaseAdapter {
     List<Meal> mealList;
+
     public MealAdapter(List<Meal> m) {
         this.mealList = m;
     }
@@ -32,14 +34,20 @@ public class MealAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
+
+
         if (view == null) {
-            view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.meals_adapter,
+            view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.spinnerlayout,
                     viewGroup, false);
         }
-        TextView name = view.findViewById(R.id.name);
-        TextView description = view.findViewById(R.id.description);
-        name.setText(mealList.get(i).getName());
-        description.setText("Calorie:" +mealList.get(i).getCalorie());
+
+        TextView idforspinner=view.findViewById(R.id.textforspinner);
+
+        idforspinner.setText(mealList.get(i).getName());
+
+
+
+
         return view;
     }
 }
