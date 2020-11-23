@@ -95,15 +95,15 @@ public class MealAdapter extends BaseAdapter {
         AmountDialog.setContentView(R.layout.amt_dialog);
         AmountDialog.setCanceledOnTouchOutside(false);
 
-        TextView bt_save = AmountDialog.findViewById(R.id.weight_dialog_save);
-        TextView bt_cancel = AmountDialog.findViewById(R.id.weight_dialog_cancel);
-        final TextView kg = AmountDialog.findViewById(R.id.weight_dialog_kg);
-        final TextView lb = AmountDialog.findViewById(R.id.weight_dialog_lb);
-        final TextView weightText=AmountDialog.findViewById(R.id.weight_dialog_weight);
+        TextView bt_save = AmountDialog.findViewById(R.id.amt_dialog_serving_save);
+        TextView bt_cancel = AmountDialog.findViewById(R.id.amt_dialog_serving_cancel);
+
+        final TextView weightText=AmountDialog.findViewById(R.id.amt_dialog_serving_edittext);
 
         bt_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                serving=Integer.parseInt(weightText.getText().toString());
                 if(weightText.getText().toString().equals("")){
                     weightText.setError("* Serving  cannot be empty");
                 }
@@ -121,6 +121,8 @@ public class MealAdapter extends BaseAdapter {
 
             }
         });
+
+                AmountDialog.show();
 
         bt_cancel.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -116,21 +116,34 @@ public class DatabaseUtility {
     public ArrayList<Recentmeals> getrecentsModal(Cursor cursor){
 
         ArrayList<Recentmeals> listofrecents=new ArrayList<>();
-        cursor.moveToFirst();
-        do{
-            Recentmeals objectforrecentmeals=new Recentmeals();
-            objectforrecentmeals.setFood_amount(cursor.getInt(1));
-            objectforrecentmeals.setRecent_food_name(cursor.getString(2));
+        cursor.moveToPosition(0);
 
-        }while (cursor.moveToNext());
+
+
+        while (!(cursor.getPosition()==cursor.getCount())){
+            Recentmeals objectforrecentmeals=new Recentmeals();
+            objectforrecentmeals.setFood_amount(cursor.getInt(0));
+            objectforrecentmeals.setRecent_food_name(cursor.getString(1));
+            objectforrecentmeals.setfood_calorie(cursor.getInt(2) * cursor.getInt(0) );
+
+            listofrecents.add(objectforrecentmeals);
+            cursor.moveToNext();
+        }
 
         return listofrecents;
     }
 
-    public ArrayList<Recentmeals> getRecentsfoodamount(Cursor cursor){
+    public ArrayList<Recentmeals> getRecentsfoodamount(String type){
         SQLiteDatabase databaseone=getDataBase().getReadableDatabase();
         ArrayList<Recentmeals> listofrecents=new ArrayList<>();
-        Cursor cursor1=databaseone.rawQuery("select amount from food_intake",null);
+
+        Cursor cursor1=databaseone.rawQuery("Select " +
+                "b.amount,a.food_name,a.calorie from" +
+                " food_nutrients a  inner join food_intake b on " +
+                "a.id=b.food_id  where b.type='"+type+"' order by b.date",null);
+
+        Log.e("query",String.valueOf(cursor1.getCount()));
+
         listofrecents=getrecentsModal(cursor1);
         cursor1.close();
         return listofrecents;

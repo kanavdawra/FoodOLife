@@ -25,9 +25,11 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.nutritionapp.Modals.Meal;
+import com.example.nutritionapp.Modals.Recentmeals;
 import com.example.nutritionapp.Tools.Database.DataForDatabase;
 import com.example.nutritionapp.Tools.Database.Database;
 import com.example.nutritionapp.Tools.Database.DatabaseUtility;
+import com.example.nutritionapp.Tools.Database.Recentsadaptor;
 import com.example.nutritionapp.Tools.Utility;
 
 import java.util.ArrayList;
@@ -44,39 +46,49 @@ public class LogMealActivity extends AppCompatActivity {
     DatePickerDialog picker;
     EditText date;
     ArrayList<Meal> meals;
+    ArrayList<Recentmeals> recents;
     Dialog AmountDialog;
     EditText amt;
     int food_id;
     String spinnerItem;
     String food_type;
-
+    ListView listforrecents;
     TextView food_serving_save;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.log_meal);
         context = this;
-        food_type= String.valueOf(getIntent().getBundleExtra("type"));
+        food_type= String.valueOf(getIntent().getExtras().get("type"));
         TextView header=findViewById(R.id.log_meal_header);
                 header.setText(food_type);
+        listforrecents=findViewById(R.id.log_meal_list_food);
 
         food_serving_save=findViewById(R.id.save_food_serving);
 
         setAmountDialog();
 
+        setRecentsAdaptor();
+
         LinearLayout imageforspinner=findViewById(R.id.spinnerview);
 
         meals=new DatabaseUtility(context).getMeal();
 
-        Log.e("Meal 2",meals.get(1).getName());
+
+
+
 
         imageforspinner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 ListView listforsps=findViewById(R.id.listforspinnerpopulation);
+
                 listforsps.setVisibility(View.VISIBLE);
                 MealAdapter myadapter=new MealAdapter(meals,LogMealActivity.this,(TextView) findViewById(R.id.log_meal_spinner_textView),listforsps);
+
+
+
                 listforsps.setAdapter(myadapter);
 
             }
@@ -90,16 +102,42 @@ public class LogMealActivity extends AppCompatActivity {
                 int amount=(int)new Utility().getSharedPreferences(context,"TempData","CurrentFoodServing",2);
 
 
+
+
+
+
+
+
+
                 Database database=new DatabaseUtility(context).getDataBase();
 
                 database.getWritableDatabase()
                         .execSQL("insert into food_intake (amount,food_id,date,type) values ("+
                                 amount+"," +
                                 id+",'"+
-                                date+"','"+
+                                date.getText().toString()+"','"+
                                 food_type+"')");
 
 
+
+                finish();
+
+
+
+
+
+
+
+            }
+        });
+
+
+
+        ImageView back=findViewById(R.id.log_meal_back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
 
@@ -135,6 +173,15 @@ public class LogMealActivity extends AppCompatActivity {
                 picker.show();
             }
         });
+    }
+
+    private void setRecentsAdaptor(){
+        recents=new DatabaseUtility(context).getRecentsfoodamount(food_type);
+
+        Recentsadaptor ayadp=new Recentsadaptor(recents,LogMealActivity.this,(TextView)findViewById(R.id.log_meal_name),
+                (TextView)findViewById(R.id.log_meal_amount),(TextView)findViewById(R.id.log_meal_calorie),listforrecents);
+
+        listforrecents.setAdapter(ayadp);
     }
 
     public void setSpinnerItem(String spinnerItem) {
