@@ -9,6 +9,11 @@ public class FireBase {
         return database.getReference("UserId").child(getUserId(FirebaseAuth.getInstance().getCurrentUser().getEmail()));
     }
 
+    public DatabaseReference getRankReference(){
+        FirebaseDatabase database=FirebaseDatabase.getInstance();
+        return database.getReference("RankList");
+    }
+
     public String getUserId(String email){
         StringBuilder userId= new StringBuilder();
         int temp=-2;

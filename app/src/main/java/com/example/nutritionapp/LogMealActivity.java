@@ -139,6 +139,14 @@ public class LogMealActivity extends AppCompatActivity {
 
     public void setSpinnerItem(String spinnerItem) {
         this.spinnerItem = spinnerItem;
+int amount = 0,id=0,food_type=0;
+        Database database=new DatabaseUtility(context).getDataBase();
+        database.getWritableDatabase()
+                .execSQL("insert into food_intake (amount,food_id,date,type) values ("+
+                amount+"," +
+                id+",'"+
+                date+"','"+
+                food_type+"')");
 
     }
 }

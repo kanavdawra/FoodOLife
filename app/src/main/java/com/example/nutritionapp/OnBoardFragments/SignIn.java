@@ -237,14 +237,9 @@ public class SignIn extends Fragment {
 
 
         final FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
-        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         FirebaseDatabase firebaseDatabase=FirebaseDatabase.getInstance();
 
-
         DatabaseReference databaseReference=firebaseDatabase.getReference("UserId");
-        Log.e("snap",firebaseAuth.getCurrentUser().getEmail());
-
-
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -319,7 +314,11 @@ public class SignIn extends Fragment {
         if(task==0){
             Intent intent=new Intent("MainActivity");
             intent.putExtra("Task","GetSex");
-            Objects.requireNonNull(getActivity()).sendBroadcast(intent);
+            try {
+                Objects.requireNonNull(getActivity()).sendBroadcast(intent);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         if (task==1){

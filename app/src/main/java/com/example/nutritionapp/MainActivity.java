@@ -1,6 +1,7 @@
 package com.example.nutritionapp;
 
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -24,8 +25,11 @@ import com.example.nutritionapp.Tools.FireBase;
 import com.example.nutritionapp.Tools.Utility;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Objects;
 
@@ -91,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void NextActivity() {
                 SetFirebaseUserData();
-                finish();
+
                 startActivity(new Intent(MainActivity.this, DashBoardActivity.class));
             }
 
@@ -130,7 +134,9 @@ public class MainActivity extends AppCompatActivity {
         myRef.child("Height").setValue(Height);
         myRef.child("HeightUnit").setValue(HeightUnit);
         myRef.child("Goal").setValue(Goal);
-        myRef.child("OnBoard").setValue(1);
+        myRef.child("OnBoard").setValue("1");
+        new Utility().setSharedPreferences(MainActivity.this,"UserData","OnBoard","1");
+
     }
     public String getUserId(String email){
         StringBuilder userId= new StringBuilder();
