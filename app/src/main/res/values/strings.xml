@@ -100,5 +100,6 @@
     <string name="hint_for_dialoguebox_food_amount">Eg .  1,  2,  3...</string>
     <string name="LEADERBOARD">LEADERBOARD</string>
     <string name="GOAL">GOAL</string>
+    <string name="foodstats">FOOD STATISTICS</string>
 
 </resources>

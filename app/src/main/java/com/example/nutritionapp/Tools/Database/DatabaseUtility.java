@@ -3,6 +3,7 @@ package com.example.nutritionapp.Tools.Database;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.strictmode.SqliteObjectLeakedViolation;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -10,9 +11,12 @@ import androidx.annotation.NonNull;
 import com.example.nutritionapp.Interface.QuizInterface;
 import com.example.nutritionapp.Interface.RankListInterface;
 import com.example.nutritionapp.Modals.Meal;
+import com.example.nutritionapp.Modals.Profileactivitygraph;
 import com.example.nutritionapp.Modals.Quiz;
 import com.example.nutritionapp.Modals.QuizRankList;
 import com.example.nutritionapp.Modals.Recentmeals;
+import com.example.nutritionapp.Modals.calorieintake;
+import com.example.nutritionapp.Modals.piechartgraph;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -89,6 +93,71 @@ public class DatabaseUtility {
         return listMeal;
     }
 
+    public ArrayList<calorieintake> getcalorie(){
+        SQLiteDatabase database=getDataBase().getReadableDatabase();
+        ArrayList<calorieintake> listofcalorie=new ArrayList<>();
+        Cursor cursor=database.rawQuery("Select sum(a.amount * b.calorie),a.date from food_intake a inner join food_nutrients b on a.food_id=b.id group by a.date",null);
+        listofcalorie=getcalorie(cursor);
+        cursor.close();
+        return listofcalorie;
+    }
+
+    public ArrayList<calorieintake>getcalorie(Cursor cursor){
+        ArrayList<calorieintake> listofcalorie=new ArrayList<>();
+        cursor.moveToFirst();
+
+        do{
+
+            calorieintake intake=new calorieintake();
+            intake.setDate(cursor.getString(1));
+            intake.setcalorie(cursor.getDouble(0));
+            listofcalorie.add(intake);
+            Log.e("Amount",cursor.getString(1)+" "+cursor.getDouble(0));
+
+
+        }while (cursor.moveToNext());
+        ArrayList<calorieintake> listoftotalcalorie=new ArrayList<>();
+        int index,amount;
+        String date=listofcalorie.get(0).getDate();
+        double calorie,sum;
+        for(int i=0;i<listofcalorie.size();i++){
+            if(date.equals(listofcalorie.get(i).getDate())){
+
+            }
+
+
+        }
+        return listofcalorie;
+    }
+
+    public ArrayList<piechartgraph> getpie(){
+        SQLiteDatabase database=getDataBase().getReadableDatabase();
+        ArrayList<piechartgraph> listofpie=new ArrayList<>();
+        Cursor cursor=database.rawQuery("Select SUM(a.carbohydrates * b.amount *4),SUM(a.protein *b.amount * 4),SUM(a.fat *b.amount*9)," +
+                "SUM((a.carbohydrates * b.amount *4)+(a.protein *b.amount * 4)+(a.fat *b.amount*9))" +
+                " from food_nutrients a inner join food_intake b on a.food_id=b.id",null);
+        listofpie=getpie(cursor);
+        cursor.close();
+        return listofpie;
+    }
+
+    public ArrayList<piechartgraph>getpie(Cursor cursor){
+        ArrayList<piechartgraph> listofpie=new ArrayList<>();
+        cursor.moveToFirst();
+        do{
+            piechartgraph pie=new piechartgraph();
+            pie.setCarbohydates(0);
+            pie.setProtein(1);
+            pie.setfat(2);
+            pie.setAmount(3);
+            pie.setTotalcalorie(4);
+            listofpie.add(pie);
+        }while (cursor.moveToNext());
+
+        return listofpie;
+
+    }
+
     private ArrayList<Meal> getMeal(Cursor cursor){
         ArrayList<Meal> listMeal = new ArrayList<Meal>();
         cursor.moveToFirst();
@@ -116,7 +185,7 @@ public class DatabaseUtility {
     public ArrayList<Recentmeals> getrecentsModal(Cursor cursor){
 
         ArrayList<Recentmeals> listofrecents=new ArrayList<>();
-        cursor.moveToPosition(0);
+        cursor.moveToFirst();
 
 
 
@@ -148,6 +217,45 @@ public class DatabaseUtility {
         cursor1.close();
         return listofrecents;
     }
+
+    public ArrayList<Profileactivitygraph> getdataforgraph(){
+
+        SQLiteDatabase databaseforgraph=getDataBase().getReadableDatabase();
+        ArrayList<Profileactivitygraph> listforgraph=new ArrayList<>();
+
+        Cursor cursorforgraph=databaseforgraph.rawQuery("select weight,date from user_weight",null);
+
+        listforgraph=getdataforgraph(cursorforgraph);
+
+        cursorforgraph.close();
+        return  listforgraph;
+
+    }
+
+    public ArrayList<Profileactivitygraph> getdataforgraph(Cursor cursor){
+
+        ArrayList<Profileactivitygraph> listforgraph=new ArrayList<>();
+
+        cursor.moveToFirst();
+        do{
+            Profileactivitygraph profile=new Profileactivitygraph();
+            if (cursor.getString(1).equals("lb")) {
+                profile.setWeight(cursor.getDouble(0)*0.454);
+
+            }
+
+            else {
+                profile.setWeight(cursor.getDouble(0));
+            }
+
+            profile.setDate(cursor.getString(1));
+
+            listforgraph.add(profile);
+
+        } while (cursor.moveToNext());
+        return listforgraph;
+    }
+
 
     public void getQuizRankList(final RankListInterface rankListInterface){
 

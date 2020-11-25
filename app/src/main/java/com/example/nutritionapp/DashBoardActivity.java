@@ -54,12 +54,6 @@ public class DashBoardActivity extends AppCompatActivity {
         bottomNavigationBar();
         loadtoFirebase();
 
-
-
-
-
-
-
         LinearLayout btn_breakfast = findViewById(R.id.dashboard_add_breakfast);
         LinearLayout btn_lunch = findViewById(R.id.dashboard_add_lunch);
         LinearLayout btn_dinner = findViewById(R.id.dashboard_add_dinner);
