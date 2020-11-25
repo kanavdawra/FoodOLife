@@ -245,7 +245,8 @@ public class SignIn extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                int age= 0;
+                float age= 0;
+                int quizIndex= 0,quizMarks=0;
                 String email= null;
                 String goal= null;
                 float height= 0;
@@ -257,7 +258,7 @@ public class SignIn extends Fragment {
                 String weightUnit= null;
                 String onBoard = "0";
                 try {
-                    age = Integer.parseInt(Objects.requireNonNull(dataSnapshot.child(getUserId(Objects.requireNonNull(firebaseAuth.getCurrentUser().getEmail()))).child("Age").getValue()).toString());
+                    age = Float.parseFloat(Objects.requireNonNull(dataSnapshot.child(getUserId(Objects.requireNonNull(firebaseAuth.getCurrentUser().getEmail()))).child("Age").getValue()).toString());
 
                     email = firebaseAuth.getCurrentUser().getEmail();
 
@@ -278,6 +279,10 @@ public class SignIn extends Fragment {
                     weightUnit = Objects.requireNonNull(dataSnapshot.child(getUserId(firebaseAuth.getCurrentUser().getEmail())).child("WeightUnit").getValue()).toString();
 
                     onBoard = Objects.requireNonNull(dataSnapshot.child(getUserId(firebaseAuth.getCurrentUser().getEmail())).child("OnBoard").getValue()).toString();
+
+                    quizIndex = Integer.parseInt(Objects.requireNonNull(dataSnapshot.child(getUserId(Objects.requireNonNull(firebaseAuth.getCurrentUser().getEmail()))).child("QuizIndex").getValue()).toString());
+
+                    quizMarks = Integer.parseInt(Objects.requireNonNull(dataSnapshot.child(getUserId(Objects.requireNonNull(firebaseAuth.getCurrentUser().getEmail()))).child("QuizMarks").getValue()).toString());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -295,6 +300,8 @@ public class SignIn extends Fragment {
                     new Utility().setSharedPreferences(Objects.requireNonNull(getActivity()), "UserData", "Weight", weight);
                     new Utility().setSharedPreferences(Objects.requireNonNull(getActivity()), "UserData", "WeightUnit", weightUnit);
                     new Utility().setSharedPreferences(Objects.requireNonNull(getActivity()), "UserData", "OnBoard", onBoard);
+                    new Utility().setSharedPreferences(Objects.requireNonNull(getActivity()), "AppData", "QuizIndex", quizIndex);
+                    new Utility().setSharedPreferences(Objects.requireNonNull(getActivity()), "AppData", "QuizMarks", quizMarks);
                     updateUI(1);
                 } else {
                     updateUI(0);

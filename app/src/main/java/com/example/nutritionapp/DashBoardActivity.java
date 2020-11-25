@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.nutritionapp.Modals.QuizRankList;
+import com.example.nutritionapp.Modals.TodayMacros;
 import com.example.nutritionapp.Tools.Database.DatabaseUtility;
 import com.example.nutritionapp.Tools.Utility;
 import com.google.firebase.auth.FirebaseAuth;
@@ -45,12 +46,17 @@ public class DashBoardActivity extends AppCompatActivity {
     double weight=-1;
     int unit=-1;// kg=1 lb=0
     String formattedDate;
+    float calorie;
+    float carbohydrates,proteins,fats;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashboard_activity);
 
+        getCalorie();
+        setTodayMacros();
+        setTodayMacros();
         bottomNavigationBar();
         loadtoFirebase();
 
@@ -157,10 +163,10 @@ public class DashBoardActivity extends AppCompatActivity {
                 }
                 else{
                     if(unit==0){
-                        addWeightSQLQuery(weight,formattedDate,"lb");
+                        addWeightSQLQuery(weight,formattedDate,"LB");
                     }
                     else {
-                        addWeightSQLQuery(weight,formattedDate,"kg");
+                        addWeightSQLQuery(weight,formattedDate,"KG");
                     }
                     AmountDialog.dismiss();
                 }
@@ -350,6 +356,99 @@ public class DashBoardActivity extends AppCompatActivity {
         }
     }
 
+    private void getCalorie(){
+        float bmr;
+        int temp=0;
+        float weight=new Utility().getSharedPreferences(this,"UserData","Weight", (float) 0.0);
+        float height=new Utility().getSharedPreferences(this,"UserData","Height", (float) 0.0);
+        String weightUnit=new Utility().getSharedPreferences(this,"UserData","WeightUnit","");
+        String heightUnit=new Utility().getSharedPreferences(this,"UserData","HeightUnit","");
+        String goal=new Utility().getSharedPreferences(this,"UserData","Goal","");
+        String sex=new Utility().getSharedPreferences(this,"UserData","Sex","");
+        float age=  new Utility().getSharedPreferences(this,"UserData","Age", (float) 0.0);
+        if(weightUnit.equals("KG")){
+            weight=(weight*1000)/454;
+            Log.e("weight",weight+"");
+        }
+        if(heightUnit.equals("CM")){
+            height= (float) (height/2.54);
+            Log.e("height",height+"");
+        }
+        if(heightUnit.equals("FT")){
+            int foot=(int)Math.floor(height);
+            double inch=Math.round((height-foot)*10);
+            double cm=(foot*12*2.54)+(inch*2.54);
+            inch=cm/2.54;
+            height= (float) inch;
+        }
+        if(sex.equals("Male")){
+            bmr= (float) (66 + (6.3 * weight) + (12.9 * height) - (6.8 * age));
+            Log.e("bmr",bmr+"");
+        }
+        else{
+            bmr= (float) (655 + (4.3 * weight) + (4.7 * height) - (6.7 * age));
+        }
+
+        float calorie= (float) (bmr*1.2);
+
+        if(goal.equals("Lose Weight")){
+            calorie=calorie-200;
+        }
+        else if(goal.equals("Gain Weight")){
+            calorie=calorie+200;
+        }
+        else{}
+
+        this.calorie=calorie;
+
+
+
+        carbohydrates= (float) ((calorie*.6)/4);
+        fats=(float) ((calorie*.25)/9);
+        proteins=(float) ((calorie*.15)/4);
+
+
+
+        new Utility().setSharedPreferences(this,"UserData","DailyCalories",calorie);
+        new Utility().setSharedPreferences(this,"UserData","DailyCarbohydrates",carbohydrates);
+        new Utility().setSharedPreferences(this,"UserData","DailyFats",fats);
+        new Utility().setSharedPreferences(this,"UserData","DailyProteins",proteins);
+
+
+
+
+    }
+
+    private void setTodayMacros(){
+        Date c = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        formattedDate = df.format(c);
+        ArrayList<TodayMacros> todayMacros=new DatabaseUtility(this).getTodayMacros(formattedDate);
+        double calorie=0,fats=0,proteins=0,carbohydrates=0;
+        for(int i=0;i<todayMacros.size();i++)
+        {
+            calorie=calorie+(todayMacros.get(i).getAmount()*todayMacros.get(i).getCalories());
+            carbohydrates=carbohydrates+(todayMacros.get(i).getAmount()*(todayMacros.get(i).getCarbohydrates()/1000));
+            fats=fats+(todayMacros.get(i).getAmount()*(todayMacros.get(i).getFats()/1000));
+            proteins=proteins+(todayMacros.get(i).getAmount()*(todayMacros.get(i).getProteins()/1000));
+        }
+
+        Log.e("calorie",this.calorie+"");
+
+        TextView calorieText=findViewById(R.id.dashboard_calorie);
+        TextView carbohydratesText=findViewById(R.id.dashboard_carbs);
+        TextView fatsText=findViewById(R.id.dashboard_fats);
+        TextView proteinText=findViewById(R.id.dashboard_protein);
+
+        calorieText.setText(Math.round(calorie)+"/"+Math.round(this.calorie));
+        carbohydratesText.setText(Math.round(carbohydrates)+"/"+Math.round(this.carbohydrates)+"g");
+        fatsText.setText(Math.round(fats)+"/"+Math.round(this.fats)+"g");
+        proteinText.setText(Math.round(proteins)+"/"+Math.round(this.proteins)+"g");
+
+
+
+    }
+
     public String round(double weight){
         weight=Math.round(weight*100)/100.0;
         if(Math.floor(weight)==weight){
@@ -359,5 +458,17 @@ public class DashBoardActivity extends AppCompatActivity {
         else {
             return String.valueOf(weight);
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setTodayMacros();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        setTodayMacros();
     }
 }
