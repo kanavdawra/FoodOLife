@@ -8,38 +8,40 @@
     android:textAlignment="center"
     tools:context=".statistics">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <TextView
+        android:id="@+id/statsheader"
+        android:layout_width="395dp"
+        android:layout_height="75dp"
+        android:background="@color/colorPrimaryDark"
+        android:gravity="center"
+        android:text="@string/foodstats"
+        android:textColor="@color/colorSecondary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="600dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias=".35">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/statsheader"
-                android:layout_width="395dp"
-                android:layout_height="75dp"
-                android:background="@color/colorPrimaryDark"
-                android:gravity="center"
-                android:text="@string/foodstats"
-                android:textColor="@color/colorSecondary"
-                app:layout_constraintBottom_toTopOf="@+id/dashboard_linearLayout1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias=".4" />
+
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="260dp"
                 android:layout_marginTop="15dp"
-                android:background="@color/colorPrimaryLight"
+                android:background="@color/colorPrimaryDark"
                 android:padding="20dp">
 
                 <com.github.mikephil.charting.charts.LineChart
@@ -61,7 +63,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:layout_marginTop="20dp"
-                android:background="@color/colorPrimaryLight"
+                android:background="@color/colorPrimaryDark"
                 android:padding="20dp">
 
                 <com.github.mikephil.charting.charts.PieChart
@@ -78,6 +80,29 @@
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/colorPrimaryDark"
+                android:padding="20dp">
+
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/statistics_sodium_chart"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorWhite"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                </com.github.mikephil.charting.charts.LineChart>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
         </LinearLayout>
 
     </ScrollView>
