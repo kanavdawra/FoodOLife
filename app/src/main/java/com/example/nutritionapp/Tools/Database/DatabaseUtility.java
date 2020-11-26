@@ -94,6 +94,7 @@ public class DatabaseUtility {
         return listMeal;
     }
 
+
     public ArrayList<calorieintake> getcalorie(){
         SQLiteDatabase database=getDataBase().getReadableDatabase();
         ArrayList<calorieintake> listofcalorie=new ArrayList<>();
@@ -159,6 +160,7 @@ public class DatabaseUtility {
         return listofpie;
 
     }
+
 
     private ArrayList<Meal> getMeal(Cursor cursor){
         ArrayList<Meal> listMeal = new ArrayList<Meal>();
@@ -323,6 +325,33 @@ public class DatabaseUtility {
 
     public void getGoalRankList(final RankListInterface rankListInterface){
 
+
+    }
+
+
+    public ArrayList<TodayMacros> getTodayMacros(String date){
+        ArrayList<TodayMacros> todayMacros= new ArrayList<>();
+
+        SQLiteDatabase database=getDataBase().getReadableDatabase();
+        Cursor cursor=database.rawQuery("select a.calorie,a.carbohydrates,a.protein,a.fat,b.amount " +
+                "from food_nutrients a inner join food_intake b on a.id=b.food_id " +
+                "where date='"+date+"'",null);
+cursor.moveToFirst();
+
+        if(cursor.getCount()!=0){
+            while (!(cursor.getPosition()==cursor.getCount())){
+                TodayMacros todayMacrosObject=new TodayMacros();
+                todayMacrosObject.setCalories(cursor.getDouble(0));
+                todayMacrosObject.setCarbohydrates(cursor.getDouble(1));
+                todayMacrosObject.setProteins(cursor.getDouble(2));
+                todayMacrosObject.setFats(cursor.getDouble(3));
+                todayMacrosObject.setAmount(cursor.getDouble(4));
+
+                todayMacros.add(todayMacrosObject);
+                cursor.moveToNext();
+            }
+        }
+        return todayMacros;
 
     }
 
