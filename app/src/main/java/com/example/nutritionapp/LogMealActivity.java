@@ -48,7 +48,6 @@ public class LogMealActivity extends AppCompatActivity {
     Context context;
     DatePickerDialog picker;
     EditText date;
-    ArrayList<Meal> records;
     ArrayList<Meal> meals;
     ArrayList<Recentmeals> recents;
     Dialog AmountDialog;
@@ -66,7 +65,7 @@ public class LogMealActivity extends AppCompatActivity {
         context = this;
         food_type= String.valueOf(getIntent().getExtras().get("type"));
         TextView header=findViewById(R.id.log_meal_header);
-                header.setText(food_type);
+        header.setText(food_type);
         listforrecents=findViewById(R.id.log_meal_list_food);
 
         food_serving_save=findViewById(R.id.save_food_serving);
@@ -189,7 +188,6 @@ public class LogMealActivity extends AppCompatActivity {
                 picker.show();
             }
         });
-
     }
 
     private void setRecentsAdaptor(){
@@ -203,23 +201,14 @@ public class LogMealActivity extends AppCompatActivity {
 
     public void setSpinnerItem(String spinnerItem) {
         this.spinnerItem = spinnerItem;
-int amount = 0,id=0,food_type=0;
+        int amount = 0,id=0,food_type=0;
         Database database=new DatabaseUtility(context).getDataBase();
         database.getWritableDatabase()
                 .execSQL("insert into food_intake (amount,food_id,date,type) values ("+
-                amount+"," +
-                id+",'"+
-                date+"','"+
-                food_type+"')");
+                        amount+"," +
+                        id+",'"+
+                        date+"','"+
+                        food_type+"')");
 
-
-      
-
-    }
-    public void getRecord(String type){
-        records =new DatabaseUtility(this).getLog(type);
-        ListView listViewRecord = findViewById(R.id.meal_list);
-        final MealAdapter myAdapter = new MealAdapter(records);
-        listViewRecord.setAdapter(myAdapter);
     }
 }
