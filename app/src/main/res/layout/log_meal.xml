@@ -7,12 +7,31 @@
     android:background="@color/colorPrimaryDark"
     tools:context=".LogMealActivity">
 
-    <ScrollView
-        android:id="@+id/scrollView2"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/log_meal_back"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:padding="18dp"
+            android:src="@drawable/arrow_left"
+            android:textColor="@color/colorSecondary" />
+
+
+        <TextView
+            android:id="@+id/log_meal_header"
+            android:layout_width="241dp"
+            android:layout_height="70dp"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -22,9 +41,51 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:orientation="vertical">
+            android:text="@string/breakfast_log_meal"
+            android:textAlignment="center"
+            android:textColor="@color/colorSecondary"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/save_food_serving"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:background="@color/colorSecondary"
+            android:gravity="center"
+            android:text="@string/save"
+            android:textAlignment="center"
+            android:textColor="@color/colorText"
+            android:textSize="16sp"
+            android:layout_marginStart="20dp"
+
+            />
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/linearLayout2"
+        app:layout_constraintVertical_bias="0.497">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="70dp">
 
             <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="@string/Date"
+                android:textColor="@color/colorSecondary"
                 android:id="@+id/header"
                 android:layout_width="300dp"
                 android:layout_height="30dp"
@@ -32,8 +93,155 @@
                 android:text="123"
                 android:textColor="@color/colorWhite"
                 android:textSize="20sp"
-                app:layout_constraintBottom_toTopOf="@+id/enterDate"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.155"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.2" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/log_meal_get_date"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:hint="@string/selectdate"
+                android:inputType="date"
+                android:textColor="@color/colorText"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias=".74"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias=".2"
+                app:met_baseColor="@color/colorSecondary"
+                app:met_hideUnderline="false"
+                app:met_primaryColor="@color/colorPrimaryDark"
+                app:met_underlineColor="@color/colorSecondary" />
+
+            <LinearLayout
+                android:id="@+id/spinnerview"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.75">
+
+                <TextView
+                    android:id="@+id/log_meal_spinner_textView"
+                    android:layout_width="260dp"
+                    android:layout_height="50dp"
+                    android:textColor="@color/colorText"
+                    android:textSize="20sp"
+                    android:text="Select Food"
+                    android:gravity="center_vertical"
+                    android:paddingStart="15dp"/>
+
+                <ImageView
+
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:padding="8dp"
+                    app:srcCompat="@drawable/downloaddarrow" />
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorWhite">
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            >
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/recents"
+                android:textColor="@color/colorAccent"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.05"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:id="@+id/log_meal_name"
+                android:layout_width="200dp"
+                android:layout_height="30dp"
+                android:text="@string/name"
+                android:textColor="@color/colorWhite"
+                android:textSize="12sp"
+                android:gravity="center"
+                android:textAlignment="center"
+                />
+
+            <TextView
+                android:id="@+id/log_meal_amount"
+                android:layout_width="80dp"
+                android:layout_height="30dp"
+                android:text="@string/amount"
+                android:textColor="@color/colorWhite"
+                android:textSize="12sp"
+                android:gravity="center"
+                android:textAlignment="center"
+                />
+
+            <TextView
+                android:id="@+id/log_meal_calorie"
+                android:layout_width="110dp"
+                android:layout_height="30dp"
+                android:text="@string/calorie"
+                android:textColor="@color/colorWhite"
+                android:textSize="12sp"
+                android:gravity="center"
+                android:textAlignment="center"
+                />
+        </LinearLayout>
+
+
+        <ListView
+            android:id="@+id/log_meal_list_food"
+            android:layout_width="match_parent"
+            android:layout_height="380dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/listforspinnerpopulation"
+        android:layout_width="300dp"
+        android:layout_height="215dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.45" />
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

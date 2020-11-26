@@ -1,55 +1,78 @@
 package com.example.nutritionapp;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.example.nutritionapp.Interface.MainActivityInterface;
-import com.example.nutritionapp.Interface.QuizInterface;
-import com.example.nutritionapp.QuizFragments.GetReady;
-import com.example.nutritionapp.QuizFragments.QuizFinish;
-import com.example.nutritionapp.QuizFragments.QuizQuestions;
-import com.example.nutritionapp.Receiver.MainActivityReceiver;
-import com.example.nutritionapp.Receiver.QuizReceiver;
-import com.example.nutritionapp.Tools.Database.DataForDatabase;
-import com.example.nutritionapp.Tools.Utility;
+import com.example.nutritionapp.Interface.RankListInterface;
+import com.example.nutritionapp.Modals.QuizRankList;
+import com.example.nutritionapp.Tools.Database.DatabaseUtility;
 
-public class Quiz extends AppCompatActivity {
-    QuizInterface quizInterface;
-    QuizReceiver quizReceiver;
+import java.util.ArrayList;
+
+public class LeaderBoardActivity extends AppCompatActivity {
+    ArrayList<QuizRankList> rankList;
+    RecyclerView rankRecyclerView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_quiz);
-        new DataForDatabase(this).AddQuizData();
+        setContentView(R.layout.activity_leader_board);
+        rankRecyclerView=findViewById(R.id.leaderboard_recyclerView);
         bottomNavigationBar();
 
-        quizInterface=new QuizInterface() {
+        RankListInterface rankListInterface=new RankListInterface() {
             @Override
-            public void GetReady() {
-                loadFragment(new GetReady());
+            public void QuizRankList(ArrayList<QuizRankList> rankList1) {
+                rankList=rankList1;
+                sortRankList();
+
             }
 
             @Override
-            public void QuizQuestions() {
-                loadFragment(new QuizQuestions());
-            }
+            public void GoalRankList() {
 
-            @Override
-            public void QuizFinish() {
-                loadFragment(new QuizFinish());
             }
         };
 
-        loadFragmentLogic();
+        new DatabaseUtility(this).getQuizRankList(rankListInterface);
+
+    }
+
+    private void setQuizRankListAdaptor(){
+
+        LeaderBoardAdapter adapter=new LeaderBoardAdapter(this,rankList);
+        RecyclerView.LayoutManager layoutManager=new LinearLayoutManager(this);
+        rankRecyclerView.setLayoutManager(layoutManager);
+        rankRecyclerView.setAdapter(adapter);
+
+    }
+
+    private void sortRankList(){
+
+        for(int i=0;i<rankList.size();i++){
+
+            for(int j=i;j<rankList.size();j++){
+                QuizRankList temp;
+                if(rankList.get(j).getTotalscore()>rankList.get(i).getTotalscore()){
+
+
+                    temp=rankList.get(j);
+                    rankList.set(j,rankList.get(i));
+                    rankList.set(i,temp);
+                }
+            }
+
+            Log.e("score",rankList.get(i).getTotalscore()+"");
+
+        }
+        setQuizRankListAdaptor();
+
     }
 
     private void bottomNavigationBar()
@@ -59,7 +82,7 @@ public class Quiz extends AppCompatActivity {
         final LinearLayout dashboard=findViewById(R.id.bottom_navigation_dashboard);
         final LinearLayout leaderboard=findViewById(R.id.bottom_navigation_leaderboard);
         final LinearLayout stats=findViewById(R.id.bottom_navigation_stats);
-        quiz.setBackgroundResource(R.drawable.view_top_right_border_blue);
+        dashboard.setBackgroundResource(R.drawable.view_top_right_border_blue);
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,7 +91,7 @@ public class Quiz extends AppCompatActivity {
                 dashboard.setBackgroundResource(R.drawable.view_top_right_border_black);
                 leaderboard.setBackgroundResource(R.drawable.view_top_right_border_black);
                 stats.setBackgroundResource(R.drawable.view_top_right_border_black);
-                startActivity(new Intent(Quiz.this,ProfileActivity.class));
+                startActivity(new Intent(LeaderBoardActivity.this,ProfileActivity.class));
                 finish();
             }
         });
@@ -81,6 +104,8 @@ public class Quiz extends AppCompatActivity {
                 dashboard.setBackgroundResource(R.drawable.view_top_right_border_black);
                 leaderboard.setBackgroundResource(R.drawable.view_top_right_border_black);
                 stats.setBackgroundResource(R.drawable.view_top_right_border_black);
+                startActivity(new Intent(LeaderBoardActivity.this,Quiz.class));
+                finish();
             }
         });
 
@@ -92,8 +117,7 @@ public class Quiz extends AppCompatActivity {
                 dashboard.setBackgroundResource(R.drawable.view_top_right_border_blue);
                 leaderboard.setBackgroundResource(R.drawable.view_top_right_border_black);
                 stats.setBackgroundResource(R.drawable.view_top_right_border_black);
-                startActivity(new Intent(Quiz.this,DashBoardActivity.class));
-                finish();
+                startActivity(new Intent(LeaderBoardActivity.this,DashBoardActivity.class));
             }
         });
 
@@ -116,50 +140,10 @@ public class Quiz extends AppCompatActivity {
                 dashboard.setBackgroundResource(R.drawable.view_top_right_border_black);
                 leaderboard.setBackgroundResource(R.drawable.view_top_right_border_black);
                 stats.setBackgroundResource(R.drawable.view_top_right_border_blue);
+//                startActivity(new Intent(LeaderBoardActivity.this,StatisticsActivity.class));
             }
         });
 
 
-    }
-
-    private void loadFragment(Fragment fragment) {
-        FragmentManager fm = getSupportFragmentManager();
-        androidx.fragment.app.FragmentTransaction fragmentTransaction=fm.beginTransaction();
-        fragmentTransaction.replace(R.id.main_Fragment, fragment);
-        fragmentTransaction.commit();
-    }
-
-    private void loadFragmentLogic(){
-        int index= (int) new Utility().getSharedPreferences(this,"AppData","QuizIndex",0);
-        Log.e("index",String.valueOf(index) );
-        if(index<11){
-            loadFragment(new GetReady());
-        }
-        else{
-            loadFragment(new QuizFinish());
-        }
-    }
-
-    public void RegisterReceiver(QuizInterface quizInterface){
-        quizReceiver = new QuizReceiver(quizInterface);
-        registerReceiver(quizReceiver, new IntentFilter("Quiz"));
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        unregisterReceiver(quizReceiver);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        RegisterReceiver(quizInterface);
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        RegisterReceiver(quizInterface);
     }
 }

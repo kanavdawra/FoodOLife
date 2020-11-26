@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import com.example.nutritionapp.R;
 import com.example.nutritionapp.Tools.Database.DatabaseUtility;
 import com.example.nutritionapp.Tools.FireBase;
 import com.example.nutritionapp.Tools.Utility;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Objects;
 
@@ -128,6 +130,7 @@ public class QuizQuestions extends Fragment {
             right.setBackgroundResource(R.drawable.green_button_round_un_selected);
         }
     }
+
     private void ReColorOptions(){
 
         option1.setBackgroundResource(R.drawable.blue_button_rounded_un_selected);
@@ -256,15 +259,32 @@ public class QuizQuestions extends Fragment {
     }
 
     private void getMarksIndex() {
-        marks= (int) new Utility().getSharedPreferences(getActivity(),"AppData","QuizMarks",0);
+        marks= (int) new Utility().getSharedPreferences(Objects.requireNonNull(getActivity()),"AppData","QuizMarks",0);
         index= (int) new Utility().getSharedPreferences(getActivity(),"AppData","QuizIndex",0);
     }
 
     private void setMarksIndex() {
-        new Utility().setSharedPreferences(getActivity(),"AppData","QuizMarks",marks);
+        new Utility().setSharedPreferences(Objects.requireNonNull(getActivity()),"AppData","QuizMarks",marks);
         new Utility().setSharedPreferences(getActivity(),"AppData","QuizIndex",index);
+        String name=new Utility().getSharedPreferences(getActivity(),"UserData","Name","Name Name");
+        Log.e("Name",name);
         new FireBase().getReference().child("QuizMarks").setValue(marks);
         new FireBase().getReference().child("QuizIndex").setValue(index);
+
+        new FireBase().getRankReference().child("Quiz").child(new FireBase()
+                .getUserId(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser().getEmail())))
+                .child("Name").setValue(name);
+        new FireBase().getRankReference().child("Quiz").child(new FireBase()
+                .getUserId(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser().getEmail())))
+                .child("Email").setValue(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+
+        new FireBase().getRankReference().child("Quiz").child(new FireBase()
+                .getUserId(FirebaseAuth.getInstance().getCurrentUser().getEmail()))
+                .child("QuizMarks").setValue(marks);
+
+        new FireBase().getRankReference().child("Quiz").child(new FireBase()
+                .getUserId(FirebaseAuth.getInstance().getCurrentUser().getEmail()))
+                .child("QuizIndex").setValue(index);
     }
 
     private void GetReady(){

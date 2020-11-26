@@ -3,6 +3,7 @@ package com.example.nutritionapp.OnBoardFragments;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,13 +24,15 @@ public class AllSet extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.all_set, container, false);
+        Log.e("Allseti","Allset1");
         TextView next=view.findViewById(R.id.all_set_next);
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent("MainActivity");
                 intent.putExtra("Task","NextActivity");
-                new Utility().setSharedPreferences(Objects.requireNonNull(getActivity()),"UserData","OnBoard",6);
+                new Utility().setSharedPreferences(Objects.requireNonNull(getActivity()),"UserData","OnBoard","1");
+                Log.e("Allset","Allset");
                 Objects.requireNonNull(getActivity()).sendBroadcast(intent);
             }
         });

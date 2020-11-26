@@ -9,20 +9,20 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:gravity="center"
-        android:text="@string/food_amount"
-        android:textAlignment="center"
+        android:text="@string/weight"
+        android:textSize="20sp"
         android:textColor="@color/colorText"
-        android:textSize="20sp" />
-
+        android:gravity="center"
+        android:textAlignment="center"
+        />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:gravity="center"
-        android:text="@string/food_servings"
-        android:textAlignment="center"
+        android:text="@string/enter_your_updated_weight"
+        android:textSize="18sp"
         android:textColor="@color/colorText"
-        android:textSize="18sp" />
+        android:gravity="center"
+        android:textAlignment="center"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -30,24 +30,52 @@
         android:gravity="center">
 
         <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/amt_dialog_serving_edittext"
+            android:id="@+id/weight_dialog_weight"
             android:layout_width="200dp"
             android:layout_height="60dp"
-            android:hint="@string/hint_for_dialoguebox_food_amount"
             android:inputType="numberDecimal"
+            app:met_primaryColor="@color/colorPrimaryDark"
             android:textColor="@color/colorText"
             app:met_baseColor="@color/colorSecondary"
+            app:met_underlineColor="@color/colorSecondary"
             app:met_hideUnderline="false"
-            app:met_primaryColor="@color/colorPrimaryDark"
-            app:met_underlineColor="@color/colorSecondary" />
-    </LinearLayout>
+            android:hint="@string/weight_hint"/>
+        <LinearLayout
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginStart="10dp">
+            <TextView
+                android:id="@+id/weight_dialog_lb"
+                android:layout_width="40dp"
+                android:layout_height="20dp"
+                android:background="@drawable/blue_button_rounded_un_selected"
+                android:text="@string/lb"
+                android:textColor="@color/colorText"
+                android:textSize="12sp"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:layout_marginTop="6dp" />
+            <TextView
+                android:id="@+id/weight_dialog_kg"
+                android:layout_width="40dp"
+                android:layout_height="20dp"
+                android:background="@drawable/blue_button_rounded_un_selected"
+                android:text="@string/kg"
+                android:textColor="@color/colorText"
+                android:textSize="12sp"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:layout_marginTop="8dp"/>
+        </LinearLayout>
+        </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="90dp"
         android:orientation="horizontal"
         android:gravity="end">
         <TextView
-            android:id="@+id/amt_dialog_serving_cancel"
+            android:id="@+id/weight_dialog_cancel"
             android:layout_width="70dp"
             android:layout_height="40dp"
             android:textSize="13sp"
@@ -58,7 +86,7 @@
             android:layout_marginTop="25dp"
             />
         <TextView
-            android:id="@+id/amt_dialog_serving_save"
+            android:id="@+id/weight_dialog_save"
             android:layout_width="70dp"
             android:layout_height="40dp"
             android:background="@drawable/blue_button_rounder_corners"

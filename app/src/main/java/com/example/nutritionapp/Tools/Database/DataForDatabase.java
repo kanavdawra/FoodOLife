@@ -137,27 +137,6 @@ public class DataForDatabase {
         );
     }
 
-    public void addStreak(double weight, String date){
-        SQLiteDatabase db=getDataBase().getWritableDatabase();
-        //System.out.println(new Utility().getSharedPreferences(context,"AppData","UserData",date));
-//        if(new Utility().getSharedPreferences(context,"AppData","UserData",date)!=date){
-//            db.execSQL(
-//                    "insert into streak(weight,date) values ('"
-//                            +weight+"','"
-//                            +date+"'"+
-//                            ")"
-//            );
-//            new Utility().setSharedPreferences(context,"AppData","UserData",date);
-//        }
-        db.execSQL(
-                    "insert into streak(weight,date) values ('"
-                            +weight+"','"
-                            +date+"'"+
-                            ")"
-            );
-            new Utility().setSharedPreferences(context,"AppData","UserData",date);
-    }
-
     public void AddFoodData(){
         //This is designed for 100gm of food data
 
@@ -266,7 +245,6 @@ public class DataForDatabase {
 
 
     }
-
 
 
 

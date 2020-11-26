@@ -27,28 +27,12 @@ public class SplashActivity extends AppCompatActivity {
 
                 FirebaseAuth mAuth=FirebaseAuth.getInstance();
                 FirebaseUser currentUser = mAuth.getCurrentUser();
-                int onBoard= (int) new Utility().getSharedPreferences(SplashActivity.this,"UserData","OnBoard",0);
-                int verified=0;
-//                if(currentUser!=null) {
-//                    if (!Objects.equals(currentUser.getEmail(), "")) {
-//                        if (currentUser.isEmailVerified()) {
-//                            verified = 1;
-//                        }
-//                        if (!Objects.equals(currentUser.getEmail(), "") && onBoard == 0 && verified == 1) {
-//                            startActivity(new Intent(SplashActivity.this, MainActivity.class));
-//                        }
-//                        if (!Objects.equals(currentUser.getEmail(), "") && onBoard == 6 && verified == 1) {
-//                            startActivity(new Intent(SplashActivity.this, ProfileActivity.class));
-//                        }
-//                    }
-//                }
-//                else{
-//                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
-//                }
+                String onBoard= new Utility().getSharedPreferences(SplashActivity.this,"UserData","OnBoard","0");
 
+                Log.e("onboard splash",onBoard);
                 try {
 
-                    if(!Objects.equals(currentUser.getEmail(), "") && onBoard == 6 && currentUser.isEmailVerified()){
+                    if(!Objects.equals(currentUser.getEmail(), "") && onBoard.equals("1") && currentUser.isEmailVerified()){
                         Log.e("Email", currentUser.getEmail());
                         startActivity(new Intent(SplashActivity.this, DashBoardActivity.class));
 

@@ -33,13 +33,11 @@ public class GetSex extends Fragment {
                 if(sex==0){
                     intent.putExtra("Sex","Female");
                     new Utility().setSharedPreferences(Objects.requireNonNull(getActivity()),"UserData","Sex","Female");
-                    new Utility().setSharedPreferences(Objects.requireNonNull(getActivity()),"UserData","OnBoard",1);
 
                     Objects.requireNonNull(getActivity()).sendBroadcast(intent);
                 }
                 if(sex==1){
                     intent.putExtra("Sex","Male");
-                    new Utility().setSharedPreferences(Objects.requireNonNull(getActivity()),"UserData","OnBoard",1);
                     new Utility().setSharedPreferences(Objects.requireNonNull(getActivity()),"UserData","Sex","Male");
                     Objects.requireNonNull(getActivity()).sendBroadcast(intent);
                 }

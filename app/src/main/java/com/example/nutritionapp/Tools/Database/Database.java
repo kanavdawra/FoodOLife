@@ -1,6 +1,7 @@
 package com.example.nutritionapp.Tools.Database;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -45,11 +46,11 @@ public class Database extends SQLiteOpenHelper {
     public static final String DATE = "date";
     public static final String TYPE = "type";
 
-    public static final String TABLE_STREAK = "streak";
-    public static final String STREAK_ID = "id";
+    public static final String TABLE_WEIGHT = "user_weight";
+    public static final String WEIGHT_ID = "id";
     public static final String WEIGHT = "weight";
-    public static final String LAST_UPDATE_DATE = "date";
-    public static final String NEED_UPDATE = "need_update";
+    public static final String UNIT = "unit";
+   // public static final String DATE = "date";
 
 
 
@@ -97,20 +98,22 @@ public class Database extends SQLiteOpenHelper {
                 AMOUNT + " INTEGER NOT NULL," +
                 FOOD_ID + " INTEGER NOT NULL," +
                 DATE+ " TEXT NOT NULL,"+
-                TYPE+" TEXT NOT NULL"+
+                TYPE+" TEXT NOT NULL,"+
+                "FOREIGN KEY(FOOD_ID) REFERENCES food_nutrients(KEY_FOOD_NUTRIENTS)"+
                 ")";
 
-        String CREATE_STREAK_TABLE = "CREATE TABLE " + TABLE_STREAK+
+        String CREATE_WEIGHT_TABLE = "CREATE TABLE " + TABLE_WEIGHT+
                 "(" +
-                STREAK_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + // primary key
+                WEIGHT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + // primary key
+                DATE+ " VARCHAR(20) NOT NULL," +
                 WEIGHT + " DOUBLE NOT NULL," +
-                LAST_UPDATE_DATE+ " TEXT NOT NULL"+
+                UNIT + " VARCHAR(5) NOT NULL" +
                 ")";
 
         db.execSQL(CREATE_QUIZ_TABLE);
         db.execSQL(CREATE_FOOD_NUTRIENTS);
         db.execSQL(CREATE_INTAKE_TABLE);
-        db.execSQL(CREATE_STREAK_TABLE);
+        db.execSQL(CREATE_WEIGHT_TABLE);
 
 
     }
@@ -119,4 +122,6 @@ public class Database extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }
+
+
 }

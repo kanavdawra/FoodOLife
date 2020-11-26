@@ -31,7 +31,6 @@ public class GetGoal extends Fragment {
                 Intent intent=new Intent("MainActivity");
                 intent.putExtra("Task","AllSet");
                 intent.putExtra("Goal","Lose Weight");
-                new Utility().setSharedPreferences(Objects.requireNonNull(getActivity()),"UserData","OnBoard",5);
                 new Utility().setSharedPreferences(Objects.requireNonNull(getActivity()),"UserData","Goal","Lose Weight");
                 Objects.requireNonNull(getActivity()).sendBroadcast(intent);
             }
@@ -43,7 +42,6 @@ public class GetGoal extends Fragment {
                 Intent intent=new Intent("MainActivity");
                 intent.putExtra("Task","AllSet");
                 intent.putExtra("Goal","Maintain Weight");
-                new Utility().setSharedPreferences(Objects.requireNonNull(getActivity()),"UserData","OnBoard",5);
                 new Utility().setSharedPreferences(Objects.requireNonNull(getActivity()),"UserData","Goal","Maintain Weight");
                 Objects.requireNonNull(getActivity()).sendBroadcast(intent);
             }
@@ -55,7 +53,6 @@ public class GetGoal extends Fragment {
                 Intent intent=new Intent("MainActivity");
                 intent.putExtra("Task","AllSet");
                 intent.putExtra("Goal","Gain Weight");
-                new Utility().setSharedPreferences(Objects.requireNonNull(getActivity()),"UserData","OnBoard",5);
                 new Utility().setSharedPreferences(Objects.requireNonNull(getActivity()),"UserData","Goal","Gain Weight");
                 Objects.requireNonNull(getActivity()).sendBroadcast(intent);
             }

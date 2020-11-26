@@ -2,6 +2,8 @@ package com.example.nutritionapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
@@ -85,6 +87,8 @@ public class ProfileActivity extends AppCompatActivity implements ValueEventList
             }
         });
 
+
+
         GraphView graph= (GraphView) findViewById(R.id.graph);
         LineGraphSeries<DataPoint> series=new LineGraphSeries<DataPoint>(new DataPoint[]{
 
@@ -110,4 +114,7 @@ public class ProfileActivity extends AppCompatActivity implements ValueEventList
     public void onCancelled(@NonNull DatabaseError error) {
 
     }
+
+
+
 }

@@ -56,9 +56,6 @@
     <string name="get_ready_improve_ranking_leaderboard">Get Ready to start your quiz \n This will improve your ranking on \n LEADERBOARD</string>
 
 
-
-
-
     <string name="empty" />
     <string name="temp">Temporary</string>
     <string name="Life_score">Get Your Life Score</string>
@@ -76,5 +73,33 @@
     <string name="exercise">Add exercise\n</string>
     <string name="search_hint">Search for food</string>
     <string name="Streaks">Streaks</string>
+
+
+    <string name="Date">Date</string>
+    <string name="recents">Recents</string>
+    <string name="name">Name</string>
+    <string name="amount">Amount</string>
+    <string name="calorie">Calorie</string>
+    <string name="selectdate">Select the Date</string>
+    <string name="breakfast_log_meal">Breakfast/Snacks/Lunch/Dinner</string>
+
+    <string name="enter_your_updated_weight">Enter your today\'s weight</string>
+    <string name="save">SAVE</string>
+    <string name="cancel">CANCEL</string>
+    <string name="DASHBOARD">DASHBOARD</string>
+    <string name="kcal">KCAL</string>
+    <string name="CARBS">CARBS</string>
+    <string name="PROTEIN">PROTEIN</string>
+    <string name="FATS">FATS</string>
+    <string name="add_breakfast">Add breakfast</string>
+    <string name="add_lunch">Add lunch</string>
+    <string name="add_dinner">Add dinner</string>
+    <string name="add_snack">Add snack</string>
+    <string name="food_amount">"Food Amount "</string>
+    <string name="food_servings">Enter food servings (1 serv is 100g)</string>
+    <string name="hint_for_dialoguebox_food_amount">Eg .  1,  2,  3...</string>
+    <string name="LEADERBOARD">LEADERBOARD</string>
+    <string name="GOAL">GOAL</string>
+
     <string name="pick">Pick What You Have Eaten</string>
 </resources>
