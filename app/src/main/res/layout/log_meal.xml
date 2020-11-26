@@ -32,12 +32,11 @@
             android:id="@+id/log_meal_header"
             android:layout_width="241dp"
             android:layout_height="70dp"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
-
-
+            android:gravity="center"
+            android:text="@string/breakfast_log_meal"
+            android:textAlignment="center"
+            android:textColor="@color/colorSecondary"
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/save_food_serving"
@@ -73,12 +72,19 @@
             android:layout_marginTop="70dp">
 
             <TextView
-                android:layout_width="100dp"
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                app:layout_constraintBottom_toBottomOf="@+id/spinnerview"
+                android:gravity="center"
+                android:text="@string/Date"
+                android:textColor="@color/colorSecondary"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.155"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.2" />
 
             <com.rengwuxian.materialedittext.MaterialEditText
                 android:id="@+id/log_meal_get_date"
@@ -105,7 +111,6 @@
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.75">
@@ -222,11 +227,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.45" />
-
-
-
-
-
-</LinearLayout>
-    </ScrollView>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

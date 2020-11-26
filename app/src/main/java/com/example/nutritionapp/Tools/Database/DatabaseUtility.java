@@ -16,6 +16,7 @@ import com.example.nutritionapp.Modals.Quiz;
 import com.example.nutritionapp.Modals.QuizRankList;
 import com.example.nutritionapp.Modals.Recentmeals;
 import com.example.nutritionapp.Modals.SodiumData;
+import com.example.nutritionapp.Modals.TodayMacros;
 import com.example.nutritionapp.Modals.calorieintake;
 import com.example.nutritionapp.Modals.piechartgraph;
 import com.google.firebase.auth.FirebaseAuth;
@@ -265,7 +266,7 @@ public class DatabaseUtility {
 
         SQLiteDatabase db=getDataBase().getReadableDatabase();
         Cursor cursor=db.rawQuery("Select SUM(a.sodium*b.amount/1000), b.date from food_nutrients a " +
-                "inner join food_intake b on b.food_id=a.id group by b.date order by b.date",
+                        "inner join food_intake b on b.food_id=a.id group by b.date order by b.date",
                 null);
 
         cursor.moveToFirst();
@@ -336,7 +337,7 @@ public class DatabaseUtility {
         Cursor cursor=database.rawQuery("select a.calorie,a.carbohydrates,a.protein,a.fat,b.amount " +
                 "from food_nutrients a inner join food_intake b on a.id=b.food_id " +
                 "where date='"+date+"'",null);
-cursor.moveToFirst();
+        cursor.moveToFirst();
 
         if(cursor.getCount()!=0){
             while (!(cursor.getPosition()==cursor.getCount())){
