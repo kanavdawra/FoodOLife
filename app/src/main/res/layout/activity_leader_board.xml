@@ -19,47 +19,17 @@
         app:layout_constraintVertical_bias=".05"
         />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias=".1"
-        android:gravity="center">
-        
-        
-        <TextView
-            android:id="@+id/leaderboard_quiz"
-            android:layout_width="200dp"
-            android:layout_height="50dp"
-            android:text="@string/QUIZ"
-            android:textColor="@color/colorText"
-            android:textSize="18sp"
-            android:gravity="center"
-            android:background="@color/colorPrimary"/>
-        <TextView
-            android:id="@+id/leaderboard_goal"
-            android:layout_width="200dp"
-            android:layout_height="50dp"
-            android:text="@string/GOAL"
-            android:textColor="@color/colorText"
-            android:textSize="18sp"
-            android:gravity="center"/>
 
-    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/leaderboard_recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="530dp"
+        android:layout_height="570dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias=".6"/>
+        app:layout_constraintVertical_bias=".5"/>
     <LinearLayout
         android:id="@+id/dashboard_linearLayout4"
         android:layout_width="match_parent"

@@ -124,7 +124,8 @@ public class DashBoardActivity extends AppCompatActivity {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         formattedDate = df.format(c);
         String last_update = new DatabaseUtility(DashBoardActivity.this).getLastWeightUpdateDate();
-
+       last_update= last_update.replace('/','-');
+       formattedDate= formattedDate.replace('/','-');
         AmountDialog = new Dialog(this);
         AmountDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         AmountDialog.setContentView(R.layout.weight_dialog);
@@ -157,10 +158,10 @@ public class DashBoardActivity extends AppCompatActivity {
                 }
                 else{
                     if(unit==0){
-                        addWeightSQLQuery(weight,formattedDate,"LB");
+                        addWeightSQLQuery(weight,formattedDate,"lb");
                     }
                     else {
-                        addWeightSQLQuery(weight,formattedDate,"KG");
+                        addWeightSQLQuery(weight,formattedDate,"kg");
                     }
                     AmountDialog.dismiss();
                 }
