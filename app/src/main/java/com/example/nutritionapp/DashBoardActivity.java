@@ -60,12 +60,6 @@ public class DashBoardActivity extends AppCompatActivity {
         bottomNavigationBar();
         loadtoFirebase();
 
-
-
-
-
-
-
         LinearLayout btn_breakfast = findViewById(R.id.dashboard_add_breakfast);
         LinearLayout btn_lunch = findViewById(R.id.dashboard_add_lunch);
         LinearLayout btn_dinner = findViewById(R.id.dashboard_add_dinner);
@@ -281,6 +275,7 @@ public class DashBoardActivity extends AppCompatActivity {
                 leaderboard.setBackgroundResource(R.drawable.view_top_right_border_blue);
                 stats.setBackgroundResource(R.drawable.view_top_right_border_black);
                 startActivity(new Intent(DashBoardActivity.this,LeaderBoardActivity.class));
+                finish();
             }
         });
 
@@ -292,6 +287,8 @@ public class DashBoardActivity extends AppCompatActivity {
                 dashboard.setBackgroundResource(R.drawable.view_top_right_border_black);
                 leaderboard.setBackgroundResource(R.drawable.view_top_right_border_black);
                 stats.setBackgroundResource(R.drawable.view_top_right_border_blue);
+                startActivity(new Intent(DashBoardActivity.this,statistics.class));
+                finish();
             }
         });
 

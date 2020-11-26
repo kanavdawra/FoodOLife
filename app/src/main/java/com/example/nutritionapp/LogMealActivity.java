@@ -32,8 +32,11 @@ import com.example.nutritionapp.Tools.Database.DatabaseUtility;
 import com.example.nutritionapp.Tools.Database.Recentsadaptor;
 import com.example.nutritionapp.Tools.Utility;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import android.content.Context;
 
@@ -55,6 +58,7 @@ public class LogMealActivity extends AppCompatActivity {
     String food_type;
     ListView listforrecents;
     TextView food_serving_save;
+    int streak=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,14 +106,6 @@ public class LogMealActivity extends AppCompatActivity {
                 int id= (int)new Utility().getSharedPreferences(context,"TempData","CurrentFoodid",1);
                 int amount=(int)new Utility().getSharedPreferences(context,"TempData","CurrentFoodServing",2);
 
-
-
-
-
-
-
-
-
                 Database database=new DatabaseUtility(context).getDataBase();
 
                 database.getWritableDatabase()
@@ -119,7 +115,24 @@ public class LogMealActivity extends AppCompatActivity {
                                 date.getText().toString()+"','"+
                                 food_type+"')");
 
+                SimpleDateFormat timeStampFormat = new SimpleDateFormat("dd MM yyyy");
+                Date myDate = new Date();
+                String dateofsystem = timeStampFormat.format(myDate);
 
+                String dateofsharedpref=String.valueOf(new Utility().getSharedPreferences(context,"UserData","Systemdate",2));
+                try {
+                    Date date1=timeStampFormat.parse(dateofsystem);
+                    Date date2=timeStampFormat.parse(dateofsharedpref);
+
+                    long diff=date1.getTime()-date2.getTime();
+                    float days=diff/(1000*60*60*24);
+
+                    Log.e("datee",days+"");
+
+
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
 
                 finish();
 
@@ -171,6 +184,8 @@ public class LogMealActivity extends AppCompatActivity {
                                 date.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
                             }
                         }, year, month, day);
+
+
                 picker.show();
             }
         });

@@ -105,6 +105,8 @@ public class Quiz extends AppCompatActivity {
                 dashboard.setBackgroundResource(R.drawable.view_top_right_border_black);
                 leaderboard.setBackgroundResource(R.drawable.view_top_right_border_blue);
                 stats.setBackgroundResource(R.drawable.view_top_right_border_black);
+                startActivity(new Intent(Quiz.this,LeaderBoardActivity.class));
+                finish();
             }
         });
 
@@ -116,6 +118,8 @@ public class Quiz extends AppCompatActivity {
                 dashboard.setBackgroundResource(R.drawable.view_top_right_border_black);
                 leaderboard.setBackgroundResource(R.drawable.view_top_right_border_black);
                 stats.setBackgroundResource(R.drawable.view_top_right_border_blue);
+                startActivity(new Intent(Quiz.this,statistics.class));
+                finish();
             }
         });
 
