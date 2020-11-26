@@ -46,7 +46,7 @@ public class statistics extends AppCompatActivity {
 
         getCaloriGraph();
         getAvgMacrosPie();
-getSodiumChart();
+        getSodiumChart();
 
     }
 
