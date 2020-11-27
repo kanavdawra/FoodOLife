@@ -42,6 +42,7 @@ import java.util.Objects;
 import de.mateware.snacky.Snacky;
 
 public class DashBoardActivity extends AppCompatActivity {
+    
     Dialog AmountDialog;
     double weight=-1;
     int unit=-1;// kg=1 lb=0
@@ -121,11 +122,12 @@ public class DashBoardActivity extends AppCompatActivity {
 
     private void weightDialog(){
         Date c = Calendar.getInstance().getTime();
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
         formattedDate = df.format(c);
         String last_update = new DatabaseUtility(DashBoardActivity.this).getLastWeightUpdateDate();
        last_update= last_update.replace('/','-');
        formattedDate= formattedDate.replace('/','-');
+       Log.e("date/-/-/",formattedDate+" "+last_update);
         AmountDialog = new Dialog(this);
         AmountDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         AmountDialog.setContentView(R.layout.weight_dialog);

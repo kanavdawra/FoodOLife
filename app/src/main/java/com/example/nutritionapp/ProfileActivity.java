@@ -2,6 +2,9 @@ package com.example.nutritionapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -16,6 +19,7 @@ import android.widget.TextView;
 import com.example.nutritionapp.Modals.Profileactivitygraph;
 import com.example.nutritionapp.Tools.Database.DatabaseUtility;
 import com.example.nutritionapp.Tools.FireBase;
+import com.example.nutritionapp.Tools.Utility;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
@@ -35,14 +39,17 @@ import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.mateware.snacky.Snacky;
+
 public class ProfileActivity extends AppCompatActivity implements ValueEventListener {
 
-        private FirebaseAuth firebaseAuth;
-        private FirebaseDatabase firebaseDatabase;
-        private LineChart mchart;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseDatabase firebaseDatabase;
+    private LineChart mchart;
 
 
     public String getUserId(String email){
@@ -67,27 +74,32 @@ public class ProfileActivity extends AppCompatActivity implements ValueEventList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile_activity);
         bottomNavigationBar();
+        getStreak();
+        getLogout();
         mchart=(LineChart) findViewById(R.id.graph);
         mchart.setDragEnabled(true);
         mchart.setScaleEnabled(false);
 
-       ArrayList<Entry> yvalues=new ArrayList<>();
+        ArrayList<Entry> yvalues=new ArrayList<>();
         List<String> xaxisValues=new ArrayList<>();
 
-       ArrayList<Profileactivitygraph> valuesfordata=new ArrayList<>();
-       valuesfordata=new DatabaseUtility(this).getdataforgraph();
+        ArrayList<Profileactivitygraph> valuesfordata=new ArrayList<>();
+        valuesfordata=new DatabaseUtility(this).getdataforgraph();
+        if (valuesfordata.size()==0) {
+            Snacky.builder().setActivity(this).setBackgroundColor(Color.parseColor("#ff1744")).setText("No Weight Data Found :(").build().show();
+        }
 
-       for(int i=0;i<valuesfordata.size();i++){
+        for(int i=0;i<valuesfordata.size();i++){
 
-           Log.e("values",String.valueOf(valuesfordata.get(i).getWeight()));
-           yvalues.add(new Entry(i,(float)valuesfordata.get(i).getWeight()));
-           xaxisValues.add(valuesfordata.get(i).getDate().substring(5,10));
+            Log.e("values",String.valueOf(valuesfordata.get(i).getWeight()));
+            yvalues.add(new Entry(i,(float)valuesfordata.get(i).getWeight()));
+            xaxisValues.add(valuesfordata.get(i).getDate().substring(5,10));
 
-       }
+        }
 
-       XAxis xAxis=mchart.getXAxis();
-       xAxis.setGranularity(1f);
-       xAxis.setCenterAxisLabels(true);
+        XAxis xAxis=mchart.getXAxis();
+        xAxis.setGranularity(1f);
+        xAxis.setCenterAxisLabels(true);
         xAxis.setEnabled(true);
         xAxis.setDrawGridLines(false);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
@@ -99,16 +111,21 @@ public class ProfileActivity extends AppCompatActivity implements ValueEventList
         mchart.getDescription().setEnabled(false);
 
 
-       LineDataSet set1=new LineDataSet(yvalues,"Data Set1");
+        LineDataSet set1=new LineDataSet(yvalues,"Data Set1");
 
-       ArrayList<ILineDataSet> dataSets=new ArrayList<>();
+        ArrayList<ILineDataSet> dataSets=new ArrayList<>();
 
-       dataSets.add(set1);
+        dataSets.add(set1);
         LineData data=new LineData(dataSets);
         mchart.setData(data);
         mchart.invalidate();
         set1.setColor(Color.parseColor("#3d5aff"));
-
+        mchart.setBackgroundColor(Color.parseColor("#212121"));
+        mchart.setBorderColor(Color.WHITE);
+        mchart.setGridBackgroundColor(Color.WHITE);
+        mchart.getAxisLeft().setTextColor(Color.WHITE);
+        mchart.getAxisRight().setTextColor(Color.WHITE);
+        mchart.getXAxis().setTextColor(Color.WHITE);
 
 
         final TextView usernam=findViewById(R.id.user_name_text);
@@ -148,6 +165,31 @@ public class ProfileActivity extends AppCompatActivity implements ValueEventList
             }
         });
 
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void getStreak(){
+
+        TextView currStreakText=findViewById(R.id.profile_curr_streak);
+        TextView longestStreakText=findViewById(R.id.profile_longest_streak);
+
+        currStreakText.setText("Current "+(int)new Utility().getSharedPreferences(this,"UserData","Streak",0));
+        longestStreakText.setText("Longest "+(int)new Utility().getSharedPreferences(this,"UserData","LongestStreak",0));
+
+
+    }
+
+    private void getLogout(){
+        TextView logout=findViewById(R.id.profile_logout);
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(ProfileActivity.this,MainActivity.class));
+                ((ActivityManager)getSystemService(ACTIVITY_SERVICE)).clearApplicationUserData();
+            }
+        });
 
 
     }

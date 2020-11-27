@@ -28,6 +28,9 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
+
+import de.mateware.snacky.Snacky;
 
 public class statistics extends AppCompatActivity {
 
@@ -53,6 +56,9 @@ public class statistics extends AppCompatActivity {
     private void getCaloriGraph(){
         valuesforgraph=new ArrayList<>();
         valuesforgraph=new DatabaseUtility(this).getcalorie();
+        if (valuesforgraph.size()==0) {
+            Snacky.builder().setActivity(this).setBackgroundColor(Color.parseColor("#ff1744")).setText("No Data Found1 :(").build().show();
+        }
         chart=(LineChart)findViewById(R.id.barchart);
         chart.setDragEnabled(true);
         chart.setScaleEnabled(false);
@@ -81,6 +87,12 @@ public class statistics extends AppCompatActivity {
         chart.setData(data);
         chart.invalidate();
         set1.setColor(Color.parseColor("#3d5aff"));
+        chart.setBackgroundColor(Color.parseColor("#212121"));
+        chart.setBorderColor(Color.WHITE);
+        chart.setGridBackgroundColor(Color.WHITE);
+        chart.getAxisLeft().setTextColor(Color.WHITE);
+        chart.getAxisRight().setTextColor(Color.WHITE);
+        chart.getXAxis().setTextColor(Color.WHITE);
 
     }
 
@@ -90,6 +102,10 @@ public class statistics extends AppCompatActivity {
         piechart=(PieChart)findViewById(R.id.piechart);
         dataforpie=new ArrayList<>();
         dataforpie=new DatabaseUtility(this).getpie();
+        Log.e("piedata",dataforpie.size()+"");
+        if (dataforpie.size()==0) {
+            Snacky.builder().setActivity(this).setBackgroundColor(Color.parseColor("#ff1744")).setText("No Data Found2 :(").build().show();
+        }
         String labels[]=new String[]{"Fats","Carbohydrates","Proteins"};
 
         PieEntry fats=new PieEntry((float) (dataforpie.get(0).getFat()/dataforpie.get(0).getTotalcalorie())*100);
@@ -126,7 +142,9 @@ public class statistics extends AppCompatActivity {
 
     private void getSodiumChart(){
         ArrayList<SodiumData> sodiumDataArrayList=new DatabaseUtility(this).getSodiumData();
-
+        if (sodiumDataArrayList.size()==0) {
+            Snacky.builder().setActivity(this).setBackgroundColor(Color.parseColor("#ff1744")).setText("No Data Found3 :(").build().show();
+        }
         LineChart lineChart=findViewById(R.id.statistics_sodium_chart);
 
         ArrayList<Double> yValues=new ArrayList<>();

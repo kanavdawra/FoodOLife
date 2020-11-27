@@ -103,7 +103,12 @@ public class MealAdapter extends BaseAdapter {
         bt_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                serving=Integer.parseInt(weightText.getText().toString());
+                try {
+                    serving=Integer.parseInt(weightText.getText().toString());
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                    weightText.setError("* Serving  cannot be empty");
+                }
                 if(weightText.getText().toString().equals("")){
                     weightText.setError("* Serving  cannot be empty");
                 }
@@ -112,6 +117,7 @@ public class MealAdapter extends BaseAdapter {
                     weightText.setError("Serving  cannot be 0");
                 }
                 else{
+                    spinnerTextView.setText(mealList.get(i).getName()+", Amt: "+serving );
                     new Utility().setSharedPreferences(context,"TempData","CurrentFoodServing",serving);
                     new Utility().setSharedPreferences(context,"TempData","CurrentFoodid",i);
 

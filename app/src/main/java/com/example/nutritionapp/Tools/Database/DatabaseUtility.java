@@ -109,27 +109,20 @@ public class DatabaseUtility {
         ArrayList<calorieintake> listofcalorie=new ArrayList<>();
         cursor.moveToFirst();
 
-        do{
+        if (cursor.getCount()>0) {
+            do{
 
-            calorieintake intake=new calorieintake();
-            intake.setDate(cursor.getString(1));
-            intake.setcalorie(cursor.getDouble(0));
-            listofcalorie.add(intake);
-            Log.e("Amount",cursor.getString(1)+" "+cursor.getDouble(0));
-
-
-        }while (cursor.moveToNext());
-        ArrayList<calorieintake> listoftotalcalorie=new ArrayList<>();
-        int index,amount;
-        String date=listofcalorie.get(0).getDate();
-        double calorie,sum;
-        for(int i=0;i<listofcalorie.size();i++){
-            if(date.equals(listofcalorie.get(i).getDate())){
-
-            }
+                calorieintake intake=new calorieintake();
+                intake.setDate(cursor.getString(1));
+                intake.setcalorie(cursor.getDouble(0));
+                listofcalorie.add(intake);
+                Log.e("Amount",cursor.getString(1)+" "+cursor.getDouble(0));
 
 
+            }while (cursor.moveToNext());
         }
+
+
         return listofcalorie;
     }
 
@@ -242,6 +235,7 @@ public class DatabaseUtility {
         ArrayList<Profileactivitygraph> listforgraph=new ArrayList<>();
 
         cursor.moveToFirst();
+        if(cursor.getCount()>0){
         do{
             Profileactivitygraph profile=new Profileactivitygraph();
             if (cursor.getString(1).equals("lb")) {
@@ -257,7 +251,8 @@ public class DatabaseUtility {
 
             listforgraph.add(profile);
 
-        } while (cursor.moveToNext());
+        } while (cursor.moveToNext());}
+        cursor.close();
         return listforgraph;
     }
 
@@ -270,14 +265,17 @@ public class DatabaseUtility {
                 null);
 
         cursor.moveToFirst();
-        do{
-            SodiumData sodiumData=new SodiumData();
-            sodiumData.setSodium(cursor.getDouble(0));
-            sodiumData.setDate(cursor.getString(1));
-            sodiumDataList.add(sodiumData);
+
+        if (cursor.getCount()>0) {
+            do{
+                SodiumData sodiumData=new SodiumData();
+                sodiumData.setSodium(cursor.getDouble(0));
+                sodiumData.setDate(cursor.getString(1));
+                sodiumDataList.add(sodiumData);
 
 
-        }while (cursor.moveToNext());
+            }while (cursor.moveToNext());
+        }
         cursor.close();
 
         return sodiumDataList;
