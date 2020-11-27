@@ -82,7 +82,7 @@ public class LeaderBoardActivity extends AppCompatActivity {
         final LinearLayout dashboard=findViewById(R.id.bottom_navigation_dashboard);
         final LinearLayout leaderboard=findViewById(R.id.bottom_navigation_leaderboard);
         final LinearLayout stats=findViewById(R.id.bottom_navigation_stats);
-        dashboard.setBackgroundResource(R.drawable.view_top_right_border_blue);
+        leaderboard.setBackgroundResource(R.drawable.view_top_right_border_blue);
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,6 +118,7 @@ public class LeaderBoardActivity extends AppCompatActivity {
                 leaderboard.setBackgroundResource(R.drawable.view_top_right_border_black);
                 stats.setBackgroundResource(R.drawable.view_top_right_border_black);
                 startActivity(new Intent(LeaderBoardActivity.this,DashBoardActivity.class));
+                finish();
             }
         });
 
@@ -140,7 +141,8 @@ public class LeaderBoardActivity extends AppCompatActivity {
                 dashboard.setBackgroundResource(R.drawable.view_top_right_border_black);
                 leaderboard.setBackgroundResource(R.drawable.view_top_right_border_black);
                 stats.setBackgroundResource(R.drawable.view_top_right_border_blue);
-//                startActivity(new Intent(LeaderBoardActivity.this,StatisticsActivity.class));
+               startActivity(new Intent(LeaderBoardActivity.this,statistics.class));
+               finish();
             }
         });
 

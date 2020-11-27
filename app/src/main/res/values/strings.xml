@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">NutritionApp</string>
+    <string name="app_name">FoodOLife</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="sign_in">SIGN IN</string>
     <string name="sign_up">SIGN UP</string>
@@ -103,4 +103,10 @@
     <string name="foodstats">FOOD STATISTICS</string>
 
     <string name="pick">Pick What You Have Eaten</string>
+    <string name="PROFILE">PROFILE</string>
+    <string name="logout">LOGOUT</string>
+    <string name="calorie_graph">Calorie Graph</string>
+    <string name="average_daily_macros_intake">Average Daily Macros Intake</string>
+    <string name="avg_sodium_intake">Avg Sodium Intake</string>
+    <string name="daily_weight_log">Daily Weight Log</string>
 </resources>

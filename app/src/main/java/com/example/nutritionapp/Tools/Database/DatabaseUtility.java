@@ -15,12 +15,10 @@ import com.example.nutritionapp.Modals.Profileactivitygraph;
 import com.example.nutritionapp.Modals.Quiz;
 import com.example.nutritionapp.Modals.QuizRankList;
 import com.example.nutritionapp.Modals.Recentmeals;
-<<<<<<<<< Temporary merge branch 1
+import com.example.nutritionapp.Modals.SodiumData;
+import com.example.nutritionapp.Modals.TodayMacros;
 import com.example.nutritionapp.Modals.calorieintake;
 import com.example.nutritionapp.Modals.piechartgraph;
-=========
-import com.example.nutritionapp.Modals.TodayMacros;
->>>>>>>>> Temporary merge branch 2
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -97,7 +95,7 @@ public class DatabaseUtility {
         return listMeal;
     }
 
-<<<<<<<<< Temporary merge branch 1
+
     public ArrayList<calorieintake> getcalorie(){
         SQLiteDatabase database=getDataBase().getReadableDatabase();
         ArrayList<calorieintake> listofcalorie=new ArrayList<>();
@@ -111,36 +109,29 @@ public class DatabaseUtility {
         ArrayList<calorieintake> listofcalorie=new ArrayList<>();
         cursor.moveToFirst();
 
-        do{
+        if (cursor.getCount()>0) {
+            do{
 
-            calorieintake intake=new calorieintake();
-            intake.setDate(cursor.getString(1));
-            intake.setcalorie(cursor.getDouble(0));
-            listofcalorie.add(intake);
-            Log.e("Amount",cursor.getString(1)+" "+cursor.getDouble(0));
-
-
-        }while (cursor.moveToNext());
-        ArrayList<calorieintake> listoftotalcalorie=new ArrayList<>();
-        int index,amount;
-        String date=listofcalorie.get(0).getDate();
-        double calorie,sum;
-        for(int i=0;i<listofcalorie.size();i++){
-            if(date.equals(listofcalorie.get(i).getDate())){
-
-            }
+                calorieintake intake=new calorieintake();
+                intake.setDate(cursor.getString(1));
+                intake.setcalorie(cursor.getDouble(0));
+                listofcalorie.add(intake);
+                Log.e("Amount",cursor.getString(1)+" "+cursor.getDouble(0));
 
 
+            }while (cursor.moveToNext());
         }
+
+
         return listofcalorie;
     }
 
     public ArrayList<piechartgraph> getpie(){
         SQLiteDatabase database=getDataBase().getReadableDatabase();
         ArrayList<piechartgraph> listofpie=new ArrayList<>();
-        Cursor cursor=database.rawQuery("Select SUM(a.carbohydrates * b.amount *4),SUM(a.protein *b.amount * 4),SUM(a.fat *b.amount*9)," +
-                "SUM((a.carbohydrates * b.amount *4)+(a.protein *b.amount * 4)+(a.fat *b.amount*9))" +
-                " from food_nutrients a inner join food_intake b on a.food_id=b.id",null);
+        Cursor cursor=database.rawQuery("Select SUM((a.carbohydrates/1000) * b.amount *4),SUM((a.protein/1000) *b.amount * 4),SUM((a.fat/1000) *b.amount*9)," +
+                "SUM(((a.carbohydrates/1000) * b.amount *4)+((a.protein/1000) *b.amount * 4)+((a.fat/1000) *b.amount*9))" +
+                " from food_nutrients a inner join food_intake b on b.food_id=a.id",null);
         listofpie=getpie(cursor);
         cursor.close();
         return listofpie;
@@ -151,34 +142,20 @@ public class DatabaseUtility {
         cursor.moveToFirst();
         do{
             piechartgraph pie=new piechartgraph();
-            pie.setCarbohydates(0);
-            pie.setProtein(1);
-            pie.setfat(2);
+            pie.setCarbohydates(cursor.getDouble(0));
+            pie.setProtein(cursor.getDouble(1));
+            pie.setFat(cursor.getDouble(2));
             pie.setAmount(3);
-            pie.setTotalcalorie(4);
+            pie.setTotalcalorie(cursor.getDouble(3));
             listofpie.add(pie);
+            Log.e("Pie",cursor.getDouble(0)+" "+cursor.getDouble(1)+" "+cursor.getDouble(2)+" "+cursor.getDouble(3));
         }while (cursor.moveToNext());
 
         return listofpie;
 
     }
 
-=========
-    public ArrayList<Meal> getLog(String type){
-        SQLiteDatabase database=getDataBase().getReadableDatabase();
-        ArrayList<Meal> listMeal = new ArrayList<Meal>();
-        Cursor cursor=database.rawQuery("select n.*, i.* from food_intake i left join food_nutrients n on n.id =i.food_id where type =?", new String[]{type});
-        if (cursor.getCount() ==0){
-            Meal noMeal = new Meal();
-            noMeal.setName("There is nothing. Please Add Something");
-            listMeal.add(noMeal);
-        }else{
-            listMeal=getMeal(cursor);
-        }
-        cursor.close();
-        return listMeal;
-    }
->>>>>>>>> Temporary merge branch 2
+
     private ArrayList<Meal> getMeal(Cursor cursor){
         ArrayList<Meal> listMeal = new ArrayList<Meal>();
         cursor.moveToFirst();
@@ -244,7 +221,7 @@ public class DatabaseUtility {
         SQLiteDatabase databaseforgraph=getDataBase().getReadableDatabase();
         ArrayList<Profileactivitygraph> listforgraph=new ArrayList<>();
 
-        Cursor cursorforgraph=databaseforgraph.rawQuery("select weight,date from user_weight",null);
+        Cursor cursorforgraph=databaseforgraph.rawQuery("select weight,date from user_weight order by date",null);
 
         listforgraph=getdataforgraph(cursorforgraph);
 
@@ -258,6 +235,7 @@ public class DatabaseUtility {
         ArrayList<Profileactivitygraph> listforgraph=new ArrayList<>();
 
         cursor.moveToFirst();
+        if(cursor.getCount()>0){
         do{
             Profileactivitygraph profile=new Profileactivitygraph();
             if (cursor.getString(1).equals("lb")) {
@@ -273,10 +251,35 @@ public class DatabaseUtility {
 
             listforgraph.add(profile);
 
-        } while (cursor.moveToNext());
+        } while (cursor.moveToNext());}
+        cursor.close();
         return listforgraph;
     }
 
+    public ArrayList<SodiumData> getSodiumData(){
+        ArrayList<SodiumData> sodiumDataList=new ArrayList<>();
+
+        SQLiteDatabase db=getDataBase().getReadableDatabase();
+        Cursor cursor=db.rawQuery("Select SUM(a.sodium*b.amount/1000), b.date from food_nutrients a " +
+                        "inner join food_intake b on b.food_id=a.id group by b.date order by b.date",
+                null);
+
+        cursor.moveToFirst();
+
+        if (cursor.getCount()>0) {
+            do{
+                SodiumData sodiumData=new SodiumData();
+                sodiumData.setSodium(cursor.getDouble(0));
+                sodiumData.setDate(cursor.getString(1));
+                sodiumDataList.add(sodiumData);
+
+
+            }while (cursor.moveToNext());
+        }
+        cursor.close();
+
+        return sodiumDataList;
+    }
 
     public void getQuizRankList(final RankListInterface rankListInterface){
 
@@ -324,8 +327,7 @@ public class DatabaseUtility {
 
     }
 
-<<<<<<<<< Temporary merge branch 1
-=========
+
     public ArrayList<TodayMacros> getTodayMacros(String date){
         ArrayList<TodayMacros> todayMacros= new ArrayList<>();
 
@@ -333,7 +335,7 @@ public class DatabaseUtility {
         Cursor cursor=database.rawQuery("select a.calorie,a.carbohydrates,a.protein,a.fat,b.amount " +
                 "from food_nutrients a inner join food_intake b on a.id=b.food_id " +
                 "where date='"+date+"'",null);
-cursor.moveToFirst();
+        cursor.moveToFirst();
 
         if(cursor.getCount()!=0){
             while (!(cursor.getPosition()==cursor.getCount())){
@@ -351,7 +353,7 @@ cursor.moveToFirst();
         return todayMacros;
 
     }
->>>>>>>>> Temporary merge branch 2
+
 
 
     public String getUserId(String email){
