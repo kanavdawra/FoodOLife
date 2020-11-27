@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void NextActivity() {
                 SetFirebaseUserData();
-
+                finish();
                 startActivity(new Intent(MainActivity.this, DashBoardActivity.class));
             }
 

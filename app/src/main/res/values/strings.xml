@@ -102,4 +102,5 @@
     <string name="GOAL">GOAL</string>
     <string name="foodstats">FOOD STATISTICS</string>
 
+    <string name="pick">Pick What You Have Eaten</string>
 </resources>

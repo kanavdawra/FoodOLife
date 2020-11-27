@@ -48,6 +48,7 @@ public class LogMealActivity extends AppCompatActivity {
     Context context;
     DatePickerDialog picker;
     EditText date;
+    ArrayList<Meal> records;
     ArrayList<Meal> meals;
     ArrayList<Recentmeals> recents;
     Dialog AmountDialog;
@@ -188,6 +189,7 @@ public class LogMealActivity extends AppCompatActivity {
                 picker.show();
             }
         });
+
     }
 
     private void setRecentsAdaptor(){
@@ -210,5 +212,14 @@ int amount = 0,id=0,food_type=0;
                 date+"','"+
                 food_type+"')");
 
+
+      
+
+    }
+    public void getRecord(String type){
+        records =new DatabaseUtility(this).getLog(type);
+        ListView listViewRecord = findViewById(R.id.meal_list);
+        final MealAdapter myAdapter = new MealAdapter(records);
+        listViewRecord.setAdapter(myAdapter);
     }
 }
