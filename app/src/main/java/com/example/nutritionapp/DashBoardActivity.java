@@ -365,7 +365,7 @@ public class DashBoardActivity extends AppCompatActivity {
         String heightUnit=new Utility().getSharedPreferences(this,"UserData","HeightUnit","");
         String goal=new Utility().getSharedPreferences(this,"UserData","Goal","");
         String sex=new Utility().getSharedPreferences(this,"UserData","Sex","");
-        float age=  new Utility().getSharedPreferences(this,"UserData","Age", (float) 0.0);
+        float age= (float) new Utility().getSharedPreferences(this,"UserData","Age",(float)0.0);
         if(weightUnit.equals("KG")){
             weight=(weight*1000)/454;
             Log.e("weight",weight+"");
