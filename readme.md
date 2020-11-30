@@ -29,7 +29,7 @@ Java, Google Firebase, SQLite
 Tested on pixel 3 xl(5.5 inchs). No test cases at this time.
 
 ## Android
-Android 11
+Android api 30(minimum Android api is 21)
 
 ### License
 
