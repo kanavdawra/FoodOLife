@@ -17,16 +17,16 @@ You will need the following things properly installed on your computer.
 * `git clone https://github.com/kanavdawra/FoodOLife-300323550.git` this repository
 * change into the new directory
 * open in Android Studio
-* boot up emulator with the Nexus 6P model
+* boot up emulator with the pixel 3 xl model
 * press the 'run' button (looks like a green play button)
 
 ## Technologies Used
 
-Java, Android Studio, Google Firebase, SQLite
+Java, Google Firebase, SQLite
 
 ### Running Tests
 
-Tested on pixel 3 xl. No test cases at this time.
+Tested on pixel 3 xl(5.5 inchs). No test cases at this time.
 
 ## Android
 Android 11
