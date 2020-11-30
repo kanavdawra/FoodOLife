@@ -1,6 +1,6 @@
 ### Running Tests
 
-Tested on pixel 3 xl(5.5 inchs). No test cases at this time.
+Tested on pixel 3 xl. No onther test cases at this time. ### Optimal screan size is  5.5 
 
 ## FoodOLife
 The Mobile Solution to maintain consumption of daily use fats and calorie balance with interactive user interfaces, Chart and Nutrition labels calculated in such a way that are readable to user. There is a chart that helps user to see his previouse performance regards calories as well.
