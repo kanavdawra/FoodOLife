@@ -9,7 +9,9 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+import android.text.Layout;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -76,6 +78,7 @@ public class ProfileActivity extends AppCompatActivity implements ValueEventList
         bottomNavigationBar();
         getStreak();
         getLogout();
+        getfoodtips();
         mchart=(LineChart) findViewById(R.id.graph);
         mchart.setDragEnabled(true);
         mchart.setScaleEnabled(false);
@@ -93,7 +96,7 @@ public class ProfileActivity extends AppCompatActivity implements ValueEventList
 
             Log.e("values",String.valueOf(valuesfordata.get(i).getWeight()));
             yvalues.add(new Entry(i,(float)valuesfordata.get(i).getWeight()));
-            xaxisValues.add(valuesfordata.get(i).getDate().substring(5,10));
+            xaxisValues.add(valuesfordata.get(i).getDate());
 
         }
 
@@ -177,6 +180,18 @@ public class ProfileActivity extends AppCompatActivity implements ValueEventList
         longestStreakText.setText("Longest "+(int)new Utility().getSharedPreferences(this,"UserData","LongestStreak",0));
 
 
+    }
+
+    private void getfoodtips(){
+        View layoutforfoodtips=findViewById(R.id.profile_activity_food_tips);
+
+        layoutforfoodtips.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent browse=new Intent(Intent.ACTION_VIEW, Uri.parse("https://intermountainhealthcare.org/blogs/topics/sports-medicine/2014/02/eating-and-exercise-5-tips-to-maximize-your-workouts/"));
+                startActivity(browse);
+            }
+        });
     }
 
     private void getLogout(){

@@ -109,4 +109,5 @@
     <string name="average_daily_macros_intake">Average Daily Macros Intake</string>
     <string name="avg_sodium_intake">Avg Sodium Intake</string>
     <string name="daily_weight_log">Daily Weight Log</string>
+    <string name="foodscore">Get Food Tips</string>
 </resources>
